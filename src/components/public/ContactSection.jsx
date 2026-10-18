@@ -1,0 +1,301 @@
+import React, { useState } from 'react';
+import { Mail, Phone, MapPin, Send, MessageSquare, CheckCircle2, Loader2, Instagram, Linkedin, ExternalLink } from 'lucide-react';
+import { COMPANY_INFO, SERVICES_LIST } from '../../data/mockData';
+import { supabaseService } from '../../services/supabaseService';
+
+export default function ContactSection({ onAddLead, onAddNotification }) {
+  const [formData, setFormData] = useState({
+    name: '',
+    phone: '',
+    email: '',
+    businessName: '',
+    serviceRequired: 'Physical & Digital Marketing',
+    requirement: ''
+  });
+
+  const [loading, setLoading] = useState(false);
+  const [submitted, setSubmitted] = useState(false);
+  const [successMessage, setSuccessMessage] = useState('Thank you for contacting AS Groups. Our team will contact you shortly.');
+
+  const handleSubmit = async (e) => {
+    e.preventDefault();
+    setLoading(true);
+
+    const payload = {
+      name: formData.name,
+      email: formData.email,
+      phone: formData.phone,
+      company: formData.businessName || 'Business Prospect',
+      service: formData.serviceRequired,
+      message: formData.requirement
+    };
+
+    try {
+      // 1. Submit to Supabase Cloud + Local Database Engine
+      const enqResult = await supabaseService.createEnquiry(payload);
+      if (enqResult && enqResult.message) {
+        setSuccessMessage(enqResult.message);
+      }
+    } catch (err) {
+      console.warn('Enquiry database submission warning.', err);
+    }
+
+    // 2. Also register in client state / leads hub
+    const newLead = {
+      id: `LD-${Math.floor(100 + Math.random() * 900)}`,
+      client_name: formData.name,
+      company: formData.businessName || 'Business Prospect',
+      email: formData.email,
+      phone: formData.phone,
+      service_name: formData.serviceRequired,
+      status: 'New',
+      notes: formData.requirement,
+      date: new Date().toISOString().split('T')[0]
+    };
+
+    if (onAddLead) onAddLead(newLead);
+
+    if (onAddNotification) {
+      onAddNotification({
+        id: `NT-${Math.floor(800 + Math.random() * 100)}`,
+        channel: 'Email & WhatsApp',
+        recipient: `${formData.phone} (${formData.name})`,
+        template: 'Customer & Admin Auto Dispatch',
+        status: 'Delivered',
+        timestamp: new Date().toLocaleString(),
+        message: `Thank you for contacting AS Groups. Our team will contact you shortly.`
+      });
+    }
+
+    setLoading(false);
+    setSubmitted(true);
+  };
+
+  const whatsappUrl = `https://wa.me/91${COMPANY_INFO.contact.rawPhones[0]}?text=${encodeURIComponent(COMPANY_INFO.contact.whatsappMessage)}`;
+
+  return (
+    <div style={{ padding: '60px 0', background: 'var(--bg-main)' }}>
+      <div className="container">
+        
+        <div style={{ textAlign: 'center', maxWidth: '750px', margin: '0 auto 50px' }}>
+          <span className="badge badge-blue" style={{ marginBottom: '12px' }}>CONTACT US</span>
+          <h1 style={{ fontSize: '2.5rem', color: 'var(--primary-900)', marginBottom: '16px', fontWeight: 800 }}>
+            LET'S TALK ABOUT YOUR BUSINESS
+          </h1>
+          <p style={{ fontSize: '1.05rem', color: 'var(--text-muted)', lineHeight: 1.6 }}>
+            Have a business idea? Looking to grow your existing business? Need help with marketing, branding or strategy? Tell us about your requirements and our team will get in touch with you.
+          </p>
+        </div>
+
+        <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(320px, 1fr))', gap: '36px', alignItems: 'start' }}>
+          
+          {/* Left Contact Details & WhatsApp Button */}
+          <div style={{ display: 'flex', flexDirection: 'column', gap: '24px' }}>
+            <div style={{ background: 'white', borderRadius: 'var(--radius-lg)', padding: '32px', border: '1px solid var(--border-color)', boxShadow: 'var(--shadow-sm)' }}>
+              <h3 style={{ fontSize: '1.3rem', color: 'var(--primary-900)', marginBottom: '24px', fontWeight: 700 }}>
+                Contact Details
+              </h3>
+
+              <div style={{ display: 'flex', flexDirection: 'column', gap: '20px', fontSize: '0.95rem' }}>
+                <div style={{ display: 'flex', gap: '14px', alignItems: 'flex-start' }}>
+                  <div style={{ width: '42px', height: '42px', background: '#d1fae5', color: '#047857', borderRadius: '10px', display: 'flex', alignItems: 'center', justifyContent: 'center', flexShrink: 0 }}>
+                    <Phone size={20} />
+                  </div>
+                  <div>
+                    <div style={{ fontWeight: 700, color: 'var(--primary-900)' }}>📞 Phone</div>
+                    <div style={{ color: '#334155', fontSize: '0.95rem', fontWeight: 600, marginTop: '2px' }}>
+                      {COMPANY_INFO.contact.phones.join(' / ')}
+                    </div>
+                  </div>
+                </div>
+
+                <div style={{ display: 'flex', gap: '14px', alignItems: 'flex-start' }}>
+                  <div style={{ width: '42px', height: '42px', background: '#dbeafe', color: '#1e40af', borderRadius: '10px', display: 'flex', alignItems: 'center', justifyContent: 'center', flexShrink: 0 }}>
+                    <Mail size={20} />
+                  </div>
+                  <div>
+                    <div style={{ fontWeight: 700, color: 'var(--primary-900)' }}>✉️ Email</div>
+                    <div style={{ color: '#334155', fontSize: '0.95rem', fontWeight: 600, marginTop: '2px' }}>
+                      {COMPANY_INFO.contact.email}
+                    </div>
+                  </div>
+                </div>
+
+                <div style={{ display: 'flex', gap: '14px', alignItems: 'flex-start' }}>
+                  <div style={{ width: '42px', height: '42px', background: '#fef3c7', color: '#b45309', borderRadius: '10px', display: 'flex', alignItems: 'center', justifyContent: 'center', flexShrink: 0 }}>
+                    <MapPin size={20} />
+                  </div>
+                  <div>
+                    <div style={{ fontWeight: 700, color: 'var(--primary-900)' }}>📍 Location</div>
+                    <div style={{ color: '#334155', fontSize: '0.95rem', fontWeight: 600, marginTop: '2px' }}>
+                      {COMPANY_INFO.contact.location}
+                    </div>
+                  </div>
+                </div>
+
+                <div style={{ borderTop: '1px solid #e2e8f0', paddingTop: '16px', marginTop: '4px' }}>
+                  <div style={{ fontWeight: 700, color: 'var(--primary-900)', fontSize: '0.9rem', marginBottom: '10px' }}>
+                    🌐 Official Social Profiles
+                  </div>
+                  <div style={{ display: 'flex', flexWrap: 'wrap', gap: '10px' }}>
+                    <a
+                      href={COMPANY_INFO.contact.instagram}
+                      target="_blank"
+                      rel="noopener noreferrer"
+                      style={{
+                        display: 'inline-flex',
+                        alignItems: 'center',
+                        gap: '8px',
+                        background: 'linear-gradient(45deg, #f09433 0%, #e6683c 25%, #dc2743 50%, #cc2366 75%, #bc1888 100%)',
+                        color: 'white',
+                        padding: '8px 14px',
+                        borderRadius: '8px',
+                        fontSize: '0.85rem',
+                        fontWeight: 700,
+                        textDecoration: 'none',
+                        boxShadow: '0 2px 6px rgba(220,39,67,0.25)'
+                      }}
+                    >
+                      <Instagram size={16} /> Instagram <ExternalLink size={12} />
+                    </a>
+                    <a
+                      href={COMPANY_INFO.contact.linkedin}
+                      target="_blank"
+                      rel="noopener noreferrer"
+                      style={{
+                        display: 'inline-flex',
+                        alignItems: 'center',
+                        gap: '8px',
+                        background: '#0077b5',
+                        color: 'white',
+                        padding: '8px 14px',
+                        borderRadius: '8px',
+                        fontSize: '0.85rem',
+                        fontWeight: 700,
+                        textDecoration: 'none',
+                        boxShadow: '0 2px 6px rgba(0,119,181,0.25)'
+                      }}
+                    >
+                      <Linkedin size={16} /> LinkedIn <ExternalLink size={12} />
+                    </a>
+                  </div>
+                </div>
+              </div>
+            </div>
+
+            {/* Direct WhatsApp Launch Banner */}
+            <div style={{ background: 'linear-gradient(135deg, #059669 0%, #10b981 100%)', color: 'white', borderRadius: 'var(--radius-lg)', padding: '28px', boxShadow: '0 8px 24px rgba(16, 185, 129, 0.3)' }}>
+              <div style={{ display: 'flex', alignItems: 'center', gap: '12px', marginBottom: '12px' }}>
+                <MessageSquare size={26} />
+                <h4 style={{ fontSize: '1.2rem', fontWeight: 700 }}>WhatsApp Chat</h4>
+              </div>
+              <p style={{ fontSize: '0.9rem', color: '#ecfdf5', marginBottom: '20px', lineHeight: 1.6 }}>
+                Click below to start an instant WhatsApp conversation with AS GROUPS.
+              </p>
+              <a
+                href={whatsappUrl}
+                target="_blank"
+                rel="noopener noreferrer"
+                style={{
+                  display: 'inline-flex',
+                  alignItems: 'center',
+                  gap: '10px',
+                  background: 'white',
+                  color: '#047857',
+                  padding: '12px 22px',
+                  borderRadius: '8px',
+                  fontWeight: 800,
+                  fontSize: '0.95rem',
+                  textDecoration: 'none',
+                  boxShadow: '0 4px 12px rgba(0,0,0,0.15)'
+                }}
+              >
+                <MessageSquare size={18} /> Chat With Us
+              </a>
+            </div>
+
+          </div>
+
+          {/* Right Contact / Enquiry Form */}
+          <div style={{ background: 'white', borderRadius: 'var(--radius-lg)', padding: '36px', border: '1px solid var(--border-color)', boxShadow: 'var(--shadow-md)' }}>
+            {submitted ? (
+              <div style={{ textAlign: 'center', padding: '30px 0' }}>
+                <CheckCircle2 size={60} color="#059669" style={{ margin: '0 auto 16px' }} />
+                <h3 style={{ fontSize: '1.5rem', color: 'var(--primary-900)', marginBottom: '12px', fontWeight: 800 }}>
+                  Enquiry Submitted!
+                </h3>
+                <p style={{ fontSize: '1.05rem', color: '#1e293b', marginBottom: '24px', lineHeight: 1.7, fontWeight: 600 }}>
+                  {successMessage}
+                </p>
+                <button onClick={() => setSubmitted(false)} className="btn-primary" style={{ width: '100%', justifyContent: 'center' }}>
+                  Send Another Enquiry
+                </button>
+              </div>
+            ) : (
+              <form onSubmit={handleSubmit} style={{ display: 'flex', flexDirection: 'column', gap: '16px' }}>
+                <h3 style={{ fontSize: '1.4rem', color: 'var(--primary-900)', marginBottom: '4px', fontWeight: 800 }}>
+                  SEND US AN ENQUIRY
+                </h3>
+
+                <div>
+                  <label style={{ display: 'block', fontSize: '0.85rem', fontWeight: 700, marginBottom: '6px' }}>Full Name *</label>
+                  <input type="text" required placeholder="Enter your name" value={formData.name} onChange={e => setFormData({...formData, name: e.target.value})} style={{ width: '100%', padding: '11px', borderRadius: '8px', border: '1px solid #cbd5e1', fontSize: '0.92rem' }} />
+                </div>
+
+                <div className="grid-form-2col" style={{ display: 'grid', gridTemplateColumns: '1fr 1fr', gap: '14px' }}>
+                  <div>
+                    <label style={{ display: 'block', fontSize: '0.85rem', fontWeight: 700, marginBottom: '6px' }}>Phone Number *</label>
+                    <input type="tel" required placeholder="Enter your phone number" value={formData.phone} onChange={e => setFormData({...formData, phone: e.target.value})} style={{ width: '100%', padding: '11px', borderRadius: '8px', border: '1px solid #cbd5e1', fontSize: '0.92rem' }} />
+                  </div>
+                  <div>
+                    <label style={{ display: 'block', fontSize: '0.85rem', fontWeight: 700, marginBottom: '6px' }}>Email Address *</label>
+                    <input type="email" required placeholder="Enter your email" value={formData.email} onChange={e => setFormData({...formData, email: e.target.value})} style={{ width: '100%', padding: '11px', borderRadius: '8px', border: '1px solid #cbd5e1', fontSize: '0.92rem' }} />
+                  </div>
+                </div>
+
+                <div>
+                  <label style={{ display: 'block', fontSize: '0.85rem', fontWeight: 700, marginBottom: '6px' }}>Company Name</label>
+                  <input type="text" placeholder="Enter your company / business name" value={formData.businessName} onChange={e => setFormData({...formData, businessName: e.target.value})} style={{ width: '100%', padding: '11px', borderRadius: '8px', border: '1px solid #cbd5e1', fontSize: '0.92rem' }} />
+                </div>
+
+                <div>
+                  <label style={{ display: 'block', fontSize: '0.85rem', fontWeight: 700, marginBottom: '6px' }}>Service Required *</label>
+                  <select value={formData.serviceRequired} onChange={e => setFormData({...formData, serviceRequired: e.target.value})} style={{ width: '100%', padding: '11px', borderRadius: '8px', border: '1px solid #cbd5e1', fontSize: '0.92rem' }}>
+                    {SERVICES_LIST.map(s => (
+                      <option key={s.id} value={s.title}>{s.title}</option>
+                    ))}
+                    <option value="Other">Other</option>
+                  </select>
+                </div>
+
+                <div>
+                  <label style={{ display: 'block', fontSize: '0.85rem', fontWeight: 700, marginBottom: '6px' }}>Message *</label>
+                  <textarea rows={4} required placeholder="Briefly describe your requirements..." value={formData.requirement} onChange={e => setFormData({...formData, requirement: e.target.value})} style={{ width: '100%', padding: '11px', borderRadius: '8px', border: '1px solid #cbd5e1', fontSize: '0.92rem', resize: 'vertical' }}></textarea>
+                </div>
+
+                <button 
+                  type="submit" 
+                  disabled={loading}
+                  className="btn-primary" 
+                  style={{ width: '100%', justifyContent: 'center', padding: '14px', marginTop: '6px', fontSize: '1rem', opacity: loading ? 0.7 : 1 }}
+                >
+                  {loading ? (
+                    <>
+                      <Loader2 size={18} className="animate-spin" /> Submitting Enquiry...
+                    </>
+                  ) : (
+                    <>
+                      <Send size={18} /> SUBMIT ENQUIRY
+                    </>
+                  )}
+                </button>
+              </form>
+            )}
+          </div>
+
+        </div>
+
+      </div>
+    </div>
+  );
+}

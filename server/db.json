@@ -1,0 +1,59 @@
+{
+  "users": [
+    { "id": "USR-001", "name": "Arun Sundaram", "email": "admin.operations@asgroups.com", "role": "admin", "title": "Managing Director" },
+    { "id": "USR-002", "name": "Anita Roy", "email": "anita@silkroute.co", "role": "client", "company": "SilkRoute Exim Global", "title": "Director of Trade Operations" }
+  ],
+  "leads": [
+    { "id": "LD-101", "client_name": "Anita Roy", "company": "SilkRoute Exim", "email": "anita@silkroute.co", "phone": "+91 98401 22110", "service_name": "Import & Export Consulting", "status": "Qualified", "date": "2026-08-28" },
+    { "id": "LD-102", "client_name": "Dr. S. K. Nambiar", "company": "Apollo Care Heights", "email": "dr.nambiar@apollocare.in", "phone": "+91 94440 55620", "service_name": "Hospital Branding", "status": "New", "date": "2026-08-30" },
+    { "id": "LD-103", "client_name": "Rajesh Malhotra", "company": "Bistro 360 Chain", "email": "rajesh@bistro360.com", "phone": "+91 98840 77123", "service_name": "Restaurant & Franchise Consulting", "status": "Contacted", "date": "2026-08-29" },
+    { "id": "LD-104", "client_name": "Meera Deshmukh", "company": "GreenEarth Foundation", "email": "meera@greenearth.org", "phone": "+91 91760 33450", "service_name": "CSR Management", "status": "Converted", "date": "2026-08-25" }
+  ],
+  "appointments": [
+    { "id": "APT-301", "client_name": "Anita Roy", "consultant_name": "Capt. K. V. Raman", "service_name": "Import & Export Consulting", "date": "2026-09-03", "time": "10:00 AM", "status": "Scheduled", "type": "Video Consultation", "meeting_link": "https://meet.asgroups.consulting/apt-301" },
+    { "id": "APT-302", "client_name": "Dr. S. K. Nambiar", "consultant_name": "Dr. Priya Sundaram", "service_name": "Hospital Branding", "date": "2026-09-04", "time": "02:30 PM", "status": "Scheduled", "type": "In-Person (HQ Office)", "meeting_link": "Suite 402, AS Groups HQ" }
+  ],
+  "projects": [
+    { 
+      "id": "PRJ-501", 
+      "title": "EU Tariff Duty Optimization & HS Classification", 
+      "client": "SilkRoute Exim Global", 
+      "service": "Import & Export Consulting", 
+      "leadConsultant": "Capt. K. V. Raman",
+      "progress": 65, 
+      "status": "On Track", 
+      "targetDate": "2026-10-15",
+      "budget": "₹14.5 Lakhs",
+      "milestones": [
+        { "name": "Initial HS Code Audit", "status": "Completed" },
+        { "name": "EU Customs Duty Compliance Review", "status": "Completed" },
+        { "name": "Phase 2 Tariff Restructuring", "status": "In Progress" },
+        { "name": "Final Advisory Sign-off", "status": "Pending" }
+      ] 
+    },
+    { 
+      "id": "PRJ-502", 
+      "title": "Multi-Specialty Healthcare Rebranding & Patient Flow Optimization", 
+      "client": "Apollo Care Heights", 
+      "service": "Hospital Branding", 
+      "leadConsultant": "Dr. Priya Sundaram",
+      "progress": 40, 
+      "status": "Review Needed", 
+      "targetDate": "2026-11-01",
+      "budget": "₹22.0 Lakhs",
+      "milestones": [
+        { "name": "Brand Perception Survey", "status": "Completed" },
+        { "name": "NABH Digital Signage Blueprint", "status": "In Progress" },
+        { "name": "Outpatient Journey Redesign", "status": "Pending" }
+      ] 
+    }
+  ],
+  "reports": [
+    { "id": "REP-601", "title": "Q2 EU Trade Compliance & Tariff Blueprint", "client": "SilkRoute Exim Global", "service": "Import & Export Consulting", "date": "2026-08-28", "author": "Capt. K. V. Raman", "fileSize": "4.2 MB", "summary": "Comprehensive audit of 42 product categories imported under EU TARIC codes with 8.4% tax saving recommendations." },
+    { "id": "REP-602", "title": "Section 135 CSR Compliance & NGO Impact Audit", "client": "GreenEarth Foundation", "service": "CSR Management", "date": "2026-08-24", "author": "Arun Sundaram", "fileSize": "2.8 MB", "summary": "Verified utilization of ₹1.2 Crore corporate funds across rural water purification projects in Tamil Nadu." }
+  ],
+  "notifications": [
+    { "id": "NTF-901", "channel": "WhatsApp", "recipient": "+91 98401 22110", "template": "Appointment Confirmation", "message": "Hello Anita Roy, your appointment APT-301 with Capt. K. V. Raman is confirmed for 2026-09-03 at 10:00 AM.", "timestamp": "2026-08-28 10:15:22", "status": "Delivered" },
+    { "id": "NTF-902", "channel": "Email", "recipient": "anita@silkroute.co", "template": "Report Release", "message": "Document REP-601 \"Q2 EU Trade Compliance\" has been published to your client portal.", "timestamp": "2026-08-28 14:32:00", "status": "Sent" }
+  ]
+}

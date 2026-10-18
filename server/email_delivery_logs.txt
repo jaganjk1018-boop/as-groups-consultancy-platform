@@ -1,0 +1,141 @@
+[2026-09-01 18:53:45] TO: rajesh.kumar@example.com | SUBJECT: Thank You for Contacting AS Groups
+Dear Rajesh Kumar,
+
+Thank you for contacting AS Groups Business Consultancy.
+
+We have successfully received your enquiry regarding Hospital Marketing.
+
+Our consulting team will review your request and contact you shortly.
+
+For urgent assistance:
+Phone: +91 73055 79137 / +91 98400 26405
+Email: info@asgroups.com / harishvj14367@gmail.com
+
+Regards,
+AS Groups Business Consultancy
+------------------------------------------------------------
+[2026-09-01 18:53:47] TO: harishvj14367@gmail.com | SUBJECT: New Customer Enquiry Received
+New Customer Enquiry Received - AS Groups
+
+Customer Details:
+- Name: Rajesh Kumar
+- Email: rajesh.kumar@example.com
+- Phone: 9840012345
+- Company: Apex MedCare Clinic
+- Service: Hospital Marketing
+- Message: Looking for comprehensive hospital branding and patient outreach strategy.
+- Date & Time: 2026-09-01 18:53:43
+
+System Action Required: Please review and assign a consultant.
+------------------------------------------------------------
+[2026-09-01 18:53:49] TO: manager@asgroups.com | SUBJECT: New Enquiry Alert - AS Groups
+A new customer enquiry has been received.
+
+Customer Details:
+- Name: Rajesh Kumar
+- Email: rajesh.kumar@example.com
+- Phone: 9840012345
+- Company: Apex MedCare Clinic
+- Service: Hospital Marketing
+- Message: Looking for comprehensive hospital branding and patient outreach strategy.
+- Date & Time: 2026-09-01 18:53:43
+
+Please review and contact the customer as soon as possible.
+
+Regards,
+AS Groups Enquiry System
+------------------------------------------------------------
+[2026-09-01 18:53:59] TO: jaganad012@gmail.com | SUBJECT: Thank You for Contacting AS Groups
+Dear Jagan ,
+
+Thank you for contacting AS Groups Business Consultancy.
+
+We have successfully received your enquiry regarding Business Setup Solutions.
+
+Our consulting team will review your request and contact you shortly.
+
+For urgent assistance:
+Phone: +91 73055 79137 / +91 98400 26405
+Email: info@asgroups.com / harishvj14367@gmail.com
+
+Regards,
+AS Groups Business Consultancy
+------------------------------------------------------------
+[2026-09-01 18:54:01] TO: harishvj14367@gmail.com | SUBJECT: New Customer Enquiry Received
+New Customer Enquiry Received - AS Groups
+
+Customer Details:
+- Name: Jagan 
+- Email: jaganad012@gmail.com
+- Phone: 9361301371
+- Company: JK hub
+- Service: Business Setup Solutions
+- Message: I need ideas
+- Date & Time: 2026-09-01 18:53:57
+
+System Action Required: Please review and assign a consultant.
+------------------------------------------------------------
+[2026-09-01 18:54:03] TO: manager@asgroups.com | SUBJECT: New Enquiry Alert - AS Groups
+A new customer enquiry has been received.
+
+Customer Details:
+- Name: Jagan 
+- Email: jaganad012@gmail.com
+- Phone: 9361301371
+- Company: JK hub
+- Service: Business Setup Solutions
+- Message: I need ideas
+- Date & Time: 2026-09-01 18:53:57
+
+Please review and contact the customer as soon as possible.
+
+Regards,
+AS Groups Enquiry System
+------------------------------------------------------------
+[2026-09-01 19:00:18] TO: suresh@krishnasurgicals.com | SUBJECT: Thank You for Contacting AS Groups
+Dear Suresh Krishna,
+
+Thank you for contacting AS Groups Business Consultancy.
+
+We have successfully received your enquiry regarding Hospital Marketing.
+
+Our consulting team will review your request and contact you shortly.
+
+For urgent assistance:
+Phone: +91 73055 79137 / +91 98400 26405
+Email: info@asgroups.com / harishvj14367@gmail.com
+
+Regards,
+AS Groups Business Consultancy
+------------------------------------------------------------
+[2026-09-01 19:00:20] TO: harishvj14367@gmail.com | SUBJECT: New Customer Enquiry Received
+New Customer Enquiry Received - AS Groups
+
+Customer Details:
+- Name: Suresh Krishna
+- Email: suresh@krishnasurgicals.com
+- Phone: +91 98402 88100
+- Company: Krishna Surgical Center
+- Service: Hospital Marketing
+- Message: Need full hospital branding and NABH marketing compliance consulting.
+- Date & Time: 2026-09-01 19:00:16
+
+System Action Required: Please review and assign a consultant.
+------------------------------------------------------------
+[2026-09-01 19:00:22] TO: manager@asgroups.com | SUBJECT: New Enquiry Alert - AS Groups
+A new customer enquiry has been received.
+
+Customer Details:
+- Name: Suresh Krishna
+- Email: suresh@krishnasurgicals.com
+- Phone: +91 98402 88100
+- Company: Krishna Surgical Center
+- Service: Hospital Marketing
+- Message: Need full hospital branding and NABH marketing compliance consulting.
+- Date & Time: 2026-09-01 19:00:16
+
+Please review and contact the customer as soon as possible.
+
+Regards,
+AS Groups Enquiry System
+------------------------------------------------------------

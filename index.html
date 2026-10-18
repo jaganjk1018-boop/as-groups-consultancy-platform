@@ -1,0 +1,50 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <link rel="icon" type="image/png" href="/logo.png" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>AS Groups - Consultancy Management Platform</title>
+    <meta name="description" content="Unified Digital Consultancy Platform for AS Groups managing leads, appointments, projects, reports, and enterprise services." />
+    <!-- Google Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@300;400;500;600;700;800&family=Space+Grotesk:wght@500;600;700;800&display=swap" rel="stylesheet">
+    <!-- Tailwind CSS CDN -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script>
+      function configureTailwind() {
+        if (typeof tailwind !== 'undefined') {
+          tailwind.config = {
+            theme: {
+              extend: {
+                colors: {
+                  brand: {
+                    50: '#eff6ff',
+                    100: '#dbeafe',
+                    500: '#3b82f6',
+                    600: '#2563eb',
+                    700: '#1d4ed8',
+                    800: '#1e40af',
+                    900: '#0f172a',
+                    950: '#0b132b',
+                  }
+                },
+                fontFamily: {
+                  heading: ['Space Grotesk', 'sans-serif'],
+                  sans: ['Plus Jakarta Sans', 'sans-serif']
+                }
+              }
+            }
+          };
+        }
+      }
+      configureTailwind();
+      window.addEventListener('load', configureTailwind);
+    </script>
+  </head>
+  <body>
+    <div id="root"></div>
+    <script type="module" src="/src/main.jsx"></script>
+  </body>
+</html>
