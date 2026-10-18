@@ -65,48 +65,48 @@ export default function HomeSection({ setActivePublicTab, onOpenBookModal, onSel
 
 
       {/* 5 LOGO PILLARS BANNER */}
-      <section style={{ background: '#0a1936', padding: '30px 0', borderTop: '1px solid rgba(212,175,55,0.3)', borderBottom: '1px solid rgba(212,175,55,0.3)' }}>
+      <section style={{ background: '#0a1936', padding: '24px 0', borderTop: '1px solid rgba(212,175,55,0.3)', borderBottom: '1px solid rgba(212,175,55,0.3)' }}>
         <div className="container">
-          <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(200px, 1fr))', gap: '20px', textAlign: 'center' }}>
-            <div style={{ padding: '12px', borderRight: '1px solid rgba(255,255,255,0.1)' }}>
-              <div style={{ fontSize: '1.4rem', marginBottom: '4px' }}>📈</div>
-              <div style={{ fontSize: '0.85rem', fontWeight: 800, color: '#fef08a', letterSpacing: '0.08em', textTransform: 'uppercase' }}>BUSINESS GROWTH</div>
+          <div className="grid grid-cols-2 md:grid-cols-5 gap-3 sm:gap-4 text-center">
+            <div className="p-3 rounded-xl bg-white/[0.03] border border-white/5 md:border-none">
+              <div style={{ fontSize: '1.3rem', marginBottom: '4px' }}>📈</div>
+              <div style={{ fontSize: '0.78rem', fontWeight: 800, color: '#fef08a', letterSpacing: '0.06em', textTransform: 'uppercase' }}>BUSINESS GROWTH</div>
             </div>
-            <div style={{ padding: '12px', borderRight: '1px solid rgba(255,255,255,0.1)' }}>
-              <div style={{ fontSize: '1.4rem', marginBottom: '4px' }}>🤝</div>
-              <div style={{ fontSize: '0.85rem', fontWeight: 800, color: '#fef08a', letterSpacing: '0.08em', textTransform: 'uppercase' }}>STRATEGY & CONSULTING</div>
+            <div className="p-3 rounded-xl bg-white/[0.03] border border-white/5 md:border-none">
+              <div style={{ fontSize: '1.3rem', marginBottom: '4px' }}>🤝</div>
+              <div style={{ fontSize: '0.78rem', fontWeight: 800, color: '#fef08a', letterSpacing: '0.06em', textTransform: 'uppercase' }}>STRATEGY & CONSULTING</div>
             </div>
-            <div style={{ padding: '12px', borderRight: '1px solid rgba(255,255,255,0.1)' }}>
-              <div style={{ fontSize: '1.4rem', marginBottom: '4px' }}>💡</div>
-              <div style={{ fontSize: '0.85rem', fontWeight: 800, color: '#fef08a', letterSpacing: '0.08em', textTransform: 'uppercase' }}>INNOVATION & SOLUTIONS</div>
+            <div className="p-3 rounded-xl bg-white/[0.03] border border-white/5 md:border-none">
+              <div style={{ fontSize: '1.3rem', marginBottom: '4px' }}>💡</div>
+              <div style={{ fontSize: '0.78rem', fontWeight: 800, color: '#fef08a', letterSpacing: '0.06em', textTransform: 'uppercase' }}>INNOVATION & SOLUTIONS</div>
             </div>
-            <div style={{ padding: '12px', borderRight: '1px solid rgba(255,255,255,0.1)' }}>
-              <div style={{ fontSize: '1.4rem', marginBottom: '4px' }}>👥</div>
-              <div style={{ fontSize: '0.85rem', fontWeight: 800, color: '#fef08a', letterSpacing: '0.08em', textTransform: 'uppercase' }}>MANAGEMENT EXCELLENCE</div>
+            <div className="p-3 rounded-xl bg-white/[0.03] border border-white/5 md:border-none">
+              <div style={{ fontSize: '1.3rem', marginBottom: '4px' }}>👥</div>
+              <div style={{ fontSize: '0.78rem', fontWeight: 800, color: '#fef08a', letterSpacing: '0.06em', textTransform: 'uppercase' }}>MANAGEMENT EXCELLENCE</div>
             </div>
-            <div style={{ padding: '12px' }}>
-              <div style={{ fontSize: '1.4rem', marginBottom: '4px' }}>🎯</div>
-              <div style={{ fontSize: '0.85rem', fontWeight: 800, color: '#fef08a', letterSpacing: '0.08em', textTransform: 'uppercase' }}>YOUR SUCCESS, OUR COMMITMENT</div>
+            <div className="p-3 rounded-xl bg-white/[0.03] border border-white/5 md:border-none col-span-2 md:col-span-1">
+              <div style={{ fontSize: '1.3rem', marginBottom: '4px' }}>🎯</div>
+              <div style={{ fontSize: '0.78rem', fontWeight: 800, color: '#fef08a', letterSpacing: '0.06em', textTransform: 'uppercase' }}>YOUR SUCCESS, OUR COMMITMENT</div>
             </div>
           </div>
         </div>
       </section>
 
       {/* 2. FOUNDER SECTION */}
-      <section style={{ padding: '80px 0', background: 'white' }}>
+      <section style={{ padding: '60px 0', background: 'white' }}>
         <div className="container">
-          <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(300px, 1fr))', gap: '40px', alignItems: 'center' }}>
+          <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(280px, 1fr))', gap: '32px', alignItems: 'center' }}>
             
-            <div style={{ background: 'linear-gradient(135deg, #0a1936, #0f2b5c)', color: 'white', padding: '36px', borderRadius: 'var(--radius-lg)', boxShadow: '0 20px 40px rgba(10,25,54,0.25)', border: '1px solid rgba(212,175,55,0.4)', textCenter: 'center' }}>
-              <div style={{ textCenter: 'center', marginBottom: '20px', display: 'flex', justifyContent: 'center' }}>
+            <div className="p-5 sm:p-8 rounded-2xl sm:rounded-3xl" style={{ background: 'linear-gradient(135deg, #0a1936, #0f2b5c)', color: 'white', boxShadow: '0 20px 40px rgba(10,25,54,0.25)', border: '1px solid rgba(212,175,55,0.4)' }}>
+              <div style={{ textAlign: 'center', marginBottom: '18px', display: 'flex', justifyContent: 'center' }}>
                 <div style={{ position: 'relative', display: 'inline-block' }}>
                   <div style={{ position: 'absolute', inset: '-4px', borderRadius: '20px', background: 'linear-gradient(135deg, #d4af37, #c59b27)', filter: 'blur(6px)', opacity: 0.6 }}></div>
                   <img 
                     src={COMPANY_INFO.founder.image} 
                     alt={COMPANY_INFO.founder.name}
                     style={{
-                      width: '180px',
-                      height: '210px',
+                      width: '160px',
+                      height: '190px',
                       borderRadius: '16px',
                       objectFit: 'cover',
                       position: 'relative',
@@ -118,21 +118,21 @@ export default function HomeSection({ setActivePublicTab, onOpenBookModal, onSel
               </div>
 
               <div style={{ textAlign: 'center' }}>
-                <div style={{ fontSize: '0.75rem', color: '#d4af37', textTransform: 'uppercase', letterSpacing: '0.12em', fontWeight: 800, marginBottom: '4px' }}>
+                <div style={{ fontSize: '0.72rem', color: '#d4af37', textTransform: 'uppercase', letterSpacing: '0.12em', fontWeight: 800, marginBottom: '4px' }}>
                   CHIEF EXECUTIVE OFFICER & FOUNDER
                 </div>
-                <h2 style={{ fontSize: '1.8rem', color: 'white', marginBottom: '4px', fontWeight: 900 }}>
+                <h2 style={{ fontSize: 'clamp(1.5rem, 3.5vw, 1.8rem)', color: 'white', marginBottom: '4px', fontWeight: 900 }}>
                   {COMPANY_INFO.founder.name}
                 </h2>
-                <div style={{ fontSize: '0.88rem', color: '#fef08a', marginBottom: '18px', fontWeight: 700 }}>
+                <div style={{ fontSize: '0.85rem', color: '#fef08a', marginBottom: '16px', fontWeight: 700 }}>
                   {COMPANY_INFO.founder.designation}
                 </div>
 
-                <blockquote style={{ fontStyle: 'italic', color: '#fef08a', fontSize: '0.95rem', lineHeight: 1.6, borderLeft: '3px solid #d4af37', paddingLeft: '14px', margin: '0 0 18px', textAlign: 'left', background: 'rgba(255,255,255,0.04)', padding: '10px 14px', borderRadius: '0 10px 10px 0' }}>
+                <blockquote style={{ fontStyle: 'italic', color: '#fef08a', fontSize: '0.92rem', lineHeight: 1.6, borderLeft: '3px solid #d4af37', paddingLeft: '14px', margin: '0 0 16px', textAlign: 'left', background: 'rgba(255,255,255,0.04)', padding: '10px 14px', borderRadius: '0 10px 10px 0' }}>
                   {COMPANY_INFO.founder.quote}
                 </blockquote>
 
-                <p style={{ fontSize: '0.88rem', color: '#cbd5e1', lineHeight: 1.6, textAlign: 'left' }}>
+                <p style={{ fontSize: '0.86rem', color: '#cbd5e1', lineHeight: 1.6, textAlign: 'left' }}>
                   {COMPANY_INFO.founder.bio}
                 </p>
               </div>
@@ -140,29 +140,29 @@ export default function HomeSection({ setActivePublicTab, onOpenBookModal, onSel
 
             <div>
               <span className="badge badge-gold" style={{ marginBottom: '12px' }}>EXECUTIVE ADVISORY LEADERSHIP</span>
-              <h2 className="text-navy-heading" style={{ fontSize: '2.4rem', fontWeight: 900, marginBottom: '20px' }}>
+              <h2 className="text-navy-heading" style={{ fontSize: 'clamp(1.75rem, 4.5vw, 2.4rem)', fontWeight: 900, marginBottom: '18px', lineHeight: 1.2 }}>
                 Practical Consulting Solutions for Sustainable Growth
               </h2>
-              <p style={{ color: 'var(--text-muted)', lineHeight: 1.7, fontSize: '1.05rem', marginBottom: '16px' }}>
+              <p style={{ color: 'var(--text-muted)', lineHeight: 1.7, fontSize: '1rem', marginBottom: '16px' }}>
                 Under the strategic leadership of <strong>Harish V J</strong>, AS GROUPS provides actionable consulting solutions for businesses looking to convert market opportunities into long-term profit.
               </p>
-              <p style={{ color: 'var(--text-muted)', lineHeight: 1.7, fontSize: '1rem', marginBottom: '24px' }}>
+              <p style={{ color: 'var(--text-muted)', lineHeight: 1.7, fontSize: '0.95rem', marginBottom: '22px' }}>
                 We cover 8 specialized verticals: Digital & Physical Marketing, Business Setup, Import & Export Trade, Hospital Marketing, Tea Shop & Restaurant Setup, Innovation Strategy, Franchise Development, and Corporate Branding.
               </p>
 
-              <div style={{ display: 'flex', flexDirection: 'column', gap: '12px', marginBottom: '30px' }}>
-                <div style={{ display: 'flex', alignItems: 'center', gap: '10px', fontSize: '0.95rem', color: '#0f172a', fontWeight: 600 }}>
-                  <CheckCircle2 size={18} color="#c59b27" /> Understand the business and its unique challenges
+              <div style={{ display: 'flex', flexDirection: 'column', gap: '10px', marginBottom: '26px' }}>
+                <div style={{ display: 'flex', alignItems: 'center', gap: '10px', fontSize: '0.92rem', color: '#0f172a', fontWeight: 600 }}>
+                  <CheckCircle2 size={17} color="#c59b27" className="shrink-0" /> Understand the business and its unique challenges
                 </div>
-                <div style={{ display: 'flex', alignItems: 'center', gap: '10px', fontSize: '0.95rem', color: '#0f172a', fontWeight: 600 }}>
-                  <CheckCircle2 size={18} color="#c59b27" /> Identify market opportunities and develop the right strategy
+                <div style={{ display: 'flex', alignItems: 'center', gap: '10px', fontSize: '0.92rem', color: '#0f172a', fontWeight: 600 }}>
+                  <CheckCircle2 size={17} color="#c59b27" className="shrink-0" /> Identify market opportunities and develop the right strategy
                 </div>
-                <div style={{ display: 'flex', alignItems: 'center', gap: '10px', fontSize: '0.95rem', color: '#0f172a', fontWeight: 600 }}>
-                  <CheckCircle2 size={18} color="#c59b27" /> Support your journey with clarity, confidence, and ongoing guidance
+                <div style={{ display: 'flex', alignItems: 'center', gap: '10px', fontSize: '0.92rem', color: '#0f172a', fontWeight: 600 }}>
+                  <CheckCircle2 size={17} color="#c59b27" className="shrink-0" /> Support your journey with clarity, confidence, and ongoing guidance
                 </div>
               </div>
 
-              <button onClick={() => navigate('/about')} className="btn-gold">
+              <button onClick={() => navigate('/about')} className="btn-gold w-full sm:w-auto justify-center py-3 px-6 active:scale-[0.98]">
                 Read Full CEO Profile & About Us <ArrowRight size={16} />
               </button>
             </div>
@@ -393,18 +393,18 @@ export default function HomeSection({ setActivePublicTab, onOpenBookModal, onSel
           </div>
 
           {/* Bottom Consultation Banner */}
-          <div style={{ background: 'linear-gradient(135deg, #0a1936 0%, #1e3a8a 100%)', borderRadius: '20px', padding: '36px 40px', color: 'white', display: 'flex', justifyContent: 'space-between', alignItems: 'center', flexWrap: 'wrap', gap: '24px', boxShadow: '0 20px 40px rgba(10, 25, 54, 0.25)', border: '1px solid rgba(212, 175, 55, 0.4)' }}>
+          <div className="p-5 sm:p-9 rounded-2xl sm:rounded-3xl flex flex-col md:flex-row justify-between items-start md:items-center gap-5 sm:gap-6 shadow-xl" style={{ background: 'linear-gradient(135deg, #0a1936 0%, #1e3a8a 100%)', color: 'white', border: '1px solid rgba(212, 175, 55, 0.4)' }}>
             <div>
-              <div style={{ fontSize: '0.82rem', color: '#fef08a', textTransform: 'uppercase', letterSpacing: '0.12em', fontWeight: 800, marginBottom: '6px' }}>
+              <div style={{ fontSize: '0.78rem', color: '#fef08a', textTransform: 'uppercase', letterSpacing: '0.12em', fontWeight: 800, marginBottom: '6px' }}>
                 READY TO EXPERIENCE THE AS GROUPS DIFFERENCE?
               </div>
-              <h3 style={{ fontSize: '1.6rem', color: 'white', fontWeight: 800, margin: 0 }}>
+              <h3 style={{ fontSize: 'clamp(1.25rem, 3.2vw, 1.6rem)', color: 'white', fontWeight: 800, margin: 0, lineHeight: 1.25 }}>
                 Schedule a Strategic Business Discovery Session
               </h3>
             </div>
 
-            <button onClick={onOpenBookModal} className="btn-gold" style={{ padding: '14px 32px', fontSize: '0.96rem' }}>
-              Book Your Strategic Session <ArrowRight size={18} />
+            <button onClick={onOpenBookModal} className="btn-gold w-full md:w-auto justify-center py-3 sm:py-3.5 px-6 text-sm sm:text-base font-black shrink-0 active:scale-[0.98]">
+              Book Strategic Session <ArrowRight size={17} />
             </button>
           </div>
 
@@ -415,16 +415,16 @@ export default function HomeSection({ setActivePublicTab, onOpenBookModal, onSel
       <WhyUsArticleSection onOpenBookModal={onOpenBookModal} />
 
       {/* 7. FREQUENTLY ASKED QUESTIONS (FAQ) */}
-      <section style={{ padding: '80px 0', background: 'white' }}>
+      <section style={{ padding: '60px 0', background: 'white' }}>
         <div className="container" style={{ maxWidth: '1200px' }}>
-          <div style={{ textAlign: 'center', marginBottom: '40px' }}>
+          <div style={{ textAlign: 'center', marginBottom: '36px' }}>
             <span className="badge badge-cyan" style={{ marginBottom: '12px' }}>FAQ</span>
-            <h2 style={{ fontSize: '2.2rem', color: 'var(--primary-900)' }}>
+            <h2 style={{ fontSize: 'clamp(1.75rem, 4vw, 2.2rem)', color: 'var(--primary-900)' }}>
               Frequently Asked Questions
             </h2>
           </div>
 
-          <div style={{ display: 'flex', flexDirection: 'column', gap: '14px' }}>
+          <div style={{ display: 'flex', flexDirection: 'column', gap: '12px' }}>
             {FAQ_LIST.map((faq, idx) => {
               const isOpen = openFaq === idx;
               return (
@@ -441,7 +441,7 @@ export default function HomeSection({ setActivePublicTab, onOpenBookModal, onSel
                     onClick={() => toggleFaq(idx)}
                     style={{
                       width: '100%',
-                      padding: '18px 20px',
+                      padding: '16px 18px',
                       display: 'flex',
                       justifyContent: 'space-between',
                       alignItems: 'center',
@@ -450,16 +450,16 @@ export default function HomeSection({ setActivePublicTab, onOpenBookModal, onSel
                       textAlign: 'left',
                       fontWeight: 700,
                       color: '#0f172a',
-                      fontSize: '1rem',
+                      fontSize: '0.96rem',
                       cursor: 'pointer'
                     }}
                   >
-                    <span>{faq.q}</span>
-                    {isOpen ? <ChevronUp size={20} color="#2563eb" /> : <ChevronDown size={20} color="#64748b" />}
+                    <span className="pr-2">{faq.q}</span>
+                    {isOpen ? <ChevronUp size={18} color="#2563eb" className="shrink-0" /> : <ChevronDown size={18} color="#64748b" className="shrink-0" />}
                   </button>
 
                   {isOpen && (
-                    <div style={{ padding: '0 20px 18px', color: '#475569', fontSize: '0.92rem', lineHeight: 1.6, borderTop: '1px solid #f1f5f9', paddingTop: '12px' }}>
+                    <div style={{ padding: '0 18px 16px', color: '#475569', fontSize: '0.9rem', lineHeight: 1.6, borderTop: '1px solid #f1f5f9', paddingTop: '10px' }}>
                       {faq.a}
                     </div>
                   )}
@@ -471,23 +471,23 @@ export default function HomeSection({ setActivePublicTab, onOpenBookModal, onSel
       </section>
 
       {/* 8. CALL-TO-ACTION SECTION */}
-      <section style={{ padding: '70px 0', background: 'linear-gradient(135deg, #1e40af 0%, #0f172a 100%)', color: 'white', textAlign: 'center' }}>
+      <section style={{ padding: '60px 0', background: 'linear-gradient(135deg, #1e40af 0%, #0f172a 100%)', color: 'white', textAlign: 'center' }}>
         <div className="container" style={{ maxWidth: '1200px' }}>
-          <h2 style={{ fontSize: '2.2rem', marginBottom: '16px', fontWeight: 800 }}>READY TO GROW YOUR BUSINESS?</h2>
-          <p style={{ fontSize: '1.05rem', color: '#cbd5e1', lineHeight: 1.7, marginBottom: '30px' }}>
+          <h2 style={{ fontSize: 'clamp(1.75rem, 4.5vw, 2.2rem)', marginBottom: '14px', fontWeight: 800 }}>READY TO GROW YOUR BUSINESS?</h2>
+          <p style={{ fontSize: 'clamp(0.92rem, 2.5vw, 1.05rem)', color: '#cbd5e1', lineHeight: 1.7, marginBottom: '26px', maxWidth: '780px', marginInline: 'auto' }}>
             Whether you're starting a new business, looking to improve your marketing, expanding your operations or developing a new business idea, we're ready to understand your requirements.
           </p>
           
-          <div style={{ display: 'flex', gap: '16px', justifyContent: 'center', flexWrap: 'wrap', marginBottom: '16px' }}>
-            <button onClick={onOpenBookModal} className="btn-primary" style={{ padding: '14px 32px', fontSize: '1rem', background: '#059669' }}>
-              GET A FREE CONSULTATION
+          <div className="flex flex-col sm:flex-row gap-3 sm:gap-4 justify-center items-center w-full max-w-md sm:max-w-none mx-auto mb-4">
+            <button onClick={onOpenBookModal} className="btn-gold w-full sm:w-auto justify-center py-3.5 px-7 text-sm sm:text-base font-black shadow-lg shadow-amber-500/25 active:scale-[0.98]">
+              GET FREE CONSULTATION
             </button>
-            <button onClick={() => navigate('/contact')} className="btn-outline-white" style={{ padding: '14px 28px', fontSize: '1rem' }}>
+            <button onClick={() => navigate('/contact')} className="btn-outline-white w-full sm:w-auto justify-center py-3.5 px-6 text-sm sm:text-base font-bold active:scale-[0.98]">
               CONTACT AS GROUPS
             </button>
           </div>
 
-          <div style={{ fontSize: '0.85rem', color: '#94a3b8' }}>
+          <div style={{ fontSize: '0.82rem', color: '#94a3b8' }}>
             Let's discuss your business goals and explore the right strategy for you.
           </div>
         </div>

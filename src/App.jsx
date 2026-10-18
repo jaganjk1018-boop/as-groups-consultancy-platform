@@ -112,7 +112,7 @@ function PublicLayout({
         onLogout={onLogout}
       />
 
-      <main className="flex-1">
+      <main className="flex-1 pb-16 md:pb-0">
         <Outlet />
       </main>
 
@@ -137,85 +137,43 @@ function PublicLayout({
         onOpenBookModal={() => setIsBookModalOpen(true)}
       />
 
-      {/* Floating Scroll to Top Button */}
+      {/* Floating Action Cluster: Mobile-first, Non-intrusive, High-end */}
+
+      {/* 1. Floating Scroll to Top (Positioned cleanly above WhatsApp) */}
       {showScrollTop && (
         <button
           onClick={scrollToTop}
           title="Scroll to Top"
           aria-label="Scroll to Top"
-          style={{
-            position: 'fixed',
-            bottom: '84px',
-            right: '24px',
-            background: 'linear-gradient(135deg, #0a1936 0%, #1e3a8a 100%)',
-            color: '#fef08a',
-            borderRadius: '50px',
-            padding: '10px 18px',
-            display: 'flex',
-            alignItems: 'center',
-            gap: '6px',
-            fontWeight: '800',
-            boxShadow: '0 8px 24px rgba(10, 25, 54, 0.4), 0 0 15px rgba(212, 175, 55, 0.3)',
-            zIndex: 9999,
-            border: '1.5px solid rgba(212, 175, 55, 0.6)',
-            cursor: 'pointer',
-            fontSize: '0.82rem',
-            transition: 'all 0.3s ease'
-          }}
+          className="fixed bottom-16 right-4 sm:bottom-20 sm:right-6 z-[9990] w-9 h-9 sm:w-10 sm:h-10 rounded-full flex items-center justify-center bg-[#070f26]/90 backdrop-blur-md text-amber-300 border border-amber-400/40 shadow-lg shadow-black/40 hover:bg-[#0f2b5c] hover:border-amber-400 active:scale-95 transition-all"
         >
-          <ArrowUp size={16} /> Top
+          <ArrowUp size={16} />
         </button>
       )}
 
-      {/* Floating Special Offer Poster Button (Bottom Left) */}
+      {/* 2. Floating Special Offer (Bottom Left - Compact badge on mobile, pill on desktop) */}
       <button
         onClick={() => setIsPromoPosterOpen(true)}
-        style={{
-          position: 'fixed',
-          bottom: '24px',
-          left: '24px',
-          background: 'linear-gradient(135deg, #d4af37, #c59b27)',
-          color: '#0a1936',
-          borderRadius: '50px',
-          padding: '12px 20px',
-          display: 'flex',
-          alignItems: 'center',
-          gap: '8px',
-          fontWeight: '900',
-          boxShadow: '0 10px 25px rgba(197, 155, 39, 0.4), 0 0 15px rgba(212, 175, 55, 0.3)',
-          zIndex: 9998,
-          border: '1px solid rgba(255, 255, 255, 0.4)',
-          cursor: 'pointer',
-          fontSize: '0.85rem'
-        }}
+        title="View Special Promotional Offer"
+        aria-label="View Special Offer"
+        className="fixed bottom-3 left-3 sm:bottom-6 sm:left-6 z-[9985] flex items-center gap-2 rounded-full font-black text-slate-950 bg-gradient-to-r from-amber-400 via-amber-300 to-amber-500 shadow-lg shadow-amber-500/25 border border-white/40 active:scale-95 transition-all p-2.5 sm:px-4 sm:py-2.5 text-xs sm:text-xs"
       >
-        <Sparkles size={18} className="animate-pulse text-[#0a1936]" /> Special Offer Poster
+        <Sparkles size={16} className="text-slate-950 animate-pulse shrink-0" />
+        <span className="hidden sm:inline tracking-wider font-extrabold uppercase">Special Offer</span>
+        <span className="sm:hidden text-[10px] font-black uppercase tracking-wider">Offer</span>
       </button>
 
-      {/* Floating WhatsApp Button (Bottom Right) */}
+      {/* 3. Floating WhatsApp Button (Bottom Right - Compact FAB on mobile, pill on desktop) */}
       <a
         href={whatsappUrl}
         target="_blank"
         rel="noopener noreferrer"
-        style={{
-          position: 'fixed',
-          bottom: '24px',
-          right: '24px',
-          background: '#25D366',
-          color: 'white',
-          borderRadius: '50px',
-          padding: '12px 20px',
-          display: 'flex',
-          alignItems: 'center',
-          gap: '8px',
-          fontWeight: 'bold',
-          boxShadow: '0 10px 25px rgba(37, 211, 102, 0.4)',
-          zIndex: 9999,
-          textDecoration: 'none',
-          fontSize: '0.9rem'
-        }}
+        title="Chat with AS GROUPS on WhatsApp"
+        aria-label="Chat with AS GROUPS on WhatsApp"
+        className="fixed bottom-3 right-3 sm:bottom-6 sm:right-6 z-[9990] flex items-center gap-2 rounded-full font-bold text-white bg-[#25D366] hover:bg-[#20bd5a] shadow-lg shadow-emerald-500/30 border border-white/25 active:scale-95 transition-all p-2.5 sm:px-4 sm:py-2.5 text-xs sm:text-sm"
       >
-        <MessageSquare size={20} /> Chat With Us
+        <MessageSquare size={18} className="shrink-0" />
+        <span className="hidden sm:inline font-bold">Chat With Us</span>
       </a>
     </div>
   );

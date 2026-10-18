@@ -197,29 +197,29 @@ export default function HeroBannerSlider({ setActivePublicTab, onOpenBookModal }
       </div>
 
       {/* Main Banner Content Overlay */}
-      <div className="container" style={{ position: 'relative', zIndex: 5, padding: '45px 20px 55px', flex: 1, display: 'flex', alignItems: 'center' }}>
-        <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(280px, 1fr))', gap: '40px', alignItems: 'center', width: '100%' }}>
+      <div className="container" style={{ position: 'relative', zIndex: 5, padding: '30px 16px 45px', flex: 1, display: 'flex', alignItems: 'center' }}>
+        <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(280px, 1fr))', gap: '32px', alignItems: 'center', width: '100%' }}>
           
           {/* Left Column Content with Crisp Text & Shadows */}
           <div key={currentSlide.id}>
             
             {/* Pill & Stat Badge */}
-            <div className="text-anim-fadeup" style={{ display: 'flex', gap: '12px', alignItems: 'center', flexWrap: 'wrap', marginBottom: '20px' }}>
+            <div className="text-anim-fadeup" style={{ display: 'flex', gap: '10px', alignItems: 'center', flexWrap: 'wrap', marginBottom: '16px' }}>
               <div style={{
                 display: 'inline-flex',
                 alignItems: 'center',
                 gap: '8px',
-                padding: '6px 16px',
+                padding: '5px 12px',
                 borderRadius: '99px',
                 background: 'rgba(7, 15, 38, 0.85)',
                 border: '1px solid rgba(212, 175, 55, 0.7)',
                 color: '#fef08a',
-                fontSize: '0.82rem',
+                fontSize: '0.75rem',
                 fontWeight: 800,
-                letterSpacing: '0.05em',
+                letterSpacing: '0.04em',
                 boxShadow: '0 4px 15px rgba(0,0,0,0.5)'
               }}>
-                <img src="/logo.png" alt="AS GROUPS Logo" style={{ height: '22px', width: 'auto', borderRadius: '4px' }} />
+                <img src="/logo.png" alt="AS GROUPS Logo" style={{ height: '18px', width: 'auto', borderRadius: '4px' }} />
                 {currentSlide.badge}
               </div>
 
@@ -227,16 +227,16 @@ export default function HeroBannerSlider({ setActivePublicTab, onOpenBookModal }
                 display: 'inline-flex',
                 alignItems: 'center',
                 gap: '6px',
-                padding: '6px 14px',
+                padding: '5px 12px',
                 borderRadius: '99px',
                 background: 'rgba(6, 78, 59, 0.85)',
                 border: '1px solid rgba(16, 185, 129, 0.7)',
                 color: '#6ee7b7',
-                fontSize: '0.78rem',
+                fontSize: '0.75rem',
                 fontWeight: 700,
                 boxShadow: '0 4px 15px rgba(0,0,0,0.5)'
               }}>
-                <Award size={14} />
+                <Award size={13} />
                 {currentSlide.statBadge}
               </div>
             </div>
@@ -245,10 +245,10 @@ export default function HeroBannerSlider({ setActivePublicTab, onOpenBookModal }
             <h1 
               className="text-anim-title" 
               style={{ 
-                fontSize: 'clamp(2.3rem, 4.2vw, 3.5rem)', 
-                lineHeight: 1.12, 
+                fontSize: 'clamp(1.65rem, 5.5vw, 3.4rem)', 
+                lineHeight: 1.15, 
                 fontWeight: 900, 
-                marginBottom: '16px', 
+                marginBottom: '14px', 
                 letterSpacing: '-0.02em',
                 textShadow: '0 4px 20px rgba(0,0,0,0.9)'
               }}
@@ -263,10 +263,10 @@ export default function HeroBannerSlider({ setActivePublicTab, onOpenBookModal }
             <div 
               className="text-anim-subtitle" 
               style={{ 
-                fontSize: '1.15rem', 
+                fontSize: 'clamp(0.95rem, 2.8vw, 1.15rem)', 
                 fontWeight: 800, 
                 color: '#fef08a', 
-                marginBottom: '12px',
+                marginBottom: '10px',
                 textShadow: '0 2px 10px rgba(0,0,0,0.85)'
               }}
             >
@@ -277,10 +277,10 @@ export default function HeroBannerSlider({ setActivePublicTab, onOpenBookModal }
             <p 
               className="text-anim-desc" 
               style={{ 
-                fontSize: '1.02rem', 
+                fontSize: 'clamp(0.88rem, 2.5vw, 1.02rem)', 
                 color: '#f1f5f9', 
-                lineHeight: 1.7, 
-                marginBottom: '32px', 
+                lineHeight: 1.65, 
+                marginBottom: '24px', 
                 maxWidth: '620px',
                 textShadow: '0 2px 12px rgba(0,0,0,0.9)',
                 fontWeight: 500
@@ -291,31 +291,42 @@ export default function HeroBannerSlider({ setActivePublicTab, onOpenBookModal }
 
             {/* Action Buttons & Highlights */}
             <div className="text-anim-actions">
-              <div style={{ display: 'flex', gap: '16px', flexWrap: 'wrap', marginBottom: '28px' }}>
-                <button onClick={onOpenBookModal} className="btn-gold" style={{ padding: '15px 32px', fontSize: '0.98rem', boxShadow: '0 10px 25px rgba(212,175,55,0.35)' }}>
-                  Get a Free Consultation <ArrowRight size={18} />
+              <div className="flex flex-col sm:flex-row gap-3 sm:gap-4 w-full sm:w-auto mb-6">
+                <button 
+                  onClick={onOpenBookModal} 
+                  className="btn-gold w-full sm:w-auto justify-center py-3 sm:py-3.5 px-6 sm:px-8 text-sm sm:text-base font-black shadow-lg shadow-amber-500/25 active:scale-[0.98] transition-all"
+                >
+                  Get Free Consultation <ArrowRight size={17} />
                 </button>
                 <button 
                   onClick={() => navigate('/services')} 
-                  className="btn-outline-white" 
-                  style={{ padding: '15px 26px', fontSize: '0.98rem', border: '1px solid rgba(212, 175, 55, 0.6)', color: '#fef08a', background: 'rgba(7, 15, 38, 0.6)', backdropFilter: 'blur(10px)' }}
+                  className="btn-outline-white w-full sm:w-auto justify-center py-3 sm:py-3.5 px-5 sm:px-6 text-sm sm:text-base font-bold border border-amber-400/50 text-amber-200 bg-[#070f26]/60 backdrop-blur-md active:scale-[0.98] transition-all"
                 >
                   Explore Services
                 </button>
               </div>
 
-              <div style={{ fontSize: '0.85rem', color: '#cbd5e1', display: 'flex', gap: '18px', alignItems: 'center', flexWrap: 'wrap', fontWeight: 700, textShadow: '0 2px 8px rgba(0,0,0,0.8)' }}>
-                <span style={{ display: 'inline-flex', alignItems: 'center', gap: '6px' }}><CheckCircle2 size={15} color="#d4af37" /> Strategic Advisory</span>
-                <span style={{ display: 'inline-flex', alignItems: 'center', gap: '6px' }}><CheckCircle2 size={15} color="#d4af37" /> Customized Blueprint</span>
-                <span style={{ display: 'inline-flex', alignItems: 'center', gap: '6px' }}><CheckCircle2 size={15} color="#d4af37" /> Sustainable Growth</span>
+              <div style={{ fontSize: '0.8rem', color: '#cbd5e1', display: 'flex', gap: '14px', alignItems: 'center', flexWrap: 'wrap', fontWeight: 700, textShadow: '0 2px 8px rgba(0,0,0,0.8)' }}>
+                <span style={{ display: 'inline-flex', alignItems: 'center', gap: '5px' }}><CheckCircle2 size={14} color="#d4af37" /> Strategic Advisory</span>
+                <span style={{ display: 'inline-flex', alignItems: 'center', gap: '5px' }}><CheckCircle2 size={14} color="#d4af37" /> Customized Blueprint</span>
+                <span style={{ display: 'inline-flex', alignItems: 'center', gap: '5px' }}><CheckCircle2 size={14} color="#d4af37" /> Sustainable Growth</span>
               </div>
             </div>
           </div>
 
           {/* Right Column Feature Card with Ultra Glassmorphism */}
-          <div key={currentSlide.id + '-card'} className="dark-glass gold-glow-border card-anim-slide" style={{ borderRadius: 'var(--radius-lg)', padding: '32px', background: 'rgba(7, 15, 38, 0.88)', backdropFilter: 'blur(25px)', border: '1px solid rgba(212, 175, 55, 0.4)', boxShadow: '0 20px 50px rgba(0,0,0,0.6)' }}>
-            <div style={{ borderBottom: '1px solid rgba(212,175,55,0.3)', paddingBottom: '16px', marginBottom: '20px' }}>
-              <div style={{ fontSize: '0.75rem', color: '#d4af37', textTransform: 'uppercase', letterSpacing: '0.15em', fontWeight: 800 }}>
+          <div 
+            key={currentSlide.id + '-card'} 
+            className="dark-glass gold-glow-border card-anim-slide p-5 sm:p-7 rounded-2xl" 
+            style={{ 
+              background: 'rgba(7, 15, 38, 0.88)', 
+              backdropFilter: 'blur(25px)', 
+              border: '1px solid rgba(212, 175, 55, 0.4)', 
+              boxShadow: '0 20px 50px rgba(0,0,0,0.6)' 
+            }}
+          >
+            <div style={{ borderBottom: '1px solid rgba(212,175,55,0.3)', paddingBottom: '14px', marginBottom: '16px' }}>
+              <div style={{ fontSize: '0.72rem', color: '#d4af37', textTransform: 'uppercase', letterSpacing: '0.15em', fontWeight: 800 }}>
                 {currentSlide.cardTitle}
               </div>
               <h3 className="text-gold-gradient" style={{ fontSize: '1.4rem', marginTop: '4px', fontWeight: 900 }}>

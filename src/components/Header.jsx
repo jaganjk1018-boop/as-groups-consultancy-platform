@@ -138,7 +138,7 @@ export default function Header({
       </div>
 
       {/* Main Navigation Menubar Row */}
-      <div className="container flex justify-between items-center h-20">
+      <div className="container flex justify-between items-center h-16 sm:h-20">
         
         {/* Brand Logo & Tagline */}
         <div 
@@ -153,21 +153,21 @@ export default function Header({
               navigate('/'); 
             }
           }} 
-          className="cursor-pointer flex items-center gap-3 group"
+          className="cursor-pointer flex items-center gap-2 sm:gap-3 group shrink-0"
         >
           <img 
             src="/logo.png" 
             alt="AS GROUPS Logo" 
-            className="h-12 w-auto object-contain rounded-xl bg-white/10 p-1.5 border border-amber-400/40 group-hover:border-amber-400 transition-all shadow-md" 
+            className="h-9 sm:h-12 w-auto object-contain rounded-xl bg-white/10 p-1 sm:p-1.5 border border-amber-400/40 group-hover:border-amber-400 transition-all shadow-md shrink-0" 
           />
           <div>
-            <div className="font-heading text-xl font-black tracking-tight leading-none text-white flex items-center gap-1.5">
+            <div className="font-heading text-sm sm:text-xl font-black tracking-tight leading-none text-white flex items-center gap-1 sm:gap-1.5">
               {COMPANY_INFO.name}
-              <span className="text-[10px] bg-amber-500/20 text-amber-300 border border-amber-400/40 font-extrabold px-1.5 py-0.5 rounded">
+              <span className="text-[9px] sm:text-[10px] bg-amber-500/20 text-amber-300 border border-amber-400/40 font-extrabold px-1 sm:px-1.5 py-0.5 rounded">
                 CONSULTING
               </span>
             </div>
-            <div className="text-[10px] text-amber-400 tracking-[0.16em] font-extrabold uppercase mt-1">
+            <div className="text-[8px] sm:text-[10px] text-amber-400 tracking-wider sm:tracking-[0.16em] font-extrabold uppercase mt-0.5 sm:mt-1 truncate max-w-[180px] sm:max-w-none">
               BUSINESS MANAGEMENT & CONSULTANT
             </div>
           </div>
@@ -229,21 +229,23 @@ export default function Header({
         )}
 
         {/* Right Action CTA Buttons & Mobile Hamburger Toggle */}
-        <div className="flex items-center gap-3">
+        <div className="flex items-center gap-2 sm:gap-3 shrink-0">
           <button
             onClick={onOpenBookModal}
-            className="btn-gold text-xs py-2.5 px-4 font-black shadow-lg shadow-amber-500/25 flex items-center gap-2"
+            className="btn-gold text-xs py-1.5 px-3 sm:py-2.5 sm:px-4 font-black shadow-md shadow-amber-500/20 flex items-center gap-1.5 sm:gap-2 active:scale-95 transition-all"
           >
-            <Calendar size={14} /> Get Free Consultation
+            <Calendar size={13} className="shrink-0" />
+            <span className="hidden sm:inline">Get Free Consultation</span>
+            <span className="sm:hidden font-extrabold">Consult</span>
           </button>
 
           {/* Mobile Hamburger Menubar Toggle Button */}
           <button
             onClick={() => setIsMobileMenuOpen(!isMobileMenuOpen)}
-            className="lg:hidden p-2.5 rounded-xl bg-white/10 text-amber-400 border border-amber-400/30 hover:bg-white/20 transition-all"
+            className="lg:hidden p-2 sm:p-2.5 rounded-xl bg-white/10 text-amber-400 border border-amber-400/30 hover:bg-white/20 active:scale-95 transition-all"
             aria-label="Toggle Menubar"
           >
-            {isMobileMenuOpen ? <X size={22} /> : <Menu size={22} />}
+            {isMobileMenuOpen ? <X size={20} /> : <Menu size={20} />}
           </button>
         </div>
 

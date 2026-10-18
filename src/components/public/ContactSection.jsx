@@ -77,22 +77,22 @@ export default function ContactSection({ onAddLead, onAddNotification }) {
     <div style={{ padding: '60px 0', background: 'var(--bg-main)' }}>
       <div className="container">
         
-        <div style={{ textAlign: 'center', maxWidth: '750px', margin: '0 auto 50px' }}>
+        <div style={{ textAlign: 'center', maxWidth: '750px', margin: '0 auto 40px' }}>
           <span className="badge badge-blue" style={{ marginBottom: '12px' }}>CONTACT US</span>
-          <h1 style={{ fontSize: '2.5rem', color: 'var(--primary-900)', marginBottom: '16px', fontWeight: 800 }}>
+          <h1 style={{ fontSize: 'clamp(1.75rem, 4.5vw, 2.5rem)', color: 'var(--primary-900)', marginBottom: '14px', fontWeight: 800, lineHeight: 1.2 }}>
             LET'S TALK ABOUT YOUR BUSINESS
           </h1>
-          <p style={{ fontSize: '1.05rem', color: 'var(--text-muted)', lineHeight: 1.6 }}>
+          <p style={{ fontSize: 'clamp(0.92rem, 2.5vw, 1.05rem)', color: 'var(--text-muted)', lineHeight: 1.6 }}>
             Have a business idea? Looking to grow your existing business? Need help with marketing, branding or strategy? Tell us about your requirements and our team will get in touch with you.
           </p>
         </div>
 
-        <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(320px, 1fr))', gap: '36px', alignItems: 'start' }}>
+        <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(280px, 1fr))', gap: '28px', alignItems: 'start' }}>
           
           {/* Left Contact Details & WhatsApp Button */}
-          <div style={{ display: 'flex', flexDirection: 'column', gap: '24px' }}>
-            <div style={{ background: 'white', borderRadius: 'var(--radius-lg)', padding: '32px', border: '1px solid var(--border-color)', boxShadow: 'var(--shadow-sm)' }}>
-              <h3 style={{ fontSize: '1.3rem', color: 'var(--primary-900)', marginBottom: '24px', fontWeight: 700 }}>
+          <div style={{ display: 'flex', flexDirection: 'column', gap: '20px' }}>
+            <div className="p-5 sm:p-8 rounded-2xl" style={{ background: 'white', border: '1px solid var(--border-color)', boxShadow: 'var(--shadow-sm)' }}>
+              <h3 style={{ fontSize: '1.25rem', color: 'var(--primary-900)', marginBottom: '20px', fontWeight: 700 }}>
                 Contact Details
               </h3>
 
@@ -217,50 +217,50 @@ export default function ContactSection({ onAddLead, onAddNotification }) {
           </div>
 
           {/* Right Contact / Enquiry Form */}
-          <div style={{ background: 'white', borderRadius: 'var(--radius-lg)', padding: '36px', border: '1px solid var(--border-color)', boxShadow: 'var(--shadow-md)' }}>
+          <div className="p-5 sm:p-8 rounded-2xl" style={{ background: 'white', border: '1px solid var(--border-color)', boxShadow: 'var(--shadow-md)' }}>
             {submitted ? (
-              <div style={{ textAlign: 'center', padding: '30px 0' }}>
-                <CheckCircle2 size={60} color="#059669" style={{ margin: '0 auto 16px' }} />
-                <h3 style={{ fontSize: '1.5rem', color: 'var(--primary-900)', marginBottom: '12px', fontWeight: 800 }}>
+              <div style={{ textAlign: 'center', padding: '24px 0' }}>
+                <CheckCircle2 size={52} color="#059669" style={{ margin: '0 auto 14px' }} />
+                <h3 style={{ fontSize: '1.4rem', color: 'var(--primary-900)', marginBottom: '10px', fontWeight: 800 }}>
                   Enquiry Submitted!
                 </h3>
-                <p style={{ fontSize: '1.05rem', color: '#1e293b', marginBottom: '24px', lineHeight: 1.7, fontWeight: 600 }}>
+                <p style={{ fontSize: '1rem', color: '#1e293b', marginBottom: '22px', lineHeight: 1.6, fontWeight: 600 }}>
                   {successMessage}
                 </p>
-                <button onClick={() => setSubmitted(false)} className="btn-primary" style={{ width: '100%', justifyContent: 'center' }}>
+                <button onClick={() => setSubmitted(false)} className="btn-primary w-full justify-center py-3 active:scale-[0.98]">
                   Send Another Enquiry
                 </button>
               </div>
             ) : (
-              <form onSubmit={handleSubmit} style={{ display: 'flex', flexDirection: 'column', gap: '16px' }}>
-                <h3 style={{ fontSize: '1.4rem', color: 'var(--primary-900)', marginBottom: '4px', fontWeight: 800 }}>
+              <form onSubmit={handleSubmit} style={{ display: 'flex', flexDirection: 'column', gap: '14px' }}>
+                <h3 style={{ fontSize: '1.35rem', color: 'var(--primary-900)', marginBottom: '4px', fontWeight: 800 }}>
                   SEND US AN ENQUIRY
                 </h3>
 
                 <div>
-                  <label style={{ display: 'block', fontSize: '0.85rem', fontWeight: 700, marginBottom: '6px' }}>Full Name *</label>
-                  <input type="text" required placeholder="Enter your name" value={formData.name} onChange={e => setFormData({...formData, name: e.target.value})} style={{ width: '100%', padding: '11px', borderRadius: '8px', border: '1px solid #cbd5e1', fontSize: '0.92rem' }} />
+                  <label style={{ display: 'block', fontSize: '0.84rem', fontWeight: 700, marginBottom: '5px' }}>Full Name *</label>
+                  <input type="text" required placeholder="Enter your name" value={formData.name} onChange={e => setFormData({...formData, name: e.target.value})} style={{ width: '100%', padding: '10px 12px', borderRadius: '8px', border: '1px solid #cbd5e1', fontSize: '0.92rem' }} />
                 </div>
 
-                <div className="grid-form-2col" style={{ display: 'grid', gridTemplateColumns: '1fr 1fr', gap: '14px' }}>
+                <div className="grid grid-cols-1 sm:grid-cols-2 gap-3 sm:gap-4">
                   <div>
-                    <label style={{ display: 'block', fontSize: '0.85rem', fontWeight: 700, marginBottom: '6px' }}>Phone Number *</label>
-                    <input type="tel" required placeholder="Enter your phone number" value={formData.phone} onChange={e => setFormData({...formData, phone: e.target.value})} style={{ width: '100%', padding: '11px', borderRadius: '8px', border: '1px solid #cbd5e1', fontSize: '0.92rem' }} />
+                    <label style={{ display: 'block', fontSize: '0.84rem', fontWeight: 700, marginBottom: '5px' }}>Phone Number *</label>
+                    <input type="tel" required placeholder="Enter phone number" value={formData.phone} onChange={e => setFormData({...formData, phone: e.target.value})} style={{ width: '100%', padding: '10px 12px', borderRadius: '8px', border: '1px solid #cbd5e1', fontSize: '0.92rem' }} />
                   </div>
                   <div>
-                    <label style={{ display: 'block', fontSize: '0.85rem', fontWeight: 700, marginBottom: '6px' }}>Email Address *</label>
-                    <input type="email" required placeholder="Enter your email" value={formData.email} onChange={e => setFormData({...formData, email: e.target.value})} style={{ width: '100%', padding: '11px', borderRadius: '8px', border: '1px solid #cbd5e1', fontSize: '0.92rem' }} />
+                    <label style={{ display: 'block', fontSize: '0.84rem', fontWeight: 700, marginBottom: '5px' }}>Email Address *</label>
+                    <input type="email" required placeholder="Enter email" value={formData.email} onChange={e => setFormData({...formData, email: e.target.value})} style={{ width: '100%', padding: '10px 12px', borderRadius: '8px', border: '1px solid #cbd5e1', fontSize: '0.92rem' }} />
                   </div>
                 </div>
 
                 <div>
-                  <label style={{ display: 'block', fontSize: '0.85rem', fontWeight: 700, marginBottom: '6px' }}>Company Name</label>
-                  <input type="text" placeholder="Enter your company / business name" value={formData.businessName} onChange={e => setFormData({...formData, businessName: e.target.value})} style={{ width: '100%', padding: '11px', borderRadius: '8px', border: '1px solid #cbd5e1', fontSize: '0.92rem' }} />
+                  <label style={{ display: 'block', fontSize: '0.84rem', fontWeight: 700, marginBottom: '5px' }}>Company Name</label>
+                  <input type="text" placeholder="Enter your business / company name" value={formData.businessName} onChange={e => setFormData({...formData, businessName: e.target.value})} style={{ width: '100%', padding: '10px 12px', borderRadius: '8px', border: '1px solid #cbd5e1', fontSize: '0.92rem' }} />
                 </div>
 
                 <div>
-                  <label style={{ display: 'block', fontSize: '0.85rem', fontWeight: 700, marginBottom: '6px' }}>Service Required *</label>
-                  <select value={formData.serviceRequired} onChange={e => setFormData({...formData, serviceRequired: e.target.value})} style={{ width: '100%', padding: '11px', borderRadius: '8px', border: '1px solid #cbd5e1', fontSize: '0.92rem' }}>
+                  <label style={{ display: 'block', fontSize: '0.84rem', fontWeight: 700, marginBottom: '5px' }}>Service Required *</label>
+                  <select value={formData.serviceRequired} onChange={e => setFormData({...formData, serviceRequired: e.target.value})} style={{ width: '100%', padding: '10px 12px', borderRadius: '8px', border: '1px solid #cbd5e1', fontSize: '0.92rem' }}>
                     {SERVICES_LIST.map(s => (
                       <option key={s.id} value={s.title}>{s.title}</option>
                     ))}
@@ -269,15 +269,15 @@ export default function ContactSection({ onAddLead, onAddNotification }) {
                 </div>
 
                 <div>
-                  <label style={{ display: 'block', fontSize: '0.85rem', fontWeight: 700, marginBottom: '6px' }}>Message *</label>
-                  <textarea rows={4} required placeholder="Briefly describe your requirements..." value={formData.requirement} onChange={e => setFormData({...formData, requirement: e.target.value})} style={{ width: '100%', padding: '11px', borderRadius: '8px', border: '1px solid #cbd5e1', fontSize: '0.92rem', resize: 'vertical' }}></textarea>
+                  <label style={{ display: 'block', fontSize: '0.84rem', fontWeight: 700, marginBottom: '5px' }}>Message *</label>
+                  <textarea rows={4} required placeholder="Briefly describe your requirements..." value={formData.requirement} onChange={e => setFormData({...formData, requirement: e.target.value})} style={{ width: '100%', padding: '10px 12px', borderRadius: '8px', border: '1px solid #cbd5e1', fontSize: '0.92rem', resize: 'vertical' }}></textarea>
                 </div>
 
                 <button 
                   type="submit" 
                   disabled={loading}
-                  className="btn-primary" 
-                  style={{ width: '100%', justifyContent: 'center', padding: '14px', marginTop: '6px', fontSize: '1rem', opacity: loading ? 0.7 : 1 }}
+                  className="btn-gold w-full justify-center py-3.5 px-6 font-black text-sm sm:text-base active:scale-[0.98] transition-all shadow-md" 
+                  style={{ marginTop: '4px', opacity: loading ? 0.7 : 1 }}
                 >
                   {loading ? (
                     <>
@@ -285,16 +285,14 @@ export default function ContactSection({ onAddLead, onAddNotification }) {
                     </>
                   ) : (
                     <>
-                      <Send size={18} /> SUBMIT ENQUIRY
+                      <Send size={16} /> Submit Consultation Request
                     </>
                   )}
                 </button>
               </form>
             )}
           </div>
-
         </div>
-
       </div>
     </div>
   );

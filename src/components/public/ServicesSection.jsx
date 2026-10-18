@@ -118,7 +118,7 @@ export default function ServicesSection({ onOpenBookModal, selectedServiceId, se
           <span className="badge badge-gold" style={{ marginBottom: '12px', fontSize: '0.82rem', fontWeight: 800 }}>
             ✨ AS GROUPS COMPREHENSIVE ADVISORY PRACTICES
           </span>
-          <h1 className="text-navy-heading" style={{ fontSize: '2.7rem', fontWeight: 900, marginBottom: '16px', letterSpacing: '-0.02em' }}>
+          <h1 className="text-navy-heading" style={{ fontSize: 'clamp(1.75rem, 4.5vw, 2.7rem)', fontWeight: 900, marginBottom: '16px', letterSpacing: '-0.02em', lineHeight: 1.2 }}>
             Interactive Consultancy Services & Strategic Hub
           </h1>
           <p style={{ fontSize: '1.1rem', color: 'var(--text-muted)', lineHeight: 1.7 }}>
@@ -544,16 +544,15 @@ export default function ServicesSection({ onOpenBookModal, selectedServiceId, se
                         })}
                       </div>
 
-                      <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', flexWrap: 'wrap', gap: '14px', borderTop: '1px solid rgba(255,255,255,0.1)', paddingTop: '16px' }}>
+                      <div className="flex flex-col sm:flex-row justify-between items-start sm:items-center gap-3.5 pt-4 border-t border-white/10">
                         <div style={{ fontSize: '0.84rem', color: '#cbd5e1' }}>
                           Ready to discuss your customized scope with <strong>{selectedService.leadConsultant}</strong>?
                         </div>
                         <button
                           onClick={handleBookCustomPackage}
-                          className="btn-gold"
-                          style={{ padding: '11px 22px', fontSize: '0.9rem' }}
+                          className="btn-gold w-full sm:w-auto justify-center py-2.5 px-5 text-sm font-black active:scale-[0.98]"
                         >
-                          <Calendar size={16} /> Book Tailored Package
+                          <Calendar size={15} /> Book Tailored Package
                         </button>
                       </div>
                     </div>
