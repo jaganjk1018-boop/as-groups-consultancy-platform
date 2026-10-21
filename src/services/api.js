@@ -1,13 +1,43 @@
-const API_BASE_URL = 'http://localhost:5000/api';
+const API_BASE_URL = import.meta.env.VITE_API_BASE_URL || 'http://localhost:5000/api';
+
+let serverOnline = true;
+let lastServerCheck = 0;
+const SERVER_CHECK_COOLDOWN = 10000; // 10 seconds cooldown if backend offline
+
+async function safeApiFetch(endpoint, options = {}, timeoutMs = 2500) {
+  const now = Date.now();
+  if (!serverOnline && (now - lastServerCheck < SERVER_CHECK_COOLDOWN)) {
+    return null;
+  }
+
+  const controller = new AbortController();
+  const timeoutId = setTimeout(() => controller.abort(), timeoutMs);
+
+  try {
+    const res = await fetch(`${API_BASE_URL}${endpoint}`, {
+      ...options,
+      signal: controller.signal
+    });
+    clearTimeout(timeoutId);
+    serverOnline = true;
+    lastServerCheck = Date.now();
+    return res;
+  } catch (err) {
+    clearTimeout(timeoutId);
+    serverOnline = false;
+    lastServerCheck = Date.now();
+    return null;
+  }
+}
 
 export const api = {
   // Healthcheck
   async checkHealth() {
     try {
-      const res = await fetch(`${API_BASE_URL}/health`);
-      return await res.json();
+      const res = await safeApiFetch('/health');
+      if (res && res.ok) return await res.json();
+      return null;
     } catch (err) {
-      console.warn('Backend API offline, using local fallback store.', err);
       return null;
     }
   },
@@ -32,13 +62,15 @@ export const api = {
 
     // 2. Send to Node Server 5000
     try {
-      const res = await fetch(`${API_BASE_URL}/auth/login`, {
+      const res = await safeApiFetch('/auth/login', {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify(payload)
       });
-      const data = await res.json();
-      if (!result) result = data;
+      if (res && res.ok) {
+        const data = await res.json();
+        if (!result) result = data;
+      }
     } catch (err) {}
 
     return result || { success: true, user: payload };
@@ -47,7 +79,8 @@ export const api = {
   // Leads
   async fetchLeads() {
     try {
-      const res = await fetch(`${API_BASE_URL}/leads`);
+      const res = await safeApiFetch('/leads');
+      if (!res || !res.ok) return null;
       const data = await res.json();
       return data.data;
     } catch (err) {
@@ -57,12 +90,13 @@ export const api = {
 
   async createLead(leadData) {
     try {
-      const res = await fetch(`${API_BASE_URL}/leads`, {
+      const res = await safeApiFetch('/leads', {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify(leadData)
       });
-      return await res.json();
+      if (res && res.ok) return await res.json();
+      return { success: true, lead: { id: `LD-${Date.now()}`, ...leadData, status: 'New' } };
     } catch (err) {
       return { success: true, lead: { id: `LD-${Date.now()}`, ...leadData, status: 'New' } };
     }
@@ -70,12 +104,13 @@ export const api = {
 
   async updateLeadStatus(id, status) {
     try {
-      const res = await fetch(`${API_BASE_URL}/leads/${id}`, {
+      const res = await safeApiFetch(`/leads/${id}`, {
         method: 'PATCH',
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify({ status })
       });
-      return await res.json();
+      if (res && res.ok) return await res.json();
+      return { success: true };
     } catch (err) {
       return { success: true };
     }
@@ -84,7 +119,8 @@ export const api = {
   // Appointments
   async fetchAppointments() {
     try {
-      const res = await fetch(`${API_BASE_URL}/appointments`);
+      const res = await safeApiFetch('/appointments');
+      if (!res || !res.ok) return null;
       const data = await res.json();
       return data.data;
     } catch (err) {
@@ -94,12 +130,13 @@ export const api = {
 
   async createAppointment(aptData) {
     try {
-      const res = await fetch(`${API_BASE_URL}/appointments`, {
+      const res = await safeApiFetch('/appointments', {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify(aptData)
       });
-      return await res.json();
+      if (res && res.ok) return await res.json();
+      return { success: true, appointment: { id: `APT-${Date.now()}`, ...aptData, status: 'Scheduled' } };
     } catch (err) {
       return { success: true, appointment: { id: `APT-${Date.now()}`, ...aptData, status: 'Scheduled' } };
     }
@@ -108,7 +145,8 @@ export const api = {
   // Projects
   async fetchProjects() {
     try {
-      const res = await fetch(`${API_BASE_URL}/projects`);
+      const res = await safeApiFetch('/projects');
+      if (!res || !res.ok) return null;
       const data = await res.json();
       return data.data;
     } catch (err) {
@@ -119,7 +157,8 @@ export const api = {
   // Reports
   async fetchReports() {
     try {
-      const res = await fetch(`${API_BASE_URL}/reports`);
+      const res = await safeApiFetch('/reports');
+      if (!res || !res.ok) return null;
       const data = await res.json();
       return data.data;
     } catch (err) {
@@ -129,12 +168,13 @@ export const api = {
 
   async createReport(reportData) {
     try {
-      const res = await fetch(`${API_BASE_URL}/reports`, {
+      const res = await safeApiFetch('/reports', {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify(reportData)
       });
-      return await res.json();
+      if (res && res.ok) return await res.json();
+      return { success: true, report: { id: `REP-${Date.now()}`, ...reportData } };
     } catch (err) {
       return { success: true, report: { id: `REP-${Date.now()}`, ...reportData } };
     }
@@ -143,12 +183,8 @@ export const api = {
   // Enquiries
   async fetchEnquiries() {
     try {
-      const res = await fetch('http://127.0.0.1:8000/api/enquiries');
-      if (res.ok) return await res.json();
-    } catch (err) {}
-
-    try {
-      const res = await fetch(`${API_BASE_URL}/enquiries`);
+      const res = await safeApiFetch('/enquiries');
+      if (!res || !res.ok) return null;
       const data = await res.json();
       return data.data || data;
     } catch (err) {
@@ -157,38 +193,23 @@ export const api = {
   },
 
   async createEnquiry(enquiryData) {
-    let result = null;
     try {
-      const res = await fetch('http://127.0.0.1:8000/api/enquiries', {
+      const res = await safeApiFetch('/enquiries', {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify(enquiryData)
       });
-      if (res.ok) result = await res.json();
+      if (res && res.ok) return await res.json();
     } catch (err) {}
 
-    try {
-      const res = await fetch(`${API_BASE_URL}/enquiries`, {
-        method: 'POST',
-        headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify(enquiryData)
-      });
-      const data = await res.json();
-      if (!result) result = data;
-    } catch (err) {}
-
-    return result || { success: true, message: 'Enquiry received' };
+    return { success: true, message: 'Enquiry received' };
   },
 
   async retryEnquiry(id) {
     try {
-      const res = await fetch(`http://127.0.0.1:8000/api/enquiries/${id}/retry`, { method: 'POST' });
-      if (res.ok) return await res.json();
-    } catch (err) {}
-
-    try {
-      const res = await fetch(`${API_BASE_URL}/enquiries/${id}/retry`, { method: 'POST' });
-      return await res.json();
+      const res = await safeApiFetch(`/enquiries/${id}/retry`, { method: 'POST' });
+      if (res && res.ok) return await res.json();
+      return { success: false };
     } catch (err) {
       return { success: false };
     }
@@ -197,7 +218,8 @@ export const api = {
   // Notifications
   async fetchNotifications() {
     try {
-      const res = await fetch(`${API_BASE_URL}/notifications`);
+      const res = await safeApiFetch('/notifications');
+      if (!res || !res.ok) return null;
       const data = await res.json();
       return data.data;
     } catch (err) {

@@ -100,23 +100,15 @@ export default function WhyUsArticleSection({ onOpenBookModal }) {
               <button
                 key={pillar.id}
                 onClick={() => setActivePillarIndex(pIdx)}
+                className="flex items-center gap-2 sm:gap-2.5 py-2 px-3.5 sm:py-3 sm:px-5 rounded-xl font-extrabold text-xs sm:text-sm whitespace-nowrap transition-all"
                 style={{
-                  display: 'flex',
-                  alignItems: 'center',
-                  gap: '10px',
-                  padding: '14px 22px',
-                  borderRadius: '12px',
                   border: isActive ? '2px solid #1e3a8a' : '1px solid #e2e8f0',
                   background: isActive ? '#1e3a8a' : '#f8fafc',
                   color: isActive ? 'white' : '#334155',
-                  fontWeight: 800,
-                  fontSize: '0.88rem',
-                  cursor: 'pointer',
-                  whiteSpace: 'nowrap',
-                  transition: 'all 0.25s ease'
+                  cursor: 'pointer'
                 }}
               >
-                <TabIcon size={18} color={isActive ? '#fef08a' : '#1e3a8a'} />
+                <TabIcon size={16} color={isActive ? '#fef08a' : '#1e3a8a'} />
                 {pillar.badge}
               </button>
             );
@@ -189,9 +181,9 @@ export default function WhyUsArticleSection({ onOpenBookModal }) {
                 {article.conclusion.quote}
               </blockquote>
 
-              <div style={{ display: 'flex', gap: '16px', flexWrap: 'wrap' }}>
-                <button onClick={onOpenBookModal} className="btn-gold" style={{ padding: '14px 28px', fontSize: '0.94rem' }}>
-                  Schedule Strategic Consultation <ArrowRight size={18} />
+              <div style={{ display: 'flex', gap: '12px', flexWrap: 'wrap' }}>
+                <button onClick={onOpenBookModal} className="btn-gold w-auto justify-center py-2.5 sm:py-3 px-4 sm:px-6 text-xs sm:text-sm font-bold">
+                  Schedule Strategic Consultation <ArrowRight size={16} />
                 </button>
               </div>
             </div>

@@ -225,7 +225,10 @@ export default function AboutSection({ onOpenBookModal }) {
         <div style={{ textAlign: 'center', background: 'linear-gradient(135deg, #2563eb, #1d4ed8)', color: 'white', padding: '40px', borderRadius: 'var(--radius-lg)' }}>
           <h2 style={{ fontSize: '1.8rem', marginBottom: '12px' }}>Ready to Move Forward with Clarity & Confidence?</h2>
           <p style={{ fontSize: '1rem', color: '#dbeafe', marginBottom: '24px' }}>Let's discuss your business goals and explore the right strategy for you.</p>
-          <button onClick={onOpenBookModal} style={{ background: 'white', color: '#1e40af', padding: '14px 32px', borderRadius: 'var(--radius-md)', fontWeight: 800, border: 'none', cursor: 'pointer', fontSize: '1rem' }}>
+          <button 
+            onClick={onOpenBookModal} 
+            className="inline-flex items-center justify-center bg-white text-blue-900 font-extrabold text-xs sm:text-base py-2.5 sm:py-3.5 px-5 sm:px-8 rounded-xl shadow-md hover:bg-slate-100 active:scale-95 transition-all w-auto"
+          >
             Get a Free Consultation
           </button>
         </div>

@@ -227,7 +227,7 @@ export default function ContactSection({ onAddLead, onAddNotification }) {
                 <p style={{ fontSize: '1rem', color: '#1e293b', marginBottom: '22px', lineHeight: 1.6, fontWeight: 600 }}>
                   {successMessage}
                 </p>
-                <button onClick={() => setSubmitted(false)} className="btn-primary w-full justify-center py-3 active:scale-[0.98]">
+                <button onClick={() => setSubmitted(false)} className="btn-primary w-full justify-center py-2.5 sm:py-3 active:scale-[0.98] min-h-[40px]">
                   Send Another Enquiry
                 </button>
               </div>
@@ -276,7 +276,7 @@ export default function ContactSection({ onAddLead, onAddNotification }) {
                 <button 
                   type="submit" 
                   disabled={loading}
-                  className="btn-gold w-full justify-center py-3.5 px-6 font-black text-sm sm:text-base active:scale-[0.98] transition-all shadow-md" 
+                  className="btn-gold w-full justify-center py-2.5 sm:py-3.5 px-5 sm:px-6 font-black text-sm sm:text-base active:scale-[0.98] transition-all shadow-md min-h-[42px] sm:min-h-[46px]" 
                   style={{ marginTop: '4px', opacity: loading ? 0.7 : 1 }}
                 >
                   {loading ? (

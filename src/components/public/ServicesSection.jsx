@@ -304,8 +304,8 @@ export default function ServicesSection({ onOpenBookModal, selectedServiceId, se
                   </div>
                 </div>
 
-                <button onClick={() => onOpenBookModal && onOpenBookModal(selectedService.id)} className="btn-gold" style={{ padding: '13px 26px', fontSize: '0.95rem' }}>
-                  <Calendar size={18} /> Request {selectedService.title} Meeting
+                <button onClick={() => onOpenBookModal && onOpenBookModal(selectedService.id)} className="btn-gold w-auto justify-center py-2 sm:py-2.5 px-3.5 sm:px-5 text-xs sm:text-sm font-bold">
+                  <Calendar size={16} /> Request {selectedService.title} Meeting
                 </button>
               </div>
 
@@ -550,7 +550,7 @@ export default function ServicesSection({ onOpenBookModal, selectedServiceId, se
                         </div>
                         <button
                           onClick={handleBookCustomPackage}
-                          className="btn-gold w-full sm:w-auto justify-center py-2.5 px-5 text-sm font-black active:scale-[0.98]"
+                          className="btn-gold w-auto sm:w-auto justify-center py-2 sm:py-2.5 px-4 sm:px-5 text-xs sm:text-sm font-black active:scale-[0.98]"
                         >
                           <Calendar size={15} /> Book Tailored Package
                         </button>
@@ -660,18 +660,18 @@ export default function ServicesSection({ onOpenBookModal, selectedServiceId, se
                     </div>
                   </div>
 
-                  <div style={{ borderTop: '1px solid #f1f5f9', paddingTop: '16px', display: 'flex', gap: '10px' }}>
+                  <div className="btn-pair-responsive" style={{ borderTop: '1px solid #f1f5f9', paddingTop: '14px', display: 'flex', gap: '8px' }}>
                     <button
                       onClick={() => { handleSelectService(s.id); setViewMode('workspace'); setActiveTab('overview'); }}
                       className="btn-secondary"
-                      style={{ flex: 1, padding: '10px', fontSize: '0.82rem', justifyContent: 'center' }}
+                      style={{ flex: 1, padding: '7px 12px', fontSize: '0.8rem', minHeight: '36px', justifyContent: 'center' }}
                     >
                       Deep Scope
                     </button>
                     <button
                       onClick={() => onOpenBookModal && onOpenBookModal(s.id)}
                       className="btn-primary"
-                      style={{ flex: 1, padding: '10px', fontSize: '0.82rem', justifyContent: 'center' }}
+                      style={{ flex: 1, padding: '7px 12px', fontSize: '0.8rem', minHeight: '36px', justifyContent: 'center' }}
                     >
                       Book Session
                     </button>

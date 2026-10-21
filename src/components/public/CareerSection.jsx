@@ -40,7 +40,7 @@ export default function CareerSection() {
               <button
                 onClick={() => { setSelectedJob(job); setApplied(false); }}
                 className="btn-primary"
-                style={{ width: '100%', justifyContent: 'center', fontSize: '0.88rem' }}
+                style={{ width: '100%', minHeight: '38px', padding: '8px 14px', justifyContent: 'center', fontSize: '0.84rem' }}
               >
                 Apply for Position
               </button>
@@ -100,9 +100,9 @@ export default function CareerSection() {
                     </div>
                   </div>
 
-                  <div style={{ display: 'flex', gap: '12px', marginTop: '24px' }}>
-                    <button type="button" onClick={() => setSelectedJob(null)} className="btn-secondary" style={{ flex: 1, justifyContent: 'center' }}>Cancel</button>
-                    <button type="submit" className="btn-primary" style={{ flex: 2, justifyContent: 'center' }}><Send size={16} /> Submit Application</button>
+                  <div className="btn-pair-responsive" style={{ display: 'flex', gap: '10px', marginTop: '20px' }}>
+                    <button type="button" onClick={() => setSelectedJob(null)} className="btn-secondary" style={{ flex: 1, minHeight: '38px', padding: '8px 12px', fontSize: '0.84rem', justifyContent: 'center' }}>Cancel</button>
+                    <button type="submit" className="btn-primary" style={{ flex: 2, minHeight: '38px', padding: '8px 14px', fontSize: '0.84rem', justifyContent: 'center' }}><Send size={15} /> Submit Application</button>
                   </div>
                 </form>
               )}

@@ -110,8 +110,8 @@ export default function BlogSection() {
                 {selectedArticle.content}
               </div>
 
-              <div style={{ marginTop: '30px', textAlign: 'right' }}>
-                <button onClick={() => setSelectedArticle(null)} className="btn-primary">
+              <div style={{ marginTop: '24px', textAlign: 'right' }}>
+                <button onClick={() => setSelectedArticle(null)} className="btn-primary w-auto justify-center text-xs sm:text-sm font-bold py-2 sm:py-2.5 px-4 sm:px-6">
                   Close Article
                 </button>
               </div>

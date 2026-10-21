@@ -238,23 +238,23 @@ export default function BookModal({ isOpen, onClose, defaultServiceId, onAddLead
                 ></textarea>
               </div>
 
-              <div style={{ display: 'flex', gap: '12px', marginTop: '8px' }}>
-                <button type="button" onClick={onClose} className="btn-secondary" style={{ flex: 1, justifyContent: 'center' }}>
+              <div className="btn-pair-responsive" style={{ display: 'flex', gap: '10px', marginTop: '12px' }}>
+                <button type="button" onClick={onClose} className="btn-secondary" style={{ flex: 1, minHeight: '40px', justifyContent: 'center', fontSize: '0.86rem' }}>
                   Cancel
                 </button>
                 <button 
                   type="submit" 
                   disabled={loading}
                   className="btn-primary" 
-                  style={{ flex: 2, justifyContent: 'center', fontWeight: 800, opacity: loading ? 0.7 : 1 }}
+                  style={{ flex: 2, minHeight: '40px', justifyContent: 'center', fontWeight: 800, fontSize: '0.86rem', opacity: loading ? 0.7 : 1 }}
                 >
                   {loading ? (
                     <>
-                      <Loader2 size={16} className="animate-spin" /> Submitting...
+                      <Loader2 size={15} className="animate-spin" /> Submitting...
                     </>
                   ) : (
                     <>
-                      <Send size={16} /> REQUEST CONSULTATION
+                      <Send size={15} /> REQUEST CONSULTATION
                     </>
                   )}
                 </button>

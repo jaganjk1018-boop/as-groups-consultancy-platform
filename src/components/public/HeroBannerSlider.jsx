@@ -291,16 +291,16 @@ export default function HeroBannerSlider({ setActivePublicTab, onOpenBookModal }
 
             {/* Action Buttons & Highlights */}
             <div className="text-anim-actions">
-              <div className="flex flex-col sm:flex-row gap-3 sm:gap-4 w-full sm:w-auto mb-6">
+              <div className="flex flex-col sm:flex-row gap-2.5 sm:gap-4 w-full sm:w-auto mb-6">
                 <button 
                   onClick={onOpenBookModal} 
-                  className="btn-gold w-full sm:w-auto justify-center py-3 sm:py-3.5 px-6 sm:px-8 text-sm sm:text-base font-black shadow-lg shadow-amber-500/25 active:scale-[0.98] transition-all"
+                  className="btn-gold w-full sm:w-auto justify-center py-2.5 sm:py-3.5 px-4 sm:px-7 text-sm sm:text-base font-black shadow-lg shadow-amber-500/25 active:scale-[0.98] transition-all min-h-[40px] sm:min-h-[44px]"
                 >
-                  Get Free Consultation <ArrowRight size={17} />
+                  Get Free Consultation <ArrowRight size={15} />
                 </button>
                 <button 
                   onClick={() => navigate('/services')} 
-                  className="btn-outline-white w-full sm:w-auto justify-center py-3 sm:py-3.5 px-5 sm:px-6 text-sm sm:text-base font-bold border border-amber-400/50 text-amber-200 bg-[#070f26]/60 backdrop-blur-md active:scale-[0.98] transition-all"
+                  className="btn-outline-white w-full sm:w-auto justify-center py-2.5 sm:py-3.5 px-4 sm:px-6 text-sm sm:text-base font-bold border border-amber-400/50 text-amber-200 bg-[#070f26]/60 backdrop-blur-md active:scale-[0.98] transition-all min-h-[40px] sm:min-h-[44px]"
                 >
                   Explore Services
                 </button>
@@ -349,8 +349,8 @@ export default function HeroBannerSlider({ setActivePublicTab, onOpenBookModal }
 
             <button 
               onClick={onOpenBookModal}
-              className="btn-gold" 
-              style={{ width: '100%', marginTop: '24px', justifyContent: 'center', fontSize: '0.92rem' }}
+              className="btn-gold w-full justify-center" 
+              style={{ marginTop: '16px', fontSize: '0.88rem', padding: '9px 16px', minHeight: '38px' }}
             >
               Discuss {currentSlide.category} Needs
             </button>

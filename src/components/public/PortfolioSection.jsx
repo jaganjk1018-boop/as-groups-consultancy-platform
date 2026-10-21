@@ -48,8 +48,8 @@ export default function PortfolioSection({ onOpenBookModal }) {
                   </div>
                 </div>
 
-                <button onClick={onOpenBookModal} className="btn-secondary" style={{ width: '100%', justifyContent: 'center' }}>
-                  Enquire Similar Strategy <ArrowUpRight size={16} />
+                <button onClick={onOpenBookModal} className="btn-secondary" style={{ width: '100%', minHeight: '38px', padding: '8px 14px', fontSize: '0.84rem', justifyContent: 'center' }}>
+                  Enquire Similar Strategy <ArrowUpRight size={15} />
                 </button>
               </div>
             </div>

@@ -30,31 +30,31 @@ export default function NotFound() {
         </p>
 
         {/* Action Buttons Grid */}
-        <div className="grid grid-cols-1 sm:grid-cols-2 gap-3 max-w-md mx-auto mb-8">
+        <div className="grid grid-cols-1 sm:grid-cols-2 gap-2.5 sm:gap-3 max-w-md mx-auto mb-8">
           <button
             onClick={() => navigate('/')}
-            className="flex items-center justify-center gap-2 py-3 px-5 rounded-xl bg-gradient-to-r from-amber-400 to-yellow-500 text-slate-950 font-black text-sm shadow-lg shadow-amber-500/20 hover:brightness-110 transition-all"
+            className="flex items-center justify-center gap-2 py-2.5 sm:py-3 px-4 sm:px-5 rounded-xl bg-gradient-to-r from-amber-400 to-yellow-500 text-slate-950 font-black text-xs sm:text-sm shadow-lg shadow-amber-500/20 hover:brightness-110 active:scale-95 transition-all min-h-[38px] sm:min-h-[44px]"
           >
             <Home className="w-4 h-4" /> Return to Homepage
           </button>
 
           <button
             onClick={() => navigate('/services')}
-            className="flex items-center justify-center gap-2 py-3 px-5 rounded-xl bg-white/10 hover:bg-white/15 text-white font-bold text-sm border border-white/15 transition-all"
+            className="flex items-center justify-center gap-2 py-2.5 sm:py-3 px-4 sm:px-5 rounded-xl bg-white/10 hover:bg-white/15 text-white font-bold text-xs sm:text-sm border border-white/15 active:scale-95 transition-all min-h-[38px] sm:min-h-[44px]"
           >
             <Briefcase className="w-4 h-4 text-amber-400" /> Explore Services
           </button>
 
           <button
             onClick={() => navigate('/contact')}
-            className="flex items-center justify-center gap-2 py-3 px-5 rounded-xl bg-white/10 hover:bg-white/15 text-white font-bold text-sm border border-white/15 transition-all"
+            className="flex items-center justify-center gap-2 py-2.5 sm:py-3 px-4 sm:px-5 rounded-xl bg-white/10 hover:bg-white/15 text-white font-bold text-xs sm:text-sm border border-white/15 active:scale-95 transition-all min-h-[38px] sm:min-h-[44px]"
           >
             <Phone className="w-4 h-4 text-emerald-400" /> Contact Advisory
           </button>
 
           <button
             onClick={() => navigate('/login')}
-            className="flex items-center justify-center gap-2 py-3 px-5 rounded-xl bg-white/10 hover:bg-white/15 text-white font-bold text-sm border border-white/15 transition-all"
+            className="flex items-center justify-center gap-2 py-2.5 sm:py-3 px-4 sm:px-5 rounded-xl bg-white/10 hover:bg-white/15 text-white font-bold text-xs sm:text-sm border border-white/15 active:scale-95 transition-all min-h-[38px] sm:min-h-[44px]"
           >
             <LogIn className="w-4 h-4 text-amber-300" /> Client & Admin Login
           </button>

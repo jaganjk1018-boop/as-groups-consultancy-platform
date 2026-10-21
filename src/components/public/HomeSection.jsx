@@ -162,8 +162,8 @@ export default function HomeSection({ setActivePublicTab, onOpenBookModal, onSel
                 </div>
               </div>
 
-              <button onClick={() => navigate('/about')} className="btn-gold w-full sm:w-auto justify-center py-3 px-6 active:scale-[0.98]">
-                Read Full CEO Profile & About Us <ArrowRight size={16} />
+              <button onClick={() => navigate('/about')} className="btn-gold w-auto sm:w-auto justify-center py-2 sm:py-2.5 px-4 sm:px-6 text-xs sm:text-sm font-bold active:scale-[0.98]">
+                Read Full CEO Profile & About Us <ArrowRight size={15} />
               </button>
             </div>
 
@@ -231,7 +231,7 @@ export default function HomeSection({ setActivePublicTab, onOpenBookModal, onSel
                         navigate(`/services/${service.id}`);
                       }}
                       className="btn-primary"
-                      style={{ width: '100%', justifyContent: 'center', fontSize: '0.85rem' }}
+                      style={{ width: '100%', minHeight: '38px', padding: '8px 14px', justifyContent: 'center', fontSize: '0.84rem' }}
                     >
                       {service.buttonText || 'Learn More'}
                     </button>
@@ -403,8 +403,8 @@ export default function HomeSection({ setActivePublicTab, onOpenBookModal, onSel
               </h3>
             </div>
 
-            <button onClick={onOpenBookModal} className="btn-gold w-full md:w-auto justify-center py-3 sm:py-3.5 px-6 text-sm sm:text-base font-black shrink-0 active:scale-[0.98]">
-              Book Strategic Session <ArrowRight size={17} />
+            <button onClick={onOpenBookModal} className="btn-gold w-auto md:w-auto justify-center py-2.5 sm:py-3.5 px-4 sm:px-6 text-xs sm:text-base font-black shrink-0 active:scale-[0.98]">
+              Book Strategic Session <ArrowRight size={15} />
             </button>
           </div>
 
@@ -478,11 +478,11 @@ export default function HomeSection({ setActivePublicTab, onOpenBookModal, onSel
             Whether you're starting a new business, looking to improve your marketing, expanding your operations or developing a new business idea, we're ready to understand your requirements.
           </p>
           
-          <div className="flex flex-col sm:flex-row gap-3 sm:gap-4 justify-center items-center w-full max-w-md sm:max-w-none mx-auto mb-4">
-            <button onClick={onOpenBookModal} className="btn-gold w-full sm:w-auto justify-center py-3.5 px-7 text-sm sm:text-base font-black shadow-lg shadow-amber-500/25 active:scale-[0.98]">
+          <div className="flex flex-col sm:flex-row gap-2.5 sm:gap-4 justify-center items-center w-full max-w-md sm:max-w-none mx-auto mb-4">
+            <button onClick={onOpenBookModal} className="btn-gold w-auto sm:w-auto justify-center py-2.5 sm:py-3.5 px-5 sm:px-7 text-xs sm:text-base font-black shadow-lg shadow-amber-500/25 active:scale-[0.98]">
               GET FREE CONSULTATION
             </button>
-            <button onClick={() => navigate('/contact')} className="btn-outline-white w-full sm:w-auto justify-center py-3.5 px-6 text-sm sm:text-base font-bold active:scale-[0.98]">
+            <button onClick={() => navigate('/contact')} className="btn-outline-white w-auto sm:w-auto justify-center py-2.5 sm:py-3.5 px-5 sm:px-6 text-xs sm:text-base font-bold active:scale-[0.98]">
               CONTACT AS GROUPS
             </button>
           </div>

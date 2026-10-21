@@ -1,3 +1,7 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
 /* AS Groups Consultancy Management Platform - Global Styling */
 
 :root {
@@ -172,28 +176,38 @@ button,
 .btn-secondary, 
 .btn-outline-white {
   -webkit-tap-highlight-color: transparent;
+  touch-action: manipulation;
+}
+
+/* Base button specifications */
+.btn-primary, 
+.btn-gold, 
+.btn-secondary, 
+.btn-outline-white {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: auto;
+  min-height: 38px;
+  padding: 8px 16px;
+  border-radius: var(--radius-md);
+  font-size: 0.88rem; /* ~14px */
+  line-height: 1.3;
+  gap: 8px;
+  cursor: pointer;
   user-select: none;
+  -webkit-user-select: none;
+  transition: all 0.2s cubic-bezier(0.16, 1, 0.3, 1);
+  box-sizing: border-box;
+  max-width: 100%;
 }
 
 .btn-primary {
   background: linear-gradient(135deg, #0f2b5c 0%, #1e3a8a 100%);
   color: white;
-  padding: 9px 18px;
-  border-radius: var(--radius-md);
   font-weight: 700;
   border: 1px solid rgba(212, 175, 55, 0.4);
-  cursor: pointer;
-  display: inline-flex;
-  align-items: center;
-  gap: 8px;
-  transition: all 0.2s cubic-bezier(0.16, 1, 0.3, 1);
   box-shadow: 0 4px 14px rgba(10, 25, 54, 0.25);
-}
-
-@media (min-width: 640px) {
-  .btn-primary {
-    padding: 10px 22px;
-  }
 }
 
 .btn-primary:hover {
@@ -210,22 +224,9 @@ button,
 .btn-gold {
   background: linear-gradient(135deg, #d4af37 0%, #c59b27 60%, #a1780b 100%);
   color: #0a1936;
-  padding: 10px 20px;
-  border-radius: var(--radius-md);
   font-weight: 800;
   border: none;
-  cursor: pointer;
-  display: inline-flex;
-  align-items: center;
-  gap: 8px;
-  transition: all 0.2s cubic-bezier(0.16, 1, 0.3, 1);
   box-shadow: 0 4px 14px rgba(197, 155, 39, 0.3);
-}
-
-@media (min-width: 640px) {
-  .btn-gold {
-    padding: 12px 26px;
-  }
 }
 
 .btn-gold:hover {
@@ -241,21 +242,8 @@ button,
 .btn-secondary {
   background: var(--bg-card-alt);
   color: var(--text-main);
-  padding: 9px 18px;
-  border-radius: var(--radius-md);
   font-weight: 600;
   border: 1px solid var(--border-color);
-  cursor: pointer;
-  display: inline-flex;
-  align-items: center;
-  gap: 8px;
-  transition: all 0.2s ease;
-}
-
-@media (min-width: 640px) {
-  .btn-secondary {
-    padding: 10px 20px;
-  }
 }
 
 .btn-secondary:hover {
@@ -271,20 +259,7 @@ button,
   background: transparent;
   color: white;
   border: 1px solid rgba(255, 255, 255, 0.3);
-  padding: 9px 18px;
-  border-radius: var(--radius-md);
   font-weight: 600;
-  cursor: pointer;
-  display: inline-flex;
-  align-items: center;
-  gap: 8px;
-  transition: all 0.2s ease;
-}
-
-@media (min-width: 640px) {
-  .btn-outline-white {
-    padding: 10px 20px;
-  }
 }
 
 .btn-outline-white:hover {
@@ -294,6 +269,22 @@ button,
 
 .btn-outline-white:active {
   transform: scale(0.97);
+}
+
+/* Desktop and Tablet Scaling (>= 768px) */
+@media (min-width: 768px) {
+  .btn-primary, 
+  .btn-gold, 
+  .btn-secondary, 
+  .btn-outline-white {
+    min-height: 44px;
+    padding: 10px 22px;
+    font-size: 0.94rem;
+  }
+  
+  .btn-gold {
+    padding: 11px 24px;
+  }
 }
 
 .hover-card {
@@ -422,48 +413,75 @@ button,
    Comprehensive Device Responsiveness & Touch-Optimized Button System
    ========================================================================== */
 
-/* Universal Touch & Click Feedback for All Devices */
-button, .btn-primary, .btn-gold, .btn-secondary, .btn-outline-white {
-  min-height: 44px;
-  touch-action: manipulation;
-  -webkit-tap-highlight-color: transparent;
-  user-select: none;
-  -webkit-user-select: none;
-}
-
-button:active, .btn-primary:active, .btn-gold:active, .btn-secondary:active, .btn-outline-white:active {
+/* Universal Touch & Click Feedback */
+button:active, 
+.btn-primary:active, 
+.btn-gold:active, 
+.btn-secondary:active, 
+.btn-outline-white:active {
   transform: scale(0.98);
 }
 
-/* Mobile Phones (Portrait & Landscape: 320px - 640px) */
-@media (max-width: 640px) {
+/* Mobile Screens (320px - 767px) */
+@media (max-width: 767px) {
   .container {
     padding: 0 16px !important;
   }
 
   h1 {
-    font-size: clamp(1.75rem, 7vw, 2.5rem) !important;
+    font-size: clamp(1.65rem, 6.5vw, 2.3rem) !important;
   }
 
   h2 {
-    font-size: clamp(1.45rem, 5.5vw, 2.1rem) !important;
+    font-size: clamp(1.35rem, 5vw, 1.9rem) !important;
   }
 
-  /* Universal Mobile Button Scaling & Touch Target Handling */
-  .btn-primary, .btn-gold, .btn-secondary, .btn-outline-white {
-    width: 100% !important;
-    justify-content: center !important;
-    text-align: center !important;
-    padding: 12px 18px !important;
-    font-size: 0.9rem !important;
-    min-height: 46px !important;
+  /* Compact, Touch-Friendly Mobile Buttons */
+  .btn-primary, 
+  .btn-gold, 
+  .btn-secondary, 
+  .btn-outline-white {
+    width: auto;
+    max-width: 100%;
+    min-height: 38px;
+    padding: 8px 16px;
+    font-size: 0.88rem; /* ~14px */
+    letter-spacing: -0.01em;
+    gap: 6px;
   }
 
-  /* Responsive Button Containers on Small Mobile Screens */
-  div[style*="display: 'flex'"][style*="gap: '16px'"],
-  div[style*="display: 'flex'"][style*="gap: '12px'"] {
-    flex-direction: column !important;
-    width: 100% !important;
+  /* Full-width buttons only when explicitly required (e.g. form submissions) */
+  .btn-full,
+  .w-full.btn-primary,
+  .w-full.btn-gold,
+  .w-full.btn-secondary,
+  .w-full.btn-outline-white,
+  form button[type="submit"] {
+    width: 100%;
+    justify-content: center;
+    text-align: center;
+    min-height: 42px;
+  }
+
+  /* When two buttons appear together in a flex container on mobile */
+  .btn-group-responsive,
+  .btn-pair-responsive {
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    gap: 8px;
+    width: 100%;
+  }
+
+  .btn-group-responsive > button,
+  .btn-group-responsive > a,
+  .btn-pair-responsive > button,
+  .btn-pair-responsive > a {
+    flex: 1;
+    min-height: 38px;
+    padding: 8px 12px;
+    font-size: 0.84rem;
+    justify-content: center;
   }
 
   /* Form Grid Responsiveness on Mobile */
@@ -475,19 +493,20 @@ button:active, .btn-primary:active, .btn-gold:active, .btn-secondary:active, .bt
 
   /* Cards Padding on Mobile */
   .hover-card, .glass-panel, .dark-glass {
-    padding: 18px !important;
+    padding: 16px !important;
   }
 }
 
-/* Tablets & Medium Displays (641px - 1024px) */
-@media (min-width: 641px) and (max-width: 1024px) {
+/* Tablets & Medium Displays (768px - 1024px) */
+@media (min-width: 768px) and (max-width: 1024px) {
   .container {
     padding: 0 24px !important;
   }
 
   .btn-primary, .btn-gold, .btn-secondary, .btn-outline-white {
-    padding: 11px 20px !important;
-    font-size: 0.9rem !important;
+    padding: 10px 20px;
+    font-size: 0.92rem;
+    min-height: 42px;
   }
 }
 

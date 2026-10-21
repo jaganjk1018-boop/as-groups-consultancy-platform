@@ -232,7 +232,7 @@ export default function Header({
         <div className="flex items-center gap-2 sm:gap-3 shrink-0">
           <button
             onClick={onOpenBookModal}
-            className="btn-gold text-xs py-1.5 px-3 sm:py-2.5 sm:px-4 font-black shadow-md shadow-amber-500/20 flex items-center gap-1.5 sm:gap-2 active:scale-95 transition-all"
+            className="btn-gold text-xs h-9 sm:h-10 py-1.5 px-3 sm:py-2 sm:px-4 font-black shadow-md shadow-amber-500/20 flex items-center gap-1.5 sm:gap-2 active:scale-95 transition-all"
           >
             <Calendar size={13} className="shrink-0" />
             <span className="hidden sm:inline">Get Free Consultation</span>
@@ -242,10 +242,10 @@ export default function Header({
           {/* Mobile Hamburger Menubar Toggle Button */}
           <button
             onClick={() => setIsMobileMenuOpen(!isMobileMenuOpen)}
-            className="lg:hidden p-2 sm:p-2.5 rounded-xl bg-white/10 text-amber-400 border border-amber-400/30 hover:bg-white/20 active:scale-95 transition-all"
+            className="lg:hidden h-9 w-9 sm:h-10 sm:w-10 rounded-xl bg-white/10 text-amber-400 border border-amber-400/30 hover:bg-white/20 active:scale-95 transition-all flex items-center justify-center"
             aria-label="Toggle Menubar"
           >
-            {isMobileMenuOpen ? <X size={20} /> : <Menu size={20} />}
+            {isMobileMenuOpen ? <X size={18} /> : <Menu size={18} />}
           </button>
         </div>
 
@@ -288,7 +288,7 @@ export default function Header({
               <div className="pt-4 border-t border-white/10 space-y-2">
                 <button
                   onClick={() => { navigate('/login'); setIsMobileMenuOpen(false); }}
-                  className="w-full flex items-center justify-center gap-2 text-xs font-black py-3 rounded-xl bg-gradient-to-r from-amber-400 to-amber-500 text-slate-950 shadow-md hover:brightness-110 transition-all"
+                  className="w-full flex items-center justify-center gap-2 text-xs font-black py-2.5 min-h-[40px] rounded-xl bg-gradient-to-r from-amber-400 to-amber-500 text-slate-950 shadow-md hover:brightness-110 active:scale-95 transition-all"
                 >
                   <LogIn size={16} /> Login
                 </button>
@@ -298,7 +298,7 @@ export default function Header({
             <div className="space-y-2">
               <button
                 onClick={() => { navigate('/client-dashboard'); setIsMobileMenuOpen(false); }}
-                className="w-full flex items-center justify-center gap-2 text-xs font-black py-3 rounded-xl bg-amber-400 text-slate-950 shadow-md"
+                className="w-full flex items-center justify-center gap-2 text-xs font-black py-2.5 min-h-[40px] rounded-xl bg-amber-400 text-slate-950 shadow-md active:scale-95 transition-all"
               >
                 <UserCheck size={16} /> Client Page
               </button>
@@ -307,13 +307,13 @@ export default function Header({
             <div className="space-y-2">
               <button
                 onClick={() => { setCurrentRole('public'); setActivePublicTab('home'); navigate('/'); setIsMobileMenuOpen(false); }}
-                className="w-full flex items-center justify-center gap-2 text-xs font-bold py-2.5 rounded-xl bg-white/5 text-slate-200 border border-white/10 mb-2"
+                className="w-full flex items-center justify-center gap-2 text-xs font-bold py-2.5 min-h-[40px] rounded-xl bg-white/5 text-slate-200 border border-white/10 mb-2 active:scale-95 transition-all"
               >
                 <Home size={15} className="text-amber-400" /> Public Portal
               </button>
               <button
                 onClick={() => { navigate('/admin-dashboard'); setIsMobileMenuOpen(false); }}
-                className="w-full flex items-center justify-center gap-2 text-xs font-black py-3 rounded-xl bg-amber-400 text-slate-950 shadow-md"
+                className="w-full flex items-center justify-center gap-2 text-xs font-black py-2.5 min-h-[40px] rounded-xl bg-amber-400 text-slate-950 shadow-md active:scale-95 transition-all"
               >
                 <ShieldCheck size={16} /> Admin Page
               </button>
