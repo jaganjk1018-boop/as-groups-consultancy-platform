@@ -43,27 +43,27 @@ export default function ClientLogin({ onLoginSuccess }) {
   };
 
   return (
-    <div className="min-h-screen relative flex items-center justify-center bg-gradient-to-br from-[#070f26] via-[#0a1936] to-[#040918] p-6 text-white font-sans overflow-hidden">
+    <div className="min-h-screen relative flex items-center justify-center bg-gradient-to-br from-[#071D42] via-[#0B2D68] to-[#071D42] p-6 text-white font-sans overflow-hidden">
       {/* Background Gold Orbs */}
-      <div className="absolute top-1/4 left-1/4 w-96 h-96 rounded-full bg-amber-500/15 blur-[140px] pointer-events-none"></div>
+      <div className="absolute top-1/4 left-1/4 w-96 h-96 rounded-full bg-[#C9A044]/15 blur-[140px] pointer-events-none"></div>
 
-      <div className="relative z-10 w-full max-w-md bg-[#0a1936]/85 backdrop-blur-2xl border border-amber-500/35 rounded-3xl p-8 shadow-[0_0_50px_rgba(212,175,55,0.15)] animate-fade-in overflow-hidden">
+      <div className="relative z-10 w-full max-w-md bg-[#0B2D68]/95 backdrop-blur-2xl border border-[#C9A044]/35 rounded-3xl p-8 shadow-[0_12px_40px_rgba(11,45,104,0.4)] animate-fade-in overflow-hidden">
         
         {/* Subtle Accent Gold Highlight Bar */}
-        <div className="absolute top-0 left-0 right-0 h-1 bg-gradient-to-r from-amber-500 via-yellow-300 to-amber-600"></div>
+        <div className="absolute top-0 left-0 right-0 h-1 bg-[#C9A044]"></div>
 
         {/* Top Header & Back Link */}
         <div className="flex items-center justify-between mb-6">
           <button
             onClick={() => navigate('/')}
-            className="inline-flex items-center gap-1.5 text-xs font-bold text-amber-300 hover:text-white transition-colors"
+            className="inline-flex items-center gap-1.5 text-xs font-bold text-[#C9A044] hover:text-white transition-colors"
           >
             <ArrowLeft className="w-3.5 h-3.5" /> Main Site
           </button>
 
           <button
             onClick={() => navigate('/login-select')}
-            className="text-[11px] font-extrabold text-amber-400 hover:underline"
+            className="text-[11px] font-extrabold text-[#C9A044] hover:underline"
           >
             Role Selection
           </button>
@@ -71,43 +71,43 @@ export default function ClientLogin({ onLoginSuccess }) {
 
         {/* App Logo Branding */}
         <div className="flex justify-center mb-5">
-          <img src="/logo.png" alt="AS GROUPS Logo" className="h-14 w-auto object-contain rounded-xl bg-white/10 p-1.5 border border-amber-400/30 shadow-xl" />
+          <img src="/logo.png" alt="AS GROUPS Logo" className="h-14 w-auto object-contain rounded-xl bg-white/10 p-1.5 border border-[#C9A044]/40 shadow-xl" />
         </div>
 
         {/* Role Switcher Tabs (Client vs Admin) */}
-        <div className="flex items-center p-1.5 rounded-2xl bg-[#070f26] border border-amber-500/30 mb-6">
+        <div className="flex items-center p-1.5 rounded-2xl bg-[#071D42] border border-[#C9A044]/30 mb-6">
           <button
             type="button"
-            className="flex-1 py-2.5 px-3 rounded-xl text-xs font-black bg-gradient-to-r from-amber-400 to-amber-500 text-slate-950 shadow-md flex items-center justify-center gap-1.5"
+            className="flex-1 py-2.5 px-3 rounded-xl text-xs font-black bg-[#C9A044] text-[#0B2D68] shadow-md flex items-center justify-center gap-1.5"
           >
-            <UserCheck className="w-4 h-4" /> Client Login
+            <UserCheck className="w-4 h-4 text-[#0B2D68]" /> Client Login
           </button>
           <button
             type="button"
             onClick={() => navigate('/admin-login')}
-            className="flex-1 py-2.5 px-3 rounded-xl text-xs font-bold text-slate-300 hover:text-white hover:bg-white/5 transition-all flex items-center justify-center gap-1.5"
+            className="flex-1 py-2.5 px-3 rounded-xl text-xs font-bold text-white/80 hover:text-white hover:bg-white/5 transition-all flex items-center justify-center gap-1.5"
           >
-            <ShieldCheck className="w-4 h-4" /> Switch to Admin
+            <ShieldCheck className="w-4 h-4 text-[#C9A044]" /> Switch to Admin
           </button>
         </div>
 
         {/* Card Title */}
         <div className="mb-6">
           <h2 className="text-2xl font-heading font-extrabold text-white">Client Portal Sign In</h2>
-          <p className="text-xs text-amber-200/80 mt-1">Access your consultation history, reports & appointments.</p>
+          <p className="text-xs text-white/80 mt-1">Access your consultation history, reports & appointments.</p>
         </div>
 
         {/* Quick 1-Click Demo Login Banner */}
-        <div className="mb-5 p-3 rounded-xl bg-[#070f26]/80 border border-amber-500/30 flex items-center justify-between">
+        <div className="mb-5 p-3 rounded-xl bg-[#071D42]/80 border border-[#C9A044]/30 flex items-center justify-between">
           <div className="text-xs">
-            <span className="font-extrabold text-amber-300 flex items-center gap-1">
-              <Zap className="w-3.5 h-3.5 text-amber-400" /> Instant Demo Client Access
+            <span className="font-extrabold text-[#C9A044] flex items-center gap-1">
+              <Zap className="w-3.5 h-3.5 text-[#C9A044]" /> Instant Demo Client Access
             </span>
-            <span className="text-[11px] text-slate-400">Anita Roy (SilkRoute Exim)</span>
+            <span className="text-[11px] text-white/70">Anita Roy (SilkRoute Exim)</span>
           </div>
           <button
             onClick={handleQuickClientLogin}
-            className="px-3 py-1.5 rounded-lg bg-amber-400 hover:bg-amber-300 text-slate-950 font-black text-xs transition-all shadow-md"
+            className="px-3 py-1.5 rounded-lg bg-[#C9A044] hover:bg-[#d8b053] text-[#0B2D68] font-black text-xs transition-all shadow-md"
           >
             1-Click Login
           </button>
@@ -116,44 +116,44 @@ export default function ClientLogin({ onLoginSuccess }) {
         {/* Form */}
         <form onSubmit={handleSubmit} className="space-y-4">
           <div>
-            <label className="block text-xs font-extrabold text-amber-200/90 mb-1.5">Registered Work Email</label>
+            <label className="block text-xs font-extrabold text-white/90 mb-1.5">Registered Work Email</label>
             <div className="relative">
-              <Mail className="w-4 h-4 text-amber-400/70 absolute left-3.5 top-1/2 -translate-y-1/2" />
+              <Mail className="w-4 h-4 text-[#C9A044] absolute left-3.5 top-1/2 -translate-y-1/2" />
               <input
                 type="email"
                 required
                 value={email}
                 onChange={e => setEmail(e.target.value)}
                 placeholder="client@company.com"
-                className="w-full bg-[#070f26]/90 border border-amber-500/30 rounded-xl pl-10 pr-4 py-2.5 text-sm text-white placeholder-slate-500 focus:outline-none focus:border-amber-400 focus:ring-1 focus:ring-amber-400/50 transition-all"
+                className="w-full bg-[#071D42] border border-[#C9A044]/30 rounded-xl pl-10 pr-4 py-2.5 text-sm text-white placeholder-white/40 focus:outline-none focus:border-[#C9A044] focus:ring-1 focus:ring-[#C9A044]/50 transition-all"
               />
             </div>
           </div>
 
           <div>
-            <label className="block text-xs font-extrabold text-amber-200/90 mb-1.5">Password</label>
+            <label className="block text-xs font-extrabold text-white/90 mb-1.5">Password</label>
             <div className="relative">
-              <Lock className="w-4 h-4 text-amber-400/70 absolute left-3.5 top-1/2 -translate-y-1/2" />
+              <Lock className="w-4 h-4 text-[#C9A044] absolute left-3.5 top-1/2 -translate-y-1/2" />
               <input
                 type="password"
                 required
                 value={password}
                 onChange={e => setPassword(e.target.value)}
                 placeholder="Enter password"
-                className="w-full bg-[#070f26]/90 border border-amber-500/30 rounded-xl pl-10 pr-4 py-2.5 text-sm text-white placeholder-slate-500 focus:outline-none focus:border-amber-400 focus:ring-1 focus:ring-amber-400/50 transition-all"
+                className="w-full bg-[#071D42] border border-[#C9A044]/30 rounded-xl pl-10 pr-4 py-2.5 text-sm text-white placeholder-white/40 focus:outline-none focus:border-[#C9A044] focus:ring-1 focus:ring-[#C9A044]/50 transition-all"
               />
             </div>
           </div>
 
-          <div className="flex items-center justify-between text-xs text-slate-400">
+          <div className="flex items-center justify-between text-xs text-white/70">
             <label className="flex items-center gap-2 cursor-pointer">
-              <input type="checkbox" defaultChecked className="rounded accent-amber-400" />
+              <input type="checkbox" defaultChecked className="rounded accent-[#C9A044]" />
               <span>Remember account</span>
             </label>
             <button
               type="button"
               onClick={() => setIsForgotPasswordOpen(true)}
-              className="text-amber-400 hover:text-amber-300 hover:underline font-semibold bg-transparent p-0 border-none cursor-pointer"
+              className="text-[#C9A044] hover:underline font-semibold bg-transparent p-0 border-none cursor-pointer"
             >
               Forgot password?
             </button>
@@ -161,7 +161,7 @@ export default function ClientLogin({ onLoginSuccess }) {
 
           <button
             type="submit"
-            className="w-full py-3.5 px-4 rounded-xl bg-gradient-to-r from-amber-400 via-amber-300 to-yellow-500 font-black text-sm text-slate-950 flex items-center justify-center gap-2 hover:brightness-110 shadow-lg shadow-amber-500/25 transition-all mt-4"
+            className="w-full py-3 px-4 rounded-xl bg-[#C9A044] hover:bg-[#d8b053] font-bold text-sm text-[#0B2D68] flex items-center justify-center gap-2 shadow-lg shadow-[#C9A044]/20 transition-all mt-4"
           >
             <span>Sign In to Client Portal</span>
             <ArrowRight className="w-4 h-4" />
@@ -170,9 +170,9 @@ export default function ClientLogin({ onLoginSuccess }) {
           {/* Divider */}
           <div className="relative my-4 flex items-center justify-center">
             <div className="absolute inset-0 flex items-center">
-              <div className="w-full border-t border-amber-500/20"></div>
+              <div className="w-full border-t border-[#C9A044]/20"></div>
             </div>
-            <span className="relative bg-[#0a1936] px-3 text-[11px] font-extrabold text-amber-300 uppercase tracking-widest">
+            <span className="relative bg-[#0B2D68] px-3 text-[11px] font-extrabold text-[#C9A044] uppercase tracking-widest">
               Or continue with
             </span>
           </div>

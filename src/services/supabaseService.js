@@ -52,16 +52,21 @@ export const supabaseService = {
     }
   },
 
-  // Fetch Enquiries from Supabase / Backend API
+  // Fetch Enquiries from Supabase / Backend API (Admin Protected)
   async getEnquiries() {
+    const serverData = await api.fetchEnquiries();
+    if (Array.isArray(serverData)) return serverData;
     const data = await supabaseQuery('enquiries?select=*&order=id.desc');
     if (Array.isArray(data) && data.length > 0 && !data.error && !data.code) return data;
-    return await api.fetchEnquiries();
+    return [];
   },
 
-  // Insert Customer Enquiry into Supabase + Local Backends
+  // Insert Customer Enquiry into Database & Trigger Sequential Email Workflow
   async createEnquiry(enquiryData) {
-    let supabaseResult = null;
+    // 1. Primary: Send to secure server API which inserts into Postgres and dispatches emails
+    const localResult = await api.createEnquiry(enquiryData);
+
+    // 2. Secondary backup: Supabase REST
     try {
       const payload = {
         name: enquiryData.name,
@@ -71,27 +76,16 @@ export const supabaseService = {
         service: enquiryData.service || enquiryData.serviceRequired || 'Consulting Service',
         message: enquiryData.message || enquiryData.requirement || ''
       };
+      await supabaseQuery('enquiries', { method: 'POST', body: payload });
+    } catch (e) {}
 
-      const res = await supabaseQuery('enquiries', {
-        method: 'POST',
-        body: payload
-      });
-
-      if (Array.isArray(res) && res.length > 0) {
-        supabaseResult = res[0];
-      } else if (res && !res.error && !res.code) {
-        supabaseResult = res;
-      }
-    } catch (e) {
-      console.warn('Supabase cloud enquiry insert warning, sending to backend servers.', e);
-    }
-
-    const localResult = await api.createEnquiry(enquiryData);
-    return supabaseResult || localResult;
+    return localResult;
   },
 
   // Fetch Leads from Supabase / SQLite
   async getLeads() {
+    const serverLeads = await api.fetchLeads();
+    if (Array.isArray(serverLeads) && serverLeads.length > 0) return serverLeads;
     const data = await supabaseQuery('leads?select=*&order=date.desc');
     if (Array.isArray(data) && data.length > 0 && !data.error && !data.code) return data;
     return await api.fetchLeads();

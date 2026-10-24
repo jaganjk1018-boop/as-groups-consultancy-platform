@@ -110,7 +110,7 @@ export default function ServicesSection({ onOpenBookModal, selectedServiceId, se
   };
 
   return (
-    <div style={{ padding: '60px 0 80px', background: 'var(--bg-main)' }}>
+    <div style={{ padding: '60px 0 80px', background: 'var(--color-light-bg)' }}>
       <div className="container">
         
         {/* Section Header */}
@@ -118,22 +118,22 @@ export default function ServicesSection({ onOpenBookModal, selectedServiceId, se
           <span className="badge badge-gold" style={{ marginBottom: '12px', fontSize: '0.82rem', fontWeight: 800 }}>
             ✨ AS GROUPS COMPREHENSIVE ADVISORY PRACTICES
           </span>
-          <h1 className="text-navy-heading" style={{ fontSize: 'clamp(1.75rem, 4.5vw, 2.7rem)', fontWeight: 900, marginBottom: '16px', letterSpacing: '-0.02em', lineHeight: 1.2 }}>
+          <h1 className="text-navy-heading" style={{ fontSize: 'clamp(1.75rem, 4.5vw, 2.7rem)', fontWeight: 900, marginBottom: '16px', letterSpacing: '-0.02em', lineHeight: 1.2, color: 'var(--color-primary-navy)' }}>
             Interactive Consultancy Services & Strategic Hub
           </h1>
-          <p style={{ fontSize: '1.1rem', color: 'var(--text-muted)', lineHeight: 1.7 }}>
+          <p style={{ fontSize: '1.1rem', color: 'var(--color-secondary-gray)', lineHeight: 1.7 }}>
             Explore deep execution roadmaps, deliverables, ROI benchmarks, and customizable consulting packages across our 8 specialized domain practices.
           </p>
         </div>
 
         {/* Filter Toolbar & Search Bar */}
-        <div style={{ background: 'white', borderRadius: '16px', padding: '18px 24px', border: '1px solid var(--border-color)', boxShadow: 'var(--shadow-sm)', marginBottom: '36px', display: 'flex', flexDirection: 'column', gap: '16px' }}>
+        <div style={{ background: 'white', borderRadius: '16px', padding: '18px 24px', border: '1px solid var(--color-border-gray)', boxShadow: '0 4px 16px rgba(11,45,104,0.04)', marginBottom: '36px', display: 'flex', flexDirection: 'column', gap: '16px' }}>
           
           <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', flexWrap: 'wrap', gap: '16px' }}>
             
             {/* Search Input */}
             <div style={{ position: 'relative', flex: '1 1 280px', maxWidth: '400px' }}>
-              <Search size={18} color="#94a3b8" style={{ position: 'absolute', left: '14px', top: '50%', transform: 'translateY(-50%)' }} />
+              <Search size={18} color="#6B7280" style={{ position: 'absolute', left: '14px', top: '50%', transform: 'translateY(-50%)' }} />
               <input
                 type="text"
                 placeholder="Search services, features, or industries..."
@@ -143,15 +143,16 @@ export default function ServicesSection({ onOpenBookModal, selectedServiceId, se
                   width: '100%',
                   padding: '10px 14px 10px 42px',
                   borderRadius: '10px',
-                  border: '1px solid #cbd5e1',
+                  border: '1px solid var(--color-border-gray)',
                   fontSize: '0.92rem',
-                  outline: 'none'
+                  outline: 'none',
+                  background: 'var(--color-light-bg)'
                 }}
               />
             </div>
 
             {/* View Mode Toggle Switch */}
-            <div style={{ display: 'flex', items: 'center', gap: '8px', background: '#f1f5f9', padding: '4px', borderRadius: '10px', border: '1px solid #e2e8f0' }}>
+            <div style={{ display: 'flex', alignItems: 'center', gap: '8px', background: 'var(--color-light-bg)', padding: '4px', borderRadius: '10px', border: '1px solid var(--color-border-gray)' }}>
               <button
                 onClick={() => setViewMode('workspace')}
                 style={{
@@ -164,9 +165,9 @@ export default function ServicesSection({ onOpenBookModal, selectedServiceId, se
                   fontSize: '0.82rem',
                   fontWeight: 800,
                   cursor: 'pointer',
-                  background: viewMode === 'workspace' ? '#0a1936' : 'transparent',
-                  color: viewMode === 'workspace' ? '#fef08a' : '#64748b',
-                  boxShadow: viewMode === 'workspace' ? '0 2px 8px rgba(0,0,0,0.15)' : 'none',
+                  background: viewMode === 'workspace' ? '#0B2D68' : 'transparent',
+                  color: viewMode === 'workspace' ? '#DFC16E' : '#6B7280',
+                  boxShadow: viewMode === 'workspace' ? '0 2px 8px rgba(11,45,104,0.2)' : 'none',
                   transition: 'all 0.2s ease'
                 }}
               >
@@ -184,9 +185,9 @@ export default function ServicesSection({ onOpenBookModal, selectedServiceId, se
                   fontSize: '0.82rem',
                   fontWeight: 800,
                   cursor: 'pointer',
-                  background: viewMode === 'grid' ? '#0a1936' : 'transparent',
-                  color: viewMode === 'grid' ? '#fef08a' : '#64748b',
-                  boxShadow: viewMode === 'grid' ? '0 2px 8px rgba(0,0,0,0.15)' : 'none',
+                  background: viewMode === 'grid' ? '#0B2D68' : 'transparent',
+                  color: viewMode === 'grid' ? '#DFC16E' : '#6B7280',
+                  boxShadow: viewMode === 'grid' ? '0 2px 8px rgba(11,45,104,0.2)' : 'none',
                   transition: 'all 0.2s ease'
                 }}
               >
@@ -197,7 +198,7 @@ export default function ServicesSection({ onOpenBookModal, selectedServiceId, se
           </div>
 
           {/* Category Filter Pills */}
-          <div style={{ display: 'flex', flexWrap: 'wrap', gap: '8px', borderTop: '1px solid #f1f5f9', paddingTop: '14px' }}>
+          <div style={{ display: 'flex', flexWrap: 'wrap', gap: '8px', borderTop: '1px solid var(--color-border-gray)', paddingTop: '14px' }}>
             {CATEGORIES.map(cat => (
               <button
                 key={cat}
@@ -207,9 +208,9 @@ export default function ServicesSection({ onOpenBookModal, selectedServiceId, se
                   borderRadius: '99px',
                   fontSize: '0.82rem',
                   fontWeight: 700,
-                  border: selectedCategory === cat ? '1px solid #d4af37' : '1px solid #e2e8f0',
-                  background: selectedCategory === cat ? 'linear-gradient(135deg, #0a1936, #1e3a8a)' : '#f8fafc',
-                  color: selectedCategory === cat ? '#fef08a' : '#475569',
+                  border: selectedCategory === cat ? '1px solid #C9A044' : '1px solid var(--color-border-gray)',
+                  background: selectedCategory === cat ? '#0B2D68' : 'var(--color-light-bg)',
+                  color: selectedCategory === cat ? '#DFC16E' : 'var(--color-dark-text)',
                   cursor: 'pointer',
                   transition: 'all 0.2s ease'
                 }}
@@ -249,12 +250,12 @@ export default function ServicesSection({ onOpenBookModal, selectedServiceId, se
                         justifyContent: 'space-between',
                         padding: '14px 18px',
                         borderRadius: 'var(--radius-md)',
-                        border: isSelected ? '2px solid #c59b27' : '1px solid var(--border-color)',
-                        background: isSelected ? '#0a1936' : 'var(--bg-card)',
-                        color: isSelected ? '#fef08a' : '#334155',
+                        border: isSelected ? '2px solid #C9A044' : '1px solid var(--color-border-gray)',
+                        background: isSelected ? '#0B2D68' : 'white',
+                        color: isSelected ? '#DFC16E' : 'var(--color-dark-text)',
                         fontWeight: isSelected ? 800 : 600,
                         cursor: 'pointer',
-                        boxShadow: isSelected ? '0 8px 24px rgba(10, 25, 54, 0.25)' : 'none',
+                        boxShadow: isSelected ? '0 8px 20px rgba(11, 45, 104, 0.2)' : 'none',
                         transition: 'all 0.25s ease',
                         textAlign: 'left'
                       }}
@@ -264,22 +265,22 @@ export default function ServicesSection({ onOpenBookModal, selectedServiceId, se
                           width: '36px',
                           height: '36px',
                           borderRadius: '10px',
-                          background: isSelected ? 'rgba(212,175,55,0.2)' : '#f1f5f9',
-                          color: isSelected ? '#fef08a' : '#475569',
+                          background: isSelected ? 'rgba(201,160,68,0.2)' : 'var(--color-light-bg)',
+                          color: isSelected ? '#DFC16E' : 'var(--color-secondary-gray)',
                           display: 'flex',
                           alignItems: 'center',
                           justifyContent: 'center',
-                          border: isSelected ? '1px solid rgba(212,175,55,0.4)' : 'none',
+                          border: isSelected ? '1px solid rgba(201,160,68,0.4)' : '1px solid var(--color-border-gray)',
                           flexShrink: 0
                         }}>
                           <Icon size={18} />
                         </div>
                         <div>
                           <div style={{ fontSize: '0.9rem', lineHeight: 1.3 }}>{s.title}</div>
-                          <div style={{ fontSize: '0.72rem', color: isSelected ? '#94a3b8' : '#64748b', fontWeight: 600, marginTop: '2px' }}>{s.category}</div>
+                          <div style={{ fontSize: '0.72rem', color: isSelected ? '#E5E7EB' : 'var(--color-secondary-gray)', fontWeight: 600, marginTop: '2px' }}>{s.category}</div>
                         </div>
                       </div>
-                      {isSelected && <ArrowRight size={16} className="text-amber-400" style={{ flexShrink: 0 }} />}
+                      {isSelected && <ArrowRight size={16} color="#DFC16E" style={{ flexShrink: 0 }} />}
                     </button>
                   );
                 })
@@ -287,60 +288,60 @@ export default function ServicesSection({ onOpenBookModal, selectedServiceId, se
             </div>
 
             {/* Right Selected Service Detail Workspace */}
-            <div style={{ background: 'white', borderRadius: 'var(--radius-lg)', padding: '36px', border: '1px solid var(--border-color)', boxShadow: 'var(--shadow-lg)' }}>
+            <div style={{ background: 'white', borderRadius: 'var(--radius-lg)', padding: '36px', border: '1px solid var(--color-border-gray)', boxShadow: '0 8px 30px rgba(11,45,104,0.06)' }}>
               
               {/* Service Title Header */}
-              <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'flex-start', flexWrap: 'wrap', gap: '20px', marginBottom: '24px', paddingBottom: '20px', borderBottom: '1px solid #f1f5f9' }}>
+              <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'flex-start', flexWrap: 'wrap', gap: '20px', marginBottom: '24px', paddingBottom: '20px', borderBottom: '1px solid var(--color-border-gray)' }}>
                 <div style={{ display: 'flex', alignItems: 'center', gap: '18px' }}>
-                  <div style={{ width: '64px', height: '64px', borderRadius: '16px', background: 'linear-gradient(135deg, #0a1936, #1e3a8a)', color: '#d4af37', display: 'flex', alignItems: 'center', justifyContent: 'center', boxShadow: '0 8px 24px rgba(10, 25, 54, 0.3)', border: '1px solid rgba(212,175,55,0.3)', flexShrink: 0 }}>
+                  <div style={{ width: '64px', height: '64px', borderRadius: '16px', background: 'linear-gradient(135deg, #0B2D68, #174A96)', color: '#DFC16E', display: 'flex', alignItems: 'center', justifyContent: 'center', boxShadow: '0 8px 24px rgba(11, 45, 104, 0.25)', border: '1px solid rgba(201,160,68,0.35)', flexShrink: 0 }}>
                     <IconComponent size={32} />
                   </div>
                   <div>
                     <div style={{ display: 'flex', alignItems: 'center', gap: '8px', marginBottom: '4px' }}>
                       <span className="badge badge-gold" style={{ fontSize: '0.75rem' }}>{selectedService.badge}</span>
-                      <span style={{ fontSize: '0.75rem', color: '#2563eb', background: '#dbeafe', fontWeight: 700, padding: '2px 10px', borderRadius: '99px' }}>{selectedService.category}</span>
+                      <span style={{ fontSize: '0.75rem', color: '#0B2D68', background: 'rgba(11,45,104,0.08)', fontWeight: 700, padding: '2px 10px', borderRadius: '99px' }}>{selectedService.category}</span>
                     </div>
-                    <h2 style={{ fontSize: '1.9rem', color: '#0a1936', fontWeight: 900, lineHeight: 1.2 }}>{selectedService.title}</h2>
+                    <h2 style={{ fontSize: '1.9rem', color: 'var(--color-primary-navy)', fontWeight: 900, lineHeight: 1.2 }}>{selectedService.title}</h2>
                   </div>
                 </div>
 
-                <button onClick={() => onOpenBookModal && onOpenBookModal(selectedService.id)} className="btn-gold w-auto justify-center py-2 sm:py-2.5 px-3.5 sm:px-5 text-xs sm:text-sm font-bold">
+                <button onClick={() => onOpenBookModal && onOpenBookModal(selectedService.id)} className="btn-primary w-auto justify-center py-2 sm:py-2.5 px-3.5 sm:px-5 text-xs sm:text-sm font-bold">
                   <Calendar size={16} /> Request {selectedService.title} Meeting
                 </button>
               </div>
 
               {/* Service Meta Stats Row */}
               <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(200px, 1fr))', gap: '14px', marginBottom: '28px' }}>
-                <div style={{ background: '#f8fafc', padding: '12px 16px', borderRadius: '10px', border: '1px solid #e2e8f0' }}>
-                  <div style={{ fontSize: '0.75rem', fontWeight: 800, color: '#64748b', textTransform: 'uppercase', display: 'flex', alignItems: 'center', gap: '6px' }}>
-                    <Clock size={14} color="#d4af37" /> Engagement Duration
+                <div style={{ background: 'var(--color-light-bg)', padding: '12px 16px', borderRadius: '10px', border: '1px solid var(--color-border-gray)' }}>
+                  <div style={{ fontSize: '0.75rem', fontWeight: 800, color: 'var(--color-secondary-gray)', textTransform: 'uppercase', display: 'flex', alignItems: 'center', gap: '6px' }}>
+                    <Clock size={14} color="#C9A044" /> Engagement Duration
                   </div>
-                  <div style={{ fontSize: '0.92rem', fontWeight: 800, color: '#0f172a', marginTop: '4px' }}>
+                  <div style={{ fontSize: '0.92rem', fontWeight: 800, color: 'var(--color-dark-text)', marginTop: '4px' }}>
                     {selectedService.duration || '2 - 4 Weeks Setup'}
                   </div>
                 </div>
 
-                <div style={{ background: '#f8fafc', padding: '12px 16px', borderRadius: '10px', border: '1px solid #e2e8f0' }}>
-                  <div style={{ fontSize: '0.75rem', fontWeight: 800, color: '#64748b', textTransform: 'uppercase', display: 'flex', alignItems: 'center', gap: '6px' }}>
-                    <BarChart3 size={14} color="#059669" /> Target Impact / ROI
+                <div style={{ background: 'var(--color-light-bg)', padding: '12px 16px', borderRadius: '10px', border: '1px solid var(--color-border-gray)' }}>
+                  <div style={{ fontSize: '0.75rem', fontWeight: 800, color: 'var(--color-secondary-gray)', textTransform: 'uppercase', display: 'flex', alignItems: 'center', gap: '6px' }}>
+                    <BarChart3 size={14} color="#C9A044" /> Target Impact / ROI
                   </div>
-                  <div style={{ fontSize: '0.92rem', fontWeight: 800, color: '#047857', marginTop: '4px' }}>
+                  <div style={{ fontSize: '0.92rem', fontWeight: 800, color: 'var(--color-primary-navy)', marginTop: '4px' }}>
                     {selectedService.expectedRoi || '3.5x Return on Investment'}
                   </div>
                 </div>
 
-                <div style={{ background: '#f8fafc', padding: '12px 16px', borderRadius: '10px', border: '1px solid #e2e8f0' }}>
-                  <div style={{ fontSize: '0.75rem', fontWeight: 800, color: '#64748b', textTransform: 'uppercase', display: 'flex', alignItems: 'center', gap: '6px' }}>
-                    <Award size={14} color="#2563eb" /> Lead Consultant
+                <div style={{ background: 'var(--color-light-bg)', padding: '12px 16px', borderRadius: '10px', border: '1px solid var(--color-border-gray)' }}>
+                  <div style={{ fontSize: '0.75rem', fontWeight: 800, color: 'var(--color-secondary-gray)', textTransform: 'uppercase', display: 'flex', alignItems: 'center', gap: '6px' }}>
+                    <Award size={14} color="#0B2D68" /> Lead Consultant
                   </div>
-                  <div style={{ fontSize: '0.92rem', fontWeight: 800, color: '#1e40af', marginTop: '4px' }}>
+                  <div style={{ fontSize: '0.92rem', fontWeight: 800, color: 'var(--color-primary-navy)', marginTop: '4px' }}>
                     {selectedService.leadConsultant || 'Harish V J (Founder & CEO)'}
                   </div>
                 </div>
               </div>
 
               {/* Sub-Navigation Workspace Tabs */}
-              <div style={{ display: 'flex', gap: '8px', borderBottom: '2px solid #e2e8f0', marginBottom: '28px', overflowX: 'auto' }}>
+              <div style={{ display: 'flex', gap: '8px', borderBottom: '2px solid var(--color-border-gray)', marginBottom: '28px', overflowX: 'auto' }}>
                 {[
                   { id: 'overview', label: 'Overview & Scope' },
                   { id: 'roadmap', label: '4-Phase Execution Roadmap' },
@@ -355,9 +356,9 @@ export default function ServicesSection({ onOpenBookModal, selectedServiceId, se
                       fontSize: '0.88rem',
                       fontWeight: 800,
                       border: 'none',
-                      borderBottom: activeTab === tab.id ? '3px solid #d4af37' : '3px solid transparent',
+                      borderBottom: activeTab === tab.id ? '3px solid #C9A044' : '3px solid transparent',
                       background: 'none',
-                      color: activeTab === tab.id ? '#0a1936' : '#64748b',
+                      color: activeTab === tab.id ? 'var(--color-primary-navy)' : 'var(--color-secondary-gray)',
                       cursor: 'pointer',
                       transition: 'all 0.2s ease',
                       whiteSpace: 'nowrap'
@@ -374,30 +375,30 @@ export default function ServicesSection({ onOpenBookModal, selectedServiceId, se
                   
                   {/* Target Audience Banner */}
                   {selectedService.targetAudience && (
-                    <div style={{ background: '#fef9c3', border: '1px solid #fde047', color: '#854d0e', padding: '12px 18px', borderRadius: '10px', fontSize: '0.88rem', fontWeight: 700, display: 'flex', alignItems: 'center', gap: '8px', marginBottom: '24px' }}>
-                      <Target size={18} color="#c59b27" /> Target Audience: {selectedService.targetAudience}
+                    <div style={{ background: 'rgba(201,160,68,0.1)', border: '1px solid rgba(201,160,68,0.3)', color: '#0B2D68', padding: '12px 18px', borderRadius: '10px', fontSize: '0.88rem', fontWeight: 700, display: 'flex', alignItems: 'center', gap: '8px', marginBottom: '24px' }}>
+                      <Target size={18} color="#C9A044" /> Target Audience: {selectedService.targetAudience}
                     </div>
                   )}
 
                   {/* Executive Overview */}
                   <div style={{ marginBottom: '28px' }}>
-                    <h4 style={{ fontSize: '0.82rem', color: '#64748b', textTransform: 'uppercase', letterSpacing: '0.1em', fontWeight: 800, marginBottom: '10px' }}>
+                    <h4 style={{ fontSize: '0.82rem', color: 'var(--color-secondary-gray)', textTransform: 'uppercase', letterSpacing: '0.1em', fontWeight: 800, marginBottom: '10px' }}>
                       Executive Overview & Commercial Proposition
                     </h4>
-                    <p style={{ fontSize: '1.05rem', color: '#334155', lineHeight: 1.7, fontWeight: 500 }}>
+                    <p style={{ fontSize: '1.05rem', color: 'var(--color-dark-text)', lineHeight: 1.7, fontWeight: 500 }}>
                       {selectedService.description}
                     </p>
                   </div>
 
                   {/* Core Execution Capabilities Grid */}
                   <div>
-                    <h4 style={{ fontSize: '0.82rem', color: '#64748b', textTransform: 'uppercase', letterSpacing: '0.1em', fontWeight: 800, marginBottom: '14px' }}>
+                    <h4 style={{ fontSize: '0.82rem', color: 'var(--color-secondary-gray)', textTransform: 'uppercase', letterSpacing: '0.1em', fontWeight: 800, marginBottom: '14px' }}>
                       Key Scope & Advisory Capabilities
                     </h4>
                     <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(260px, 1fr))', gap: '12px' }}>
                       {selectedService.features.map((feat, i) => (
-                        <div key={i} style={{ background: '#f8fafc', padding: '14px 18px', borderRadius: '10px', border: '1px solid #e2e8f0', display: 'flex', alignItems: 'flex-start', gap: '12px', fontSize: '0.9rem', color: '#0f172a', fontWeight: 600 }}>
-                          <CheckCircle2 size={18} color="#059669" style={{ flexShrink: 0, marginTop: '2px' }} />
+                        <div key={i} style={{ background: 'var(--color-light-bg)', padding: '14px 18px', borderRadius: '10px', border: '1px solid var(--color-border-gray)', display: 'flex', alignItems: 'flex-start', gap: '12px', fontSize: '0.9rem', color: 'var(--color-dark-text)', fontWeight: 600 }}>
+                          <CheckCircle2 size={18} color="#C9A044" style={{ flexShrink: 0, marginTop: '2px' }} />
                           <span>{feat}</span>
                         </div>
                       ))}
@@ -411,27 +412,27 @@ export default function ServicesSection({ onOpenBookModal, selectedServiceId, se
               {activeTab === 'roadmap' && (
                 <div className="animate-fade-in">
                   <div style={{ marginBottom: '20px' }}>
-                    <h4 style={{ fontSize: '0.85rem', color: '#0f2b5c', textTransform: 'uppercase', letterSpacing: '0.1em', fontWeight: 800, marginBottom: '6px', display: 'flex', alignItems: 'center', gap: '8px' }}>
-                      <GitCommit size={18} color="#c59b27" /> Standard 4-Phase Consulting Methodology
+                    <h4 style={{ fontSize: '0.85rem', color: 'var(--color-primary-navy)', textTransform: 'uppercase', letterSpacing: '0.1em', fontWeight: 800, marginBottom: '6px', display: 'flex', alignItems: 'center', gap: '8px' }}>
+                      <GitCommit size={18} color="#C9A044" /> Standard 4-Phase Consulting Methodology
                     </h4>
-                    <p style={{ fontSize: '0.9rem', color: '#64748b' }}>
+                    <p style={{ fontSize: '0.9rem', color: 'var(--color-secondary-gray)' }}>
                       How AS GROUPS manages audit, strategy design, execution rollout, and long-term optimization.
                     </p>
                   </div>
 
                   <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(240px, 1fr))', gap: '16px' }}>
                     {selectedService.roadmap.map((step, idx) => (
-                      <div key={idx} style={{ background: '#f8fafc', padding: '20px', borderRadius: '14px', border: '1px solid #e2e8f0', position: 'relative' }}>
+                      <div key={idx} style={{ background: 'var(--color-light-bg)', padding: '20px', borderRadius: '14px', border: '1px solid var(--color-border-gray)', position: 'relative' }}>
                         <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', marginBottom: '10px' }}>
-                          <span style={{ fontSize: '0.75rem', fontWeight: 900, color: '#0a1936', background: '#fef08a', border: '1px solid #d4af37', padding: '3px 10px', borderRadius: '99px' }}>
+                          <span style={{ fontSize: '0.75rem', fontWeight: 900, color: 'white', background: '#0B2D68', border: '1px solid rgba(201,160,68,0.4)', padding: '3px 10px', borderRadius: '99px' }}>
                             STAGE 0{idx + 1}
                           </span>
-                          <Zap size={16} color="#c59b27" />
+                          <Zap size={16} color="#C9A044" />
                         </div>
-                        <h5 style={{ fontSize: '0.98rem', fontWeight: 800, color: '#0f172a', marginBottom: '8px' }}>
+                        <h5 style={{ fontSize: '0.98rem', fontWeight: 800, color: 'var(--color-dark-text)', marginBottom: '8px' }}>
                           {step.phase}
                         </h5>
-                        <p style={{ fontSize: '0.86rem', color: '#475569', lineHeight: 1.6 }}>
+                        <p style={{ fontSize: '0.86rem', color: 'var(--color-secondary-gray)', lineHeight: 1.6 }}>
                           {step.desc}
                         </p>
                       </div>
@@ -446,13 +447,13 @@ export default function ServicesSection({ onOpenBookModal, selectedServiceId, se
                   
                   {/* Tangible Deliverables List */}
                   <div style={{ marginBottom: '28px' }}>
-                    <h4 style={{ fontSize: '0.85rem', color: '#0f172a', textTransform: 'uppercase', letterSpacing: '0.1em', fontWeight: 800, marginBottom: '14px', display: 'flex', alignItems: 'center', gap: '8px' }}>
-                      <FileCheck size={18} color="#059669" /> Tangible Strategy & Execution Deliverables
+                    <h4 style={{ fontSize: '0.85rem', color: 'var(--color-primary-navy)', textTransform: 'uppercase', letterSpacing: '0.1em', fontWeight: 800, marginBottom: '14px', display: 'flex', alignItems: 'center', gap: '8px' }}>
+                      <FileCheck size={18} color="#C9A044" /> Tangible Strategy & Execution Deliverables
                     </h4>
                     <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(240px, 1fr))', gap: '12px' }}>
                       {selectedService.deliverables.map((item, idx) => (
-                        <div key={idx} style={{ background: '#ecfdf5', padding: '14px 18px', borderRadius: '10px', border: '1px solid #a7f3d0', fontSize: '0.9rem', fontWeight: 700, color: '#065f46', display: 'flex', alignItems: 'center', gap: '10px' }}>
-                          <CheckCircle2 size={18} color="#047857" style={{ flexShrink: 0 }} />
+                        <div key={idx} style={{ background: 'var(--color-light-bg)', padding: '14px 18px', borderRadius: '10px', border: '1px solid var(--color-border-gray)', fontSize: '0.9rem', fontWeight: 700, color: 'var(--color-dark-text)', display: 'flex', alignItems: 'center', gap: '10px' }}>
+                          <CheckCircle2 size={18} color="#C9A044" style={{ flexShrink: 0 }} />
                           <span>{item}</span>
                         </div>
                       ))}
@@ -462,12 +463,12 @@ export default function ServicesSection({ onOpenBookModal, selectedServiceId, se
                   {/* Tools & Technology Badges */}
                   {selectedService.toolsAndTech && (
                     <div>
-                      <h4 style={{ fontSize: '0.85rem', color: '#0f172a', textTransform: 'uppercase', letterSpacing: '0.1em', fontWeight: 800, marginBottom: '12px', display: 'flex', alignItems: 'center', gap: '8px' }}>
-                        <Wrench size={18} color="#2563eb" /> Frameworks, Analytics & Tools Employed
+                      <h4 style={{ fontSize: '0.85rem', color: 'var(--color-primary-navy)', textTransform: 'uppercase', letterSpacing: '0.1em', fontWeight: 800, marginBottom: '12px', display: 'flex', alignItems: 'center', gap: '8px' }}>
+                        <Wrench size={18} color="#0B2D68" /> Frameworks, Analytics & Tools Employed
                       </h4>
                       <div style={{ display: 'flex', flexWrap: 'wrap', gap: '10px' }}>
                         {selectedService.toolsAndTech.map((tool, idx) => (
-                          <span key={idx} style={{ background: '#f0f9ff', color: '#0369a1', border: '1px solid #bae6fd', padding: '8px 16px', borderRadius: '99px', fontSize: '0.84rem', fontWeight: 700, display: 'inline-flex', alignItems: 'center', gap: '6px' }}>
+                          <span key={idx} style={{ background: 'var(--color-light-bg)', color: 'var(--color-primary-navy)', border: '1px solid var(--color-border-gray)', padding: '8px 16px', borderRadius: '99px', fontSize: '0.84rem', fontWeight: 700, display: 'inline-flex', alignItems: 'center', gap: '6px' }}>
                             🛠️ {tool}
                           </span>
                         ))}
@@ -484,22 +485,22 @@ export default function ServicesSection({ onOpenBookModal, selectedServiceId, se
                   
                   {/* Custom Modular Package Builder */}
                   {selectedService.modularAddons && (
-                    <div style={{ background: 'linear-gradient(135deg, #0a1936, #0f2b5c)', padding: '24px', borderRadius: '16px', border: '1px solid rgba(212,175,55,0.4)', color: 'white' }}>
+                    <div style={{ background: 'linear-gradient(135deg, #0B2D68, #174A96)', padding: '24px', borderRadius: '16px', border: '1px solid rgba(201,160,68,0.4)', color: 'white', boxShadow: '0 12px 30px rgba(11,45,104,0.2)' }}>
                       <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', marginBottom: '14px', flexWrap: 'wrap', gap: '10px' }}>
                         <div>
                           <span className="badge badge-gold" style={{ fontSize: '0.72rem', fontWeight: 800, marginBottom: '4px' }}>
                             PACKAGE BUILDER
                           </span>
-                          <h4 style={{ fontSize: '1.2rem', fontWeight: 900, color: '#fef08a' }}>
+                          <h4 style={{ fontSize: '1.2rem', fontWeight: 900, color: '#DFC16E' }}>
                             Build Custom {selectedService.title} Package
                           </h4>
                         </div>
-                        <span style={{ fontSize: '0.82rem', color: '#cbd5e1' }}>
+                        <span style={{ fontSize: '0.82rem', color: '#E5E7EB' }}>
                           {selectedAddons.length} Custom Add-on(s) Selected
                         </span>
                       </div>
 
-                      <p style={{ fontSize: '0.88rem', color: '#cbd5e1', marginBottom: '16px' }}>
+                      <p style={{ fontSize: '0.88rem', color: '#E5E7EB', marginBottom: '16px' }}>
                         Select optional modular add-ons to customize your consulting engagement:
                       </p>
 
@@ -511,8 +512,8 @@ export default function ServicesSection({ onOpenBookModal, selectedServiceId, se
                               key={idx}
                               onClick={() => toggleAddon(addon)}
                               style={{
-                                background: isChecked ? 'rgba(212,175,55,0.15)' : 'rgba(255,255,255,0.05)',
-                                border: isChecked ? '1px solid #d4af37' : '1px solid rgba(255,255,255,0.1)',
+                                background: isChecked ? 'rgba(201,160,68,0.2)' : 'rgba(255,255,255,0.06)',
+                                border: isChecked ? '1px solid #C9A044' : '1px solid rgba(255,255,255,0.12)',
                                 padding: '12px 14px',
                                 borderRadius: '10px',
                                 cursor: 'pointer',
@@ -520,7 +521,7 @@ export default function ServicesSection({ onOpenBookModal, selectedServiceId, se
                                 alignItems: 'center',
                                 gap: '10px',
                                 fontSize: '0.84rem',
-                                color: isChecked ? '#fef08a' : '#cbd5e1',
+                                color: isChecked ? '#DFC16E' : '#E5E7EB',
                                 fontWeight: isChecked ? 800 : 600,
                                 transition: 'all 0.2s ease'
                               }}
@@ -529,8 +530,8 @@ export default function ServicesSection({ onOpenBookModal, selectedServiceId, se
                                 width: '22px',
                                 height: '22px',
                                 borderRadius: '6px',
-                                background: isChecked ? '#d4af37' : 'rgba(255,255,255,0.1)',
-                                color: isChecked ? '#0a1936' : 'white',
+                                background: isChecked ? '#C9A044' : 'rgba(255,255,255,0.12)',
+                                color: isChecked ? '#0B2D68' : 'white',
                                 display: 'flex',
                                 alignItems: 'center',
                                 justifyContent: 'center',
@@ -545,12 +546,12 @@ export default function ServicesSection({ onOpenBookModal, selectedServiceId, se
                       </div>
 
                       <div className="flex flex-col sm:flex-row justify-between items-start sm:items-center gap-3.5 pt-4 border-t border-white/10">
-                        <div style={{ fontSize: '0.84rem', color: '#cbd5e1' }}>
+                        <div style={{ fontSize: '0.84rem', color: '#E5E7EB' }}>
                           Ready to discuss your customized scope with <strong>{selectedService.leadConsultant}</strong>?
                         </div>
                         <button
                           onClick={handleBookCustomPackage}
-                          className="btn-gold w-auto sm:w-auto justify-center py-2 sm:py-2.5 px-4 sm:px-5 text-xs sm:text-sm font-black active:scale-[0.98]"
+                          className="btn-primary w-auto sm:w-auto justify-center py-2 sm:py-2.5 px-4 sm:px-5 text-xs sm:text-sm font-black active:scale-[0.98]"
                         >
                           <Calendar size={15} /> Book Tailored Package
                         </button>
@@ -561,15 +562,15 @@ export default function ServicesSection({ onOpenBookModal, selectedServiceId, se
                   {/* Service Specific FAQs */}
                   {selectedService.faqs && (
                     <div>
-                      <h4 style={{ fontSize: '0.88rem', color: '#0f172a', textTransform: 'uppercase', letterSpacing: '0.1em', fontWeight: 800, marginBottom: '14px', display: 'flex', alignItems: 'center', gap: '8px' }}>
-                        <HelpCircle size={18} color="#d4af37" /> Frequently Asked Questions — {selectedService.title}
+                      <h4 style={{ fontSize: '0.88rem', color: 'var(--color-primary-navy)', textTransform: 'uppercase', letterSpacing: '0.1em', fontWeight: 800, marginBottom: '14px', display: 'flex', alignItems: 'center', gap: '8px' }}>
+                        <HelpCircle size={18} color="#C9A044" /> Frequently Asked Questions — {selectedService.title}
                       </h4>
 
                       <div style={{ display: 'flex', flexDirection: 'column', gap: '10px' }}>
                         {selectedService.faqs.map((faq, idx) => {
                           const isOpen = openFaqIndex === idx;
                           return (
-                            <div key={idx} style={{ background: '#f8fafc', borderRadius: '10px', border: '1px solid #e2e8f0', overflow: 'hidden' }}>
+                            <div key={idx} style={{ background: 'var(--color-light-bg)', borderRadius: '10px', border: '1px solid var(--color-border-gray)', overflow: 'hidden' }}>
                               <button
                                 onClick={() => setOpenFaqIndex(isOpen ? null : idx)}
                                 style={{
@@ -583,15 +584,15 @@ export default function ServicesSection({ onOpenBookModal, selectedServiceId, se
                                   alignItems: 'center',
                                   fontWeight: 800,
                                   fontSize: '0.92rem',
-                                  color: '#0f172a',
+                                  color: 'var(--color-dark-text)',
                                   cursor: 'pointer'
                                 }}
                               >
                                 <span>❓ {faq.q}</span>
-                                {isOpen ? <ChevronUp size={16} color="#64748b" /> : <ChevronDown size={16} color="#64748b" />}
+                                {isOpen ? <ChevronUp size={16} color="#6B7280" /> : <ChevronDown size={16} color="#6B7280" />}
                               </button>
                               {isOpen && (
-                                <div style={{ padding: '0 18px 14px', fontSize: '0.88rem', color: '#475569', lineHeight: 1.6, borderTop: '1px dashed #e2e8f0', paddingTop: '10px' }}>
+                                <div style={{ padding: '0 18px 14px', fontSize: '0.88rem', color: 'var(--color-secondary-gray)', lineHeight: 1.6, borderTop: '1px dashed var(--color-border-gray)', paddingTop: '10px' }}>
                                   {faq.a}
                                 </div>
                               )}
@@ -622,45 +623,46 @@ export default function ServicesSection({ onOpenBookModal, selectedServiceId, se
                     background: 'white',
                     borderRadius: '16px',
                     padding: '28px',
-                    border: '1px solid var(--border-color)',
-                    boxShadow: 'var(--shadow-sm)',
+                    border: '1px solid var(--color-border-gray)',
+                    boxShadow: '0 4px 16px rgba(11,45,104,0.04)',
                     display: 'flex',
                     flexDirection: 'column',
-                    justify: 'space-between',
-                    transition: 'all 0.3s ease'
+                    justifyContent: 'space-between',
+                    transition: 'all 0.3s ease',
+                    borderTop: '3px solid #C9A044'
                   }}
                 >
                   <div>
                     <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', marginBottom: '16px' }}>
-                      <div style={{ width: '48px', height: '48px', borderRadius: '12px', background: 'linear-gradient(135deg, #0a1936, #1e3a8a)', color: '#d4af37', display: 'flex', alignItems: 'center', justifyContent: 'center' }}>
+                      <div style={{ width: '48px', height: '48px', borderRadius: '12px', background: 'linear-gradient(135deg, #0B2D68, #174A96)', color: '#DFC16E', display: 'flex', alignItems: 'center', justifyContent: 'center' }}>
                         <Icon size={24} />
                       </div>
                       <span className="badge badge-gold" style={{ fontSize: '0.75rem' }}>{s.badge}</span>
                     </div>
 
-                    <h3 style={{ fontSize: '1.25rem', color: '#0a1936', fontWeight: 900, marginBottom: '8px' }}>
+                    <h3 style={{ fontSize: '1.25rem', color: 'var(--color-primary-navy)', fontWeight: 900, marginBottom: '8px' }}>
                       {s.title}
                     </h3>
-                    <div style={{ fontSize: '0.78rem', color: '#2563eb', fontWeight: 700, marginBottom: '12px' }}>
+                    <div style={{ fontSize: '0.78rem', color: 'var(--color-royal-blue)', fontWeight: 700, marginBottom: '12px' }}>
                       Category: {s.category}
                     </div>
 
-                    <p style={{ fontSize: '0.88rem', color: '#475569', lineHeight: 1.6, marginBottom: '16px' }}>
+                    <p style={{ fontSize: '0.88rem', color: 'var(--color-secondary-gray)', lineHeight: 1.6, marginBottom: '16px' }}>
                       {s.shortDesc}
                     </p>
 
                     {/* Timeline & ROI Badges */}
                     <div style={{ display: 'flex', flexWrap: 'wrap', gap: '8px', marginBottom: '20px' }}>
-                      <span style={{ fontSize: '0.75rem', background: '#f1f5f9', color: '#475569', padding: '4px 10px', borderRadius: '6px', fontWeight: 600 }}>
+                      <span style={{ fontSize: '0.75rem', background: 'var(--color-light-bg)', color: 'var(--color-secondary-gray)', border: '1px solid var(--color-border-gray)', padding: '4px 10px', borderRadius: '6px', fontWeight: 600 }}>
                         ⏱️ {s.duration}
                       </span>
-                      <span style={{ fontSize: '0.75rem', background: '#ecfdf5', color: '#047857', padding: '4px 10px', borderRadius: '6px', fontWeight: 700 }}>
+                      <span style={{ fontSize: '0.75rem', background: 'rgba(11,45,104,0.08)', color: '#0B2D68', padding: '4px 10px', borderRadius: '6px', fontWeight: 700 }}>
                         📈 {s.expectedRoi}
                       </span>
                     </div>
                   </div>
 
-                  <div className="btn-pair-responsive" style={{ borderTop: '1px solid #f1f5f9', paddingTop: '14px', display: 'flex', gap: '8px' }}>
+                  <div className="btn-pair-responsive" style={{ borderTop: '1px solid var(--color-border-gray)', paddingTop: '14px', display: 'flex', gap: '8px' }}>
                     <button
                       onClick={() => { handleSelectService(s.id); setViewMode('workspace'); setActiveTab('overview'); }}
                       className="btn-secondary"

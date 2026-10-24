@@ -130,7 +130,7 @@ export default function HeroBannerSlider({ setActivePublicTab, onOpenBookModal }
       style={{
         position: 'relative',
         minHeight: '650px',
-        background: '#04091a',
+        background: '#0B2D68',
         color: 'white',
         overflow: 'hidden',
         display: 'flex',
@@ -153,7 +153,7 @@ export default function HeroBannerSlider({ setActivePublicTab, onOpenBookModal }
               pointerEvents: 'none'
             }}
           >
-            {/* Ultra Bright, High-Contrast 4K Background Image */}
+            {/* Background Image */}
             <div
               className={isActive ? 'animate-kenburns' : ''}
               style={{
@@ -162,16 +162,16 @@ export default function HeroBannerSlider({ setActivePublicTab, onOpenBookModal }
                 backgroundImage: `url(${slide.bgImage})`,
                 backgroundSize: 'cover',
                 backgroundPosition: 'center',
-                filter: 'brightness(1.05) contrast(1.15) saturate(1.15)'
+                filter: 'brightness(1.02) contrast(1.1) saturate(1.1)'
               }}
             />
 
-            {/* Subtle Text-Legibility Overlay (Preserves 100% Image Brightness & Clarity on Right Side) */}
+            {/* Corporate Navy Gradient Overlay */}
             <div 
               style={{
                 position: 'absolute',
                 inset: 0,
-                background: 'linear-gradient(to right, rgba(4, 9, 26, 0.85) 0%, rgba(4, 9, 26, 0.55) 45%, rgba(4, 9, 26, 0.15) 100%)'
+                background: 'linear-gradient(to right, rgba(11, 45, 104, 0.94) 0%, rgba(11, 45, 104, 0.72) 48%, rgba(11, 45, 104, 0.25) 100%)'
               }}
             />
           </div>
@@ -179,12 +179,12 @@ export default function HeroBannerSlider({ setActivePublicTab, onOpenBookModal }
       })}
 
       {/* Top Animated Progress Indicator Bar */}
-      <div style={{ position: 'relative', zIndex: 10, width: '100%', height: '3px', background: 'rgba(255, 255, 255, 0.2)' }}>
+      <div style={{ position: 'relative', zIndex: 10, width: '100%', height: '3px', background: 'rgba(255, 255, 255, 0.15)' }}>
         <div 
           key={currentIndex}
           style={{
             height: '100%',
-            background: 'linear-gradient(90deg, #d4af37, #fef08a)',
+            background: 'linear-gradient(90deg, #C9A044, #DFC16E)',
             animation: 'autoTimerProgress 4.5s linear forwards'
           }}
         />
@@ -211,15 +211,15 @@ export default function HeroBannerSlider({ setActivePublicTab, onOpenBookModal }
                 gap: '8px',
                 padding: '5px 12px',
                 borderRadius: '99px',
-                background: 'rgba(7, 15, 38, 0.85)',
-                border: '1px solid rgba(212, 175, 55, 0.7)',
-                color: '#fef08a',
+                background: 'rgba(11, 45, 104, 0.9)',
+                border: '1px solid rgba(201, 160, 68, 0.6)',
+                color: '#DFC16E',
                 fontSize: '0.75rem',
                 fontWeight: 800,
                 letterSpacing: '0.04em',
-                boxShadow: '0 4px 15px rgba(0,0,0,0.5)'
+                boxShadow: '0 4px 15px rgba(0,0,0,0.3)'
               }}>
-                <img src="/logo.png" alt="AS GROUPS Logo" style={{ height: '18px', width: 'auto', borderRadius: '4px' }} />
+                <img src="/logo.png" alt="AS GROUPS Logo" style={{ height: '18px', width: 'auto', borderRadius: '4px', background: 'white', padding: '1px' }} />
                 {currentSlide.badge}
               </div>
 
@@ -229,19 +229,19 @@ export default function HeroBannerSlider({ setActivePublicTab, onOpenBookModal }
                 gap: '6px',
                 padding: '5px 12px',
                 borderRadius: '99px',
-                background: 'rgba(6, 78, 59, 0.85)',
-                border: '1px solid rgba(16, 185, 129, 0.7)',
-                color: '#6ee7b7',
+                background: 'rgba(23, 74, 150, 0.85)',
+                border: '1px solid rgba(201, 160, 68, 0.4)',
+                color: '#FFFFFF',
                 fontSize: '0.75rem',
                 fontWeight: 700,
-                boxShadow: '0 4px 15px rgba(0,0,0,0.5)'
+                boxShadow: '0 4px 15px rgba(0,0,0,0.3)'
               }}>
-                <Award size={13} />
+                <Award size={13} color="#DFC16E" />
                 {currentSlide.statBadge}
               </div>
             </div>
 
-            {/* Main Headline with Razor Sharp Drop Shadow */}
+            {/* Main Headline */}
             <h1 
               className="text-anim-title" 
               style={{ 
@@ -250,11 +250,12 @@ export default function HeroBannerSlider({ setActivePublicTab, onOpenBookModal }
                 fontWeight: 900, 
                 marginBottom: '14px', 
                 letterSpacing: '-0.02em',
-                textShadow: '0 4px 20px rgba(0,0,0,0.9)'
+                color: '#FFFFFF',
+                textShadow: '0 4px 20px rgba(0,0,0,0.8)'
               }}
             >
               {currentSlide.title}<br />
-              <span className="text-gold-gradient" style={{ textShadow: '0 4px 25px rgba(212,175,55,0.4)' }}>
+              <span style={{ color: '#DFC16E', textShadow: '0 4px 25px rgba(201,160,68,0.35)' }}>
                 {currentSlide.highlightTitle}
               </span>
             </h1>
@@ -265,9 +266,9 @@ export default function HeroBannerSlider({ setActivePublicTab, onOpenBookModal }
               style={{ 
                 fontSize: 'clamp(0.95rem, 2.8vw, 1.15rem)', 
                 fontWeight: 800, 
-                color: '#fef08a', 
+                color: '#DFC16E', 
                 marginBottom: '10px',
-                textShadow: '0 2px 10px rgba(0,0,0,0.85)'
+                textShadow: '0 2px 10px rgba(0,0,0,0.7)'
               }}
             >
               {currentSlide.subtitle}
@@ -278,12 +279,12 @@ export default function HeroBannerSlider({ setActivePublicTab, onOpenBookModal }
               className="text-anim-desc" 
               style={{ 
                 fontSize: 'clamp(0.88rem, 2.5vw, 1.02rem)', 
-                color: '#f1f5f9', 
+                color: '#F5F6F8', 
                 lineHeight: 1.65, 
                 marginBottom: '24px', 
                 maxWidth: '620px',
-                textShadow: '0 2px 12px rgba(0,0,0,0.9)',
-                fontWeight: 500
+                textShadow: '0 2px 10px rgba(0,0,0,0.7)',
+                fontWeight: 400
               }}
             >
               {currentSlide.description}
@@ -294,53 +295,53 @@ export default function HeroBannerSlider({ setActivePublicTab, onOpenBookModal }
               <div className="flex flex-col sm:flex-row gap-2.5 sm:gap-4 w-full sm:w-auto mb-6">
                 <button 
                   onClick={onOpenBookModal} 
-                  className="btn-gold w-full sm:w-auto justify-center py-2.5 sm:py-3.5 px-4 sm:px-7 text-sm sm:text-base font-black shadow-lg shadow-amber-500/25 active:scale-[0.98] transition-all min-h-[40px] sm:min-h-[44px]"
+                  className="btn-primary w-full sm:w-auto justify-center py-2.5 sm:py-3.5 px-4 sm:px-7 text-sm sm:text-base font-bold border border-[#C9A044]/60 active:scale-[0.98] transition-all min-h-[40px] sm:min-h-[44px]"
                 >
-                  Get Free Consultation <ArrowRight size={15} />
+                  Get Free Consultation <ArrowRight size={15} className="text-[#C9A044]" />
                 </button>
                 <button 
                   onClick={() => navigate('/services')} 
-                  className="btn-outline-white w-full sm:w-auto justify-center py-2.5 sm:py-3.5 px-4 sm:px-6 text-sm sm:text-base font-bold border border-amber-400/50 text-amber-200 bg-[#070f26]/60 backdrop-blur-md active:scale-[0.98] transition-all min-h-[40px] sm:min-h-[44px]"
+                  className="btn-outline-white w-full sm:w-auto justify-center py-2.5 sm:py-3.5 px-4 sm:px-6 text-sm sm:text-base font-bold border border-white/30 text-white bg-white/10 hover:border-[#C9A044] hover:text-[#DFC16E] backdrop-blur-md active:scale-[0.98] transition-all min-h-[40px] sm:min-h-[44px]"
                 >
                   Explore Services
                 </button>
               </div>
 
-              <div style={{ fontSize: '0.8rem', color: '#cbd5e1', display: 'flex', gap: '14px', alignItems: 'center', flexWrap: 'wrap', fontWeight: 700, textShadow: '0 2px 8px rgba(0,0,0,0.8)' }}>
-                <span style={{ display: 'inline-flex', alignItems: 'center', gap: '5px' }}><CheckCircle2 size={14} color="#d4af37" /> Strategic Advisory</span>
-                <span style={{ display: 'inline-flex', alignItems: 'center', gap: '5px' }}><CheckCircle2 size={14} color="#d4af37" /> Customized Blueprint</span>
-                <span style={{ display: 'inline-flex', alignItems: 'center', gap: '5px' }}><CheckCircle2 size={14} color="#d4af37" /> Sustainable Growth</span>
+              <div style={{ fontSize: '0.8rem', color: '#E5E7EB', display: 'flex', gap: '14px', alignItems: 'center', flexWrap: 'wrap', fontWeight: 600 }}>
+                <span style={{ display: 'inline-flex', alignItems: 'center', gap: '5px' }}><CheckCircle2 size={14} color="#C9A044" /> Strategic Advisory</span>
+                <span style={{ display: 'inline-flex', alignItems: 'center', gap: '5px' }}><CheckCircle2 size={14} color="#C9A044" /> Customized Blueprint</span>
+                <span style={{ display: 'inline-flex', alignItems: 'center', gap: '5px' }}><CheckCircle2 size={14} color="#C9A044" /> Sustainable Growth</span>
               </div>
             </div>
           </div>
 
-          {/* Right Column Feature Card with Ultra Glassmorphism */}
+          {/* Right Column Feature Card */}
           <div 
             key={currentSlide.id + '-card'} 
             className="dark-glass gold-glow-border card-anim-slide p-5 sm:p-7 rounded-2xl" 
             style={{ 
-              background: 'rgba(7, 15, 38, 0.88)', 
-              backdropFilter: 'blur(25px)', 
-              border: '1px solid rgba(212, 175, 55, 0.4)', 
-              boxShadow: '0 20px 50px rgba(0,0,0,0.6)' 
+              background: 'rgba(11, 45, 104, 0.92)', 
+              backdropFilter: 'blur(20px)', 
+              border: '1px solid rgba(201, 160, 68, 0.35)', 
+              boxShadow: '0 20px 40px rgba(7, 29, 66, 0.5)' 
             }}
           >
-            <div style={{ borderBottom: '1px solid rgba(212,175,55,0.3)', paddingBottom: '14px', marginBottom: '16px' }}>
-              <div style={{ fontSize: '0.72rem', color: '#d4af37', textTransform: 'uppercase', letterSpacing: '0.15em', fontWeight: 800 }}>
+            <div style={{ borderBottom: '1px solid rgba(201, 160, 68, 0.3)', paddingBottom: '14px', marginBottom: '16px' }}>
+              <div style={{ fontSize: '0.72rem', color: '#C9A044', textTransform: 'uppercase', letterSpacing: '0.15em', fontWeight: 800 }}>
                 {currentSlide.cardTitle}
               </div>
-              <h3 className="text-gold-gradient" style={{ fontSize: '1.4rem', marginTop: '4px', fontWeight: 900 }}>
+              <h3 style={{ fontSize: '1.35rem', marginTop: '4px', fontWeight: 900, color: '#FFFFFF' }}>
                 {currentSlide.cardSub}
               </h3>
             </div>
 
             <div style={{ display: 'flex', flexDirection: 'column', gap: '14px' }}>
               {currentSlide.features.map((feat, fIdx) => (
-                <div key={fIdx} style={{ background: 'rgba(255,255,255,0.06)', padding: '14px 16px', borderRadius: '12px', border: '1px solid rgba(255,255,255,0.12)' }}>
-                  <div style={{ fontWeight: 800, color: fIdx === 0 ? '#fef08a' : fIdx === 1 ? '#60a5fa' : '#34d399', marginBottom: '4px', fontSize: '0.92rem' }}>
+                <div key={fIdx} style={{ background: 'rgba(255,255,255,0.06)', padding: '14px 16px', borderRadius: '12px', border: '1px solid rgba(255,255,255,0.1)' }}>
+                  <div style={{ fontWeight: 800, color: fIdx === 0 ? '#DFC16E' : fIdx === 1 ? '#93C5FD' : '#6EE7B7', marginBottom: '4px', fontSize: '0.92rem' }}>
                     {feat.title}
                   </div>
-                  <div style={{ fontSize: '0.84rem', color: '#cbd5e1', lineHeight: 1.5 }}>
+                  <div style={{ fontSize: '0.84rem', color: '#E5E7EB', lineHeight: 1.5 }}>
                     {feat.desc}
                   </div>
                 </div>
@@ -349,7 +350,7 @@ export default function HeroBannerSlider({ setActivePublicTab, onOpenBookModal }
 
             <button 
               onClick={onOpenBookModal}
-              className="btn-gold w-full justify-center" 
+              className="btn-primary w-full justify-center border border-[#C9A044]/50 hover:border-[#C9A044]" 
               style={{ marginTop: '16px', fontSize: '0.88rem', padding: '9px 16px', minHeight: '38px' }}
             >
               Discuss {currentSlide.category} Needs

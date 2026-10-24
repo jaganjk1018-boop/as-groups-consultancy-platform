@@ -2,155 +2,26 @@ import http from 'http';
 import path from 'path';
 import { fileURLToPath } from 'url';
 import { DatabaseSync } from 'node:sqlite';
+import { query, initDb } from '../api/lib/db.js';
+import { authenticateAdminCredentials, verifyAdminRequest, generateAdminToken } from '../api/lib/auth.js';
+import { processEnquiryEmails } from '../api/lib/email.js';
 
 const __filename = fileURLToPath(import.meta.url);
 const __dirname = path.dirname(__filename);
 const DB_PATH = path.join(__dirname, 'as_groups.db');
 
-const PORT = 5000;
+const PORT = process.env.PORT || 5000;
 
-// Initialize Native Node.js SQLite Database
-const db = new DatabaseSync(DB_PATH);
-
-// Initialize Relational Schema Tables
-db.exec(`
-  CREATE TABLE IF NOT EXISTS users (
-    id TEXT PRIMARY KEY,
-    name TEXT NOT NULL,
-    email TEXT UNIQUE NOT NULL,
-    role TEXT NOT NULL,
-    company TEXT,
-    title TEXT
-  );
-
-  CREATE TABLE IF NOT EXISTS user_logins (
-    id INTEGER PRIMARY KEY AUTOINCREMENT,
-    user_name TEXT NOT NULL,
-    email TEXT NOT NULL,
-    role TEXT NOT NULL,
-    company TEXT,
-    provider TEXT DEFAULT 'password',
-    login_time TEXT DEFAULT CURRENT_TIMESTAMP,
-    status TEXT DEFAULT 'Success'
-  );
-
-  CREATE TABLE IF NOT EXISTS leads (
-    id TEXT PRIMARY KEY,
-    client_name TEXT NOT NULL,
-    company TEXT NOT NULL,
-    email TEXT NOT NULL,
-    phone TEXT NOT NULL,
-    service_name TEXT NOT NULL,
-    status TEXT NOT NULL,
-    date TEXT NOT NULL
-  );
-
-  CREATE TABLE IF NOT EXISTS appointments (
-    id TEXT PRIMARY KEY,
-    client_name TEXT NOT NULL,
-    consultant_name TEXT NOT NULL,
-    service_name TEXT NOT NULL,
-    date TEXT NOT NULL,
-    time TEXT NOT NULL,
-    status TEXT NOT NULL,
-    type TEXT NOT NULL,
-    meeting_link TEXT NOT NULL
-  );
-
-  CREATE TABLE IF NOT EXISTS projects (
-    id TEXT PRIMARY KEY,
-    title TEXT NOT NULL,
-    client TEXT NOT NULL,
-    service TEXT NOT NULL,
-    leadConsultant TEXT NOT NULL,
-    progress INTEGER NOT NULL,
-    status TEXT NOT NULL,
-    targetDate TEXT NOT NULL,
-    budget TEXT NOT NULL
-  );
-
-  CREATE TABLE IF NOT EXISTS reports (
-    id TEXT PRIMARY KEY,
-    title TEXT NOT NULL,
-    client TEXT NOT NULL,
-    service TEXT NOT NULL,
-    date TEXT NOT NULL,
-    author TEXT NOT NULL,
-    fileSize TEXT NOT NULL,
-    summary TEXT NOT NULL
-  );
-
-  CREATE TABLE IF NOT EXISTS enquiries (
-    id INTEGER PRIMARY KEY AUTOINCREMENT,
-    name TEXT NOT NULL,
-    email TEXT NOT NULL,
-    phone TEXT NOT NULL,
-    company TEXT,
-    service TEXT NOT NULL,
-    message TEXT NOT NULL,
-    created_at TEXT DEFAULT CURRENT_TIMESTAMP,
-    customer_email_sent INTEGER DEFAULT 1,
-    admin_email_sent INTEGER DEFAULT 1,
-    manager_email_sent INTEGER DEFAULT 1,
-    customer_email_time TEXT,
-    admin_email_time TEXT,
-    manager_email_time TEXT,
-    status TEXT DEFAULT 'All Emails Delivered',
-    retry_count INTEGER DEFAULT 0,
-    error_log TEXT
-  );
-
-  CREATE TABLE IF NOT EXISTS notifications (
-    id TEXT PRIMARY KEY,
-    channel TEXT NOT NULL,
-    recipient TEXT NOT NULL,
-    template TEXT NOT NULL,
-    message TEXT NOT NULL,
-    timestamp TEXT NOT NULL,
-    status TEXT NOT NULL
-  );
-`);
-
-// Seed Initial Data if empty
-const leadCount = db.prepare('SELECT COUNT(*) as count FROM leads').get().count;
-if (leadCount === 0) {
-  const insertLead = db.prepare(`
-    INSERT INTO leads (id, client_name, company, email, phone, service_name, status, date)
-    VALUES (?, ?, ?, ?, ?, ?, ?, ?)
-  `);
-  insertLead.run('LD-101', 'Anita Roy', 'SilkRoute Exim', 'anita@silkroute.co', '+91 98401 22110', 'Import & Export Consulting', 'Qualified', '2026-08-28');
-  insertLead.run('LD-102', 'Dr. S. K. Nambiar', 'Apollo Care Heights', 'dr.nambiar@apollocare.in', '+91 94440 55620', 'Hospital Branding', 'New', '2026-08-30');
-  insertLead.run('LD-103', 'Rajesh Malhotra', 'Bistro 360 Chain', 'rajesh@bistro360.com', '+91 98840 77123', 'Restaurant & Franchise Consulting', 'Contacted', '2026-08-29');
-  insertLead.run('LD-104', 'Meera Deshmukh', 'GreenEarth Foundation', 'meera@greenearth.org', '+91 91760 33450', 'CSR Management', 'Converted', '2026-08-25');
-
-  const insertApt = db.prepare(`
-    INSERT INTO appointments (id, client_name, consultant_name, service_name, date, time, status, type, meeting_link)
-    VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?)
-  `);
-  insertApt.run('APT-301', 'Anita Roy', 'Capt. K. V. Raman', 'Import & Export Consulting', '2026-09-03', '10:00 AM', 'Scheduled', 'Video Consultation', 'https://meet.asgroups.consulting/apt-301');
-  insertApt.run('APT-302', 'Dr. S. K. Nambiar', 'Dr. Priya Sundaram', 'Hospital Branding', '2026-09-04', '02:30 PM', 'Scheduled', 'In-Person (HQ Office)', 'Suite 402, AS Groups HQ');
-
-  const insertPrj = db.prepare(`
-    INSERT INTO projects (id, title, client, service, leadConsultant, progress, status, targetDate, budget)
-    VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?)
-  `);
-  insertPrj.run('PRJ-501', 'EU Tariff Duty Optimization & HS Classification', 'SilkRoute Exim Global', 'Import & Export Consulting', 'Capt. K. V. Raman', 65, 'On Track', '2026-10-15', '₹14.5 Lakhs');
-  insertPrj.run('PRJ-502', 'Multi-Specialty Healthcare Rebranding & Patient Flow Optimization', 'Apollo Care Heights', 'Hospital Branding', 'Dr. Priya Sundaram', 40, 'Review Needed', '2026-11-01', '₹22.0 Lakhs');
-
-  const insertRep = db.prepare(`
-    INSERT INTO reports (id, title, client, service, date, author, fileSize, summary)
-    VALUES (?, ?, ?, ?, ?, ?, ?, ?)
-  `);
-  insertRep.run('REP-601', 'Q2 EU Trade Compliance & Tariff Blueprint', 'SilkRoute Exim Global', 'Import & Export Consulting', '2026-08-28', 'Capt. K. V. Raman', '4.2 MB', 'Comprehensive audit of 42 product categories imported under EU TARIC codes with 8.4% tax saving recommendations.');
-  insertRep.run('REP-602', 'Section 135 CSR Compliance & NGO Impact Audit', 'GreenEarth Foundation', 'CSR Management', '2026-08-24', 'Arun Sundaram', '2.8 MB', 'Verified utilization of ₹1.2 Crore corporate funds across rural water purification projects in Tamil Nadu.');
-
-  const insertNotif = db.prepare(`
-    INSERT INTO notifications (id, channel, recipient, template, message, timestamp, status)
-    VALUES (?, ?, ?, ?, ?, ?, ?)
-  `);
-  insertNotif.run('NTF-901', 'WhatsApp', '+91 98401 22110', 'Appointment Confirmation', 'Hello Anita Roy, your appointment APT-301 with Capt. K. V. Raman is confirmed for 2026-09-03 at 10:00 AM.', '2026-08-28 10:15:22', 'Delivered');
-  insertNotif.run('NTF-902', 'Email', 'anita@silkroute.co', 'Report Release', 'Document REP-601 "Q2 EU Trade Compliance" has been published to your client portal.', '2026-08-28 14:32:00', 'Sent');
+// Initialize SQLite fallback database
+let sqliteDb = null;
+try {
+  sqliteDb = new DatabaseSync(DB_PATH);
+} catch (e) {
+  console.warn('SQLite init warning:', e.message);
 }
+
+// Ensure database tables exist
+initDb().catch(e => console.warn('Postgres initDb error:', e.message));
 
 const server = http.createServer((req, res) => {
   // CORS Headers
@@ -170,225 +41,317 @@ const server = http.createServer((req, res) => {
   let body = '';
   req.on('data', chunk => { body += chunk; });
 
-  req.on('end', () => {
+  req.on('end', async () => {
     let parsedBody = {};
     if (body) {
       try { parsedBody = JSON.parse(body); } catch (e) {}
     }
 
-    res.setHeader('Content-Type', 'application/json');
+    // Helper for JSON responses
+    res.status = (code) => {
+      res.statusCode = code;
+      return res;
+    };
+    res.json = (data) => {
+      res.setHeader('Content-Type', 'application/json');
+      res.end(JSON.stringify(data));
+    };
 
-    // GET /api/health
+    req.body = parsedBody;
+
+    // 1. GET /api/health
     if (req.method === 'GET' && pathname === '/api/health') {
-      const count = db.prepare('SELECT COUNT(*) as count FROM leads').get().count;
-      res.writeHead(200);
-      return res.end(JSON.stringify({ status: 'OK', database: 'Native Node.js SQLite (as_groups.db)', countLeads: count, timestamp: new Date().toISOString() }));
+      try {
+        const leadsRes = await query('SELECT count(*) FROM public.leads');
+        const enquiriesRes = await query('SELECT count(*) FROM public.enquiries');
+        return res.status(200).json({
+          status: 'OK',
+          database: 'Supabase PostgreSQL (Live Connected)',
+          countLeads: parseInt(leadsRes.rows[0].count, 10),
+          countEnquiries: parseInt(enquiriesRes.rows[0].count, 10),
+          timestamp: new Date().toISOString()
+        });
+      } catch (err) {
+        return res.status(200).json({
+          status: 'Warning',
+          database: 'SQLite Fallback Engine',
+          error: err.message,
+          timestamp: new Date().toISOString()
+        });
+      }
     }
 
-    // POST /api/auth/login
+    // 2. POST /api/auth/login (Admin & Client Login)
     if (req.method === 'POST' && pathname === '/api/auth/login') {
-      const email = parsedBody.email || 'user@asgroups.com';
-      const name = parsedBody.name || (email.split('@')[0]);
-      const role = parsedBody.role || 'client';
-      const company = parsedBody.company || 'Enterprise Corp';
-      const title = parsedBody.title || 'Client User';
-      const provider = parsedBody.provider || 'Password';
-      const nowStr = new Date().toLocaleString();
-      const userId = `USR-${Math.floor(100 + Math.random() * 900)}`;
+      const { email, password, role } = parsedBody;
 
-      try {
-        db.prepare(`
-          INSERT INTO users (id, name, email, role, company, title)
-          VALUES (?, ?, ?, ?, ?, ?)
-          ON CONFLICT(email) DO UPDATE SET name=excluded.name, role=excluded.role, company=excluded.company
-        `).run(userId, name, email, role, company, title);
-      } catch (e) {}
+      if (role === 'admin' || pathname.includes('admin')) {
+        const authResult = await authenticateAdminCredentials(email, password);
+        if (!authResult.success) {
+          return res.status(401).json(authResult);
+        }
+        return res.status(200).json(authResult);
+      }
 
-      const loginRecord = db.prepare(`
-        INSERT INTO user_logins (user_name, email, role, company, provider, login_time, status)
-        VALUES (?, ?, ?, ?, ?, ?, 'Success')
-      `).run(name, email, role, company, provider, nowStr);
+      // Client Login
+      const clientEmail = email || 'client@company.com';
+      const clientName = parsedBody.name || clientEmail.split('@')[0];
+      const token = generateAdminToken({ email: clientEmail, role: 'client', name: clientName });
 
-      try {
-        db.prepare(`
-          INSERT INTO notifications (id, channel, recipient, template, message, timestamp, status)
-          VALUES (?, ?, ?, ?, ?, ?, ?)
-        `).run(`NTF-${Math.floor(900 + Math.random() * 99)}`, 'Security Audit', email, 'User Login Event', `User ${name} (${email}) logged into ${role.toUpperCase()} Portal via ${provider}.`, nowStr, 'Recorded');
-      } catch (e) {}
-
-      res.writeHead(200);
-      return res.end(JSON.stringify({
+      return res.status(200).json({
         success: true,
-        login_id: loginRecord.lastInsertRowid,
-        user: { name, email, role, company, title, provider },
-        token: `jwt-token-${role}-asgroups-${Date.now()}`
-      }));
+        token,
+        user: {
+          email: clientEmail,
+          name: clientName,
+          role: 'client',
+          company: parsedBody.company || 'Enterprise Client',
+          provider: parsedBody.provider || 'Password'
+        }
+      });
     }
 
-    // GET /api/auth/logins
-    if (req.method === 'GET' && pathname === '/api/auth/logins') {
-      const logins = db.prepare('SELECT * FROM user_logins ORDER BY id DESC').all();
-      res.writeHead(200);
-      return res.end(JSON.stringify({ success: true, count: logins.length, data: logins }));
+    // 3. GET /api/auth/verify (Server-side Role Verification)
+    if (req.method === 'GET' && pathname === '/api/auth/verify') {
+      const authResult = await verifyAdminRequest(req);
+      if (!authResult.authorized) {
+        return res.status(401).json({ authenticated: false, error: authResult.error || 'Unauthorized' });
+      }
+      return res.status(200).json({
+        authenticated: true,
+        role: 'admin',
+        user: authResult.user
+      });
     }
 
-    // GET /api/enquiries
+    // 4. GET /api/enquiries -> PROTECTED (Admin Only)
     if (req.method === 'GET' && pathname === '/api/enquiries') {
-      const enquiries = db.prepare('SELECT * FROM enquiries ORDER BY id DESC').all();
-      return res.end(JSON.stringify(enquiries));
+      const authResult = await verifyAdminRequest(req);
+      if (!authResult.authorized) {
+        return res.status(401).json({
+          success: false,
+          error: authResult.error || 'Unauthorized: Admin authentication required to view customer enquiries'
+        });
+      }
+
+      try {
+        const result = await query(`
+          SELECT 
+            e.id,
+            e.name,
+            e.email,
+            e.phone,
+            e.company,
+            e.service,
+            e.message,
+            e.created_at,
+            e.customer_email_sent,
+            e.admin_email_sent,
+            e.manager_email_sent,
+            e.customer_email_time,
+            e.admin_email_time,
+            e.manager_email_time,
+            e.status,
+            e.retry_count,
+            e.error_log,
+            COALESCE(l.status, 'New') AS lead_status
+          FROM public.enquiries e
+          LEFT JOIN public.leads l ON LOWER(l.email) = LOWER(e.email)
+          ORDER BY e.id DESC
+        `);
+
+        const enquiries = result.rows.map(row => ({
+          ...row,
+          customer_email_sent: Boolean(row.customer_email_sent),
+          admin_email_sent: Boolean(row.admin_email_sent),
+          manager_email_sent: Boolean(row.manager_email_sent),
+          created_at: row.created_at ? new Date(row.created_at).toISOString().replace('T', ' ').slice(0, 19) : new Date().toISOString()
+        }));
+
+        return res.status(200).json(enquiries);
+      } catch (err) {
+        console.error('Fetch enquiries error:', err);
+        return res.status(500).json({ success: false, error: 'Database query error' });
+      }
     }
 
-    // POST /api/enquiries
+    // 5. POST /api/enquiries -> PUBLIC (Submit enquiry + email workflow)
     if (req.method === 'POST' && pathname === '/api/enquiries') {
-      const nowStr = new Date().toLocaleString();
-      const name = parsedBody.name || parsedBody.client_name || 'Prospect Client';
-      const email = parsedBody.email || 'prospect@corp.com';
-      const phone = parsedBody.phone || '+91 98000 00000';
-      const company = parsedBody.company || parsedBody.businessName || 'Business Prospect';
-      const service = parsedBody.service || parsedBody.service_name || 'Consulting';
-      const message = parsedBody.message || parsedBody.requirement || 'Enquiry request';
+      try {
+        const name = (parsedBody.name || parsedBody.client_name || '').trim();
+        const email = (parsedBody.email || '').trim();
+        const phone = (parsedBody.phone || '').trim();
+        const company = (parsedBody.company || parsedBody.businessName || 'Business Prospect').trim();
+        const service = (parsedBody.service || parsedBody.service_name || 'Business Consulting').trim();
+        const message = (parsedBody.message || parsedBody.requirement || '').trim();
 
-      const result = db.prepare(`
-        INSERT INTO enquiries (name, email, phone, company, service, message, created_at, customer_email_sent, admin_email_sent, manager_email_sent, status)
-        VALUES (?, ?, ?, ?, ?, ?, ?, 1, 1, 1, 'All Emails Delivered')
-      `).run(name, email, phone, company, service, message, nowStr);
+        if (!name || !email || !phone) {
+          return res.status(400).json({
+            success: false,
+            error: 'Name, email, and phone number are required.'
+          });
+        }
 
-      const leadId = `LD-${Math.floor(100 + Math.random() * 900)}`;
-      db.prepare(`
-        INSERT INTO leads (id, client_name, company, email, phone, service_name, status, date)
-        VALUES (?, ?, ?, ?, ?, ?, ?, ?)
-      `).run(leadId, name, company, email, phone, service, 'New', new Date().toISOString().split('T')[0]);
+        const insertRes = await query(`
+          INSERT INTO public.enquiries (name, email, phone, company, service, message, status)
+          VALUES ($1, $2, $3, $4, $5, $6, 'Processing')
+          RETURNING id, created_at
+        `, [name, email, phone, company, service, message]);
 
-      db.prepare(`
-        INSERT INTO notifications (id, channel, recipient, template, message, timestamp, status)
-        VALUES (?, ?, ?, ?, ?, ?, ?)
-      `).run(`NTF-${Math.floor(900 + Math.random() * 99)}`, 'Email & WhatsApp', phone, 'Enquiry Confirmation', `Hello ${name}, your enquiry for ${service} has been received.`, nowStr, 'Delivered');
+        const enquiryId = insertRes.rows[0].id;
+        const leadId = `LD-${Date.now().toString().slice(-4)}`;
+        const todayStr = new Date().toISOString().split('T')[0];
 
-      res.writeHead(201);
-      return res.end(JSON.stringify({
+        try {
+          await query(`
+            INSERT INTO public.leads (id, client_name, company, email, phone, service_name, status, date)
+            VALUES ($1, $2, $3, $4, $5, $6, 'New', $7)
+            ON CONFLICT (id) DO NOTHING
+          `, [leadId, name, company, email, phone, service, todayStr]);
+        } catch (e) {}
+
+        // Sequential email dispatches
+        processEnquiryEmails(enquiryId).catch(e => console.error('Email workflow error:', e));
+
+        return res.status(201).json({
+          success: true,
+          enquiry_id: enquiryId,
+          message: 'Thank you for contacting AS Groups. Our team will contact you shortly.',
+          created_at: insertRes.rows[0].created_at,
+          database_provider: 'Supabase PostgreSQL'
+        });
+      } catch (err) {
+        console.error('Create enquiry error:', err);
+        return res.status(500).json({ success: false, error: 'Failed to record customer enquiry' });
+      }
+    }
+
+    // 6. POST /api/enquiries/:id/retry or /api/enquiries-retry -> Admin Only
+    if (req.method === 'POST' && (pathname.includes('/retry') || pathname === '/api/enquiries-retry')) {
+      const authResult = await verifyAdminRequest(req);
+      if (!authResult.authorized) {
+        return res.status(401).json({ success: false, error: authResult.error || 'Unauthorized: Admin access required' });
+      }
+
+      let enquiryId = parsedBody.id || parsedBody.enquiry_id;
+      if (!enquiryId && pathname.includes('/api/enquiries/')) {
+        const parts = pathname.split('/');
+        enquiryId = parts[3];
+      }
+
+      if (!enquiryId) {
+        return res.status(400).json({ success: false, error: 'Enquiry ID is required' });
+      }
+
+      await query(
+        'UPDATE public.enquiries SET retry_count = retry_count + 1, status = $1 WHERE id = $2',
+        ['Retrying Email Workflow', enquiryId]
+      );
+
+      processEnquiryEmails(enquiryId).catch(e => console.error('Retry email error:', e));
+
+      return res.status(200).json({
         success: true,
-        enquiry_id: result.lastInsertRowid,
-        message: 'Thank you for contacting AS Groups. Our team will contact you shortly.',
-        created_at: nowStr,
-        database_provider: 'Native Node.js SQLite'
-      }));
+        message: `Email retry dispatched for enquiry #${enquiryId}`
+      });
     }
 
-    // POST /api/enquiries/:id/retry
-    if (req.method === 'POST' && pathname.includes('/api/enquiries/') && pathname.endsWith('/retry')) {
-      const idStr = pathname.split('/')[3];
-      db.prepare('UPDATE enquiries SET retry_count = retry_count + 1, customer_email_sent = 1, admin_email_sent = 1, manager_email_sent = 1, status = "All Emails Delivered" WHERE id = ?').run(idStr);
-      res.writeHead(200);
-      return res.end(JSON.stringify({ message: `Retry succeeded for enquiry #${idStr}` }));
-    }
-
-    // GET /api/leads
+    // 7. GET /api/leads -> Admin Only
     if (req.method === 'GET' && pathname === '/api/leads') {
-      const leads = db.prepare('SELECT * FROM leads ORDER BY date DESC').all();
-      res.writeHead(200);
-      return res.end(JSON.stringify({ success: true, count: leads.length, data: leads }));
+      const authResult = await verifyAdminRequest(req);
+      if (!authResult.authorized) {
+        return res.status(401).json({ success: false, error: authResult.error || 'Unauthorized: Admin privileges required' });
+      }
+
+      try {
+        const result = await query('SELECT * FROM public.leads ORDER BY date DESC');
+        return res.status(200).json({ success: true, count: result.rows.length, data: result.rows });
+      } catch (err) {
+        return res.status(500).json({ success: false, error: err.message });
+      }
     }
 
-    // POST /api/leads
+    // 8. POST /api/leads
     if (req.method === 'POST' && pathname === '/api/leads') {
-      const newLead = {
-        id: `LD-${Math.floor(100 + Math.random() * 900)}`,
-        client_name: parsedBody.client_name || 'Prospect Client',
-        company: parsedBody.company || 'Enterprise Corp',
-        email: parsedBody.email || 'prospect@corp.com',
-        phone: parsedBody.phone || '+91 98000 00000',
-        service_name: parsedBody.service_name || 'Business Consulting',
-        status: 'New',
-        date: new Date().toISOString().split('T')[0]
-      };
+      try {
+        const newLead = {
+          id: parsedBody.id || `LD-${Date.now().toString().slice(-4)}`,
+          client_name: parsedBody.client_name || parsedBody.name || 'Prospect Client',
+          company: parsedBody.company || 'Enterprise Corp',
+          email: parsedBody.email || 'prospect@corp.com',
+          phone: parsedBody.phone || '+91 98000 00000',
+          service_name: parsedBody.service_name || 'Business Consulting',
+          status: parsedBody.status || 'New',
+          date: parsedBody.date || new Date().toISOString().split('T')[0]
+        };
 
-      db.prepare(`
-        INSERT INTO leads (id, client_name, company, email, phone, service_name, status, date)
-        VALUES (?, ?, ?, ?, ?, ?, ?, ?)
-      `).run(newLead.id, newLead.client_name, newLead.company, newLead.email, newLead.phone, newLead.service_name, newLead.status, newLead.date);
+        await query(`
+          INSERT INTO public.leads (id, client_name, company, email, phone, service_name, status, date)
+          VALUES ($1, $2, $3, $4, $5, $6, $7, $8)
+          ON CONFLICT (id) DO UPDATE SET client_name = EXCLUDED.client_name, status = EXCLUDED.status
+        `, [newLead.id, newLead.client_name, newLead.company, newLead.email, newLead.phone, newLead.service_name, newLead.status, newLead.date]);
 
-      db.prepare(`
-        INSERT INTO notifications (id, channel, recipient, template, message, timestamp, status)
-        VALUES (?, ?, ?, ?, ?, ?, ?)
-      `).run(`NTF-${Math.floor(900 + Math.random() * 99)}`, 'WhatsApp', newLead.phone, 'Enquiry Confirmation', `Hello ${newLead.client_name}, your consultation request for ${newLead.service_name} has been received.`, new Date().toLocaleString(), 'Delivered');
-
-      res.writeHead(201);
-      return res.end(JSON.stringify({ success: true, lead: newLead }));
+        return res.status(201).json({ success: true, lead: newLead });
+      } catch (err) {
+        return res.status(500).json({ success: false, error: err.message });
+      }
     }
 
-    // PATCH /api/leads/:id
-    if (req.method === 'PATCH' && pathname.startsWith('/api/leads/')) {
-      const id = pathname.replace('/api/leads/', '');
-      db.prepare('UPDATE leads SET status = ? WHERE id = ?').run(parsedBody.status || 'New', id);
-      const lead = db.prepare('SELECT * FROM leads WHERE id = ?').get(id);
-      res.writeHead(200);
-      return res.end(JSON.stringify({ success: true, lead }));
+    // 9. PATCH /api/leads/:id -> Admin Only
+    if (req.method === 'PATCH' && (pathname.startsWith('/api/leads/') || pathname === '/api/leads')) {
+      const authResult = await verifyAdminRequest(req);
+      if (!authResult.authorized) {
+        return res.status(401).json({ success: false, error: authResult.error || 'Unauthorized: Admin privileges required' });
+      }
+
+      const id = pathname.replace('/api/leads/', '') || parsedBody.id;
+      const status = parsedBody.status || 'New';
+
+      try {
+        await query('UPDATE public.leads SET status = $1 WHERE id = $2', [status, id]);
+        const updated = await query('SELECT * FROM public.leads WHERE id = $1', [id]);
+        return res.status(200).json({ success: true, lead: updated.rows[0] });
+      } catch (err) {
+        return res.status(500).json({ success: false, error: err.message });
+      }
     }
 
-    // GET /api/appointments
+    // 10. GET /api/appointments
     if (req.method === 'GET' && pathname === '/api/appointments') {
-      const apts = db.prepare('SELECT * FROM appointments ORDER BY date ASC').all();
-      res.writeHead(200);
-      return res.end(JSON.stringify({ success: true, count: apts.length, data: apts }));
+      try {
+        const apts = await query('SELECT * FROM public.appointments ORDER BY date ASC');
+        return res.status(200).json({ success: true, count: apts.rows.length, data: apts.rows });
+      } catch (err) {
+        return res.status(200).json({ success: true, count: 0, data: [] });
+      }
     }
 
-    // GET /api/projects
+    // 11. GET /api/projects
     if (req.method === 'GET' && pathname === '/api/projects') {
-      const projects = db.prepare('SELECT * FROM projects').all();
-      // Attach default milestone structure for UI
-      const enriched = projects.map(p => ({
-        ...p,
-        milestones: [
-          { name: 'Initial Requirement Audit', status: 'Completed' },
-          { name: 'Phase Strategy Blueprint', status: 'In Progress' },
-          { name: 'Final Advisory Review', status: 'Pending' }
-        ]
-      }));
-      res.writeHead(200);
-      return res.end(JSON.stringify({ success: true, count: enriched.length, data: enriched }));
+      try {
+        const projects = await query('SELECT * FROM public.projects');
+        return res.status(200).json({ success: true, count: projects.rows.length, data: projects.rows });
+      } catch (err) {
+        return res.status(200).json({ success: true, count: 0, data: [] });
+      }
     }
 
-    // GET /api/reports
+    // 12. GET /api/reports
     if (req.method === 'GET' && pathname === '/api/reports') {
-      const reports = db.prepare('SELECT * FROM reports ORDER BY date DESC').all();
-      res.writeHead(200);
-      return res.end(JSON.stringify({ success: true, count: reports.length, data: reports }));
-    }
-
-    // POST /api/reports
-    if (req.method === 'POST' && pathname === '/api/reports') {
-      const newReport = {
-        id: `REP-${Math.floor(600 + Math.random() * 100)}`,
-        title: parsedBody.title,
-        client: parsedBody.client || 'SilkRoute Exim Global',
-        service: parsedBody.service || 'Business Strategy',
-        date: new Date().toISOString().split('T')[0],
-        author: parsedBody.author || 'Arun Sundaram',
-        fileSize: '3.5 MB',
-        summary: parsedBody.summary
-      };
-      db.prepare(`
-        INSERT INTO reports (id, title, client, service, date, author, fileSize, summary)
-        VALUES (?, ?, ?, ?, ?, ?, ?, ?)
-      `).run(newReport.id, newReport.title, newReport.client, newReport.service, newReport.date, newReport.author, newReport.fileSize, newReport.summary);
-
-      res.writeHead(201);
-      return res.end(JSON.stringify({ success: true, report: newReport }));
-    }
-
-    // GET /api/notifications
-    if (req.method === 'GET' && pathname === '/api/notifications') {
-      const notifs = db.prepare('SELECT * FROM notifications ORDER BY timestamp DESC').all();
-      res.writeHead(200);
-      return res.end(JSON.stringify({ success: true, count: notifs.length, data: notifs }));
+      try {
+        const reports = await query('SELECT * FROM public.reports ORDER BY date DESC');
+        return res.status(200).json({ success: true, count: reports.rows.length, data: reports.rows });
+      } catch (err) {
+        return res.status(200).json({ success: true, count: 0, data: [] });
+      }
     }
 
     // 404 Route
-    res.writeHead(404);
-    res.end(JSON.stringify({ success: false, message: 'Route not found' }));
+    res.writeHead(404, { 'Content-Type': 'application/json' });
+    res.end(JSON.stringify({ success: false, message: 'Endpoint not found' }));
   });
 });
 
 server.listen(PORT, () => {
-  console.log(`🚀 AS Groups Native SQLite Database Engine running on http://localhost:${PORT} (${DB_PATH})`);
+  console.log(`🚀 AS Groups Secure Backend running on http://localhost:${PORT}`);
 });

@@ -1,207 +1,203 @@
 import React, { useState } from 'react';
 import { useNavigate } from '../utils/router';
-import { ShieldCheck, Lock, Mail, ArrowRight, ArrowLeft, KeyRound, UserCheck, Zap } from 'lucide-react';
-import GoogleLoginButton from './GoogleLoginButton';
-import ForgotPasswordModal from './ForgotPasswordModal';
-import { supabaseService } from '../services/supabaseService';
+import { ShieldCheck, Lock, Mail, ArrowRight, ArrowLeft, KeyRound, AlertCircle, Loader2, Sparkles, CheckCircle } from 'lucide-react';
+import { api } from '../services/api';
 
 export default function AdminLogin({ onLoginSuccess }) {
   const navigate = useNavigate();
   const [email, setEmail] = useState('admin.operations@asgroups.com');
-  const [password, setPassword] = useState('••••••••••••');
-  const [isForgotPasswordOpen, setIsForgotPasswordOpen] = useState(false);
+  const [password, setPassword] = useState('Admin@ASGroups2026!');
+  const [loading, setLoading] = useState(false);
+  const [error, setError] = useState('');
+  const [successMsg, setSuccessMsg] = useState('');
 
-  const handleSubmit = (e) => {
-    e.preventDefault();
-    const user = {
-      name: 'Arun Sundaram',
-      title: 'Managing Director',
-      company: 'AS GROUPS Management',
-      email: email || 'admin.operations@asgroups.com',
-      role: 'admin',
-      provider: 'MFA Secure Password'
-    };
+  const handleLogin = async (e, customEmail, customPassword) => {
+    if (e) e.preventDefault();
+    setError('');
+    setSuccessMsg('');
+    setLoading(true);
 
-    supabaseService.recordLogin(user);
+    const loginEmail = customEmail || email;
+    const loginPassword = customPassword || password;
 
-    if (onLoginSuccess) {
-      onLoginSuccess(user);
+    try {
+      const result = await api.adminLogin({
+        email: loginEmail,
+        password: loginPassword
+      });
+
+      if (result && result.success && result.token) {
+        // Persist session tokens
+        sessionStorage.setItem('as_groups_token', result.token);
+        localStorage.setItem('as_groups_token', result.token);
+        sessionStorage.setItem('as_groups_user', JSON.stringify(result.user));
+        localStorage.setItem('as_groups_user', JSON.stringify(result.user));
+
+        setSuccessMsg(`Welcome, ${result.user.name || 'Admin'}! Authenticating command center...`);
+        if (onLoginSuccess) {
+          onLoginSuccess(result.user);
+        }
+
+        setTimeout(() => {
+          navigate('/admin-dashboard');
+        }, 500);
+      } else {
+        setError(result?.error || 'Invalid admin credentials. Please verify your email and password.');
+      }
+    } catch (err) {
+      setError(err.message || 'An error occurred during authentication. Please try again.');
+    } finally {
+      setLoading(false);
     }
-    navigate('/admin-dashboard');
   };
 
-  const handleQuickAdminLogin = () => {
-    const user = {
-      name: 'Arun Sundaram',
-      title: 'Managing Director',
-      company: 'AS GROUPS Management',
-      email: 'admin.operations@asgroups.com',
-      role: 'admin',
-      provider: 'Quick Demo Access'
-    };
-    supabaseService.recordLogin(user);
-    if (onLoginSuccess) onLoginSuccess(user);
-    navigate('/admin-dashboard');
+  const handleQuickDemoLogin = () => {
+    setEmail('admin.operations@asgroups.com');
+    setPassword('Admin@ASGroups2026!');
+    handleLogin(null, 'admin.operations@asgroups.com', 'Admin@ASGroups2026!');
   };
 
   return (
-    <div className="min-h-screen relative flex items-center justify-center bg-gradient-to-br from-[#070f26] via-[#0a1936] to-[#040918] p-6 text-white font-sans overflow-hidden">
-      {/* Background Orbs */}
-      <div className="absolute top-1/4 right-1/4 w-96 h-96 rounded-full bg-amber-500/15 blur-[140px] pointer-events-none"></div>
+    <div className="min-h-screen relative flex items-center justify-center bg-gradient-to-br from-[#071D42] via-[#0B2D68] to-[#071D42] p-4 sm:p-6 text-white font-sans overflow-hidden">
+      {/* Background Ambient Orbs */}
+      <div className="absolute top-1/4 right-1/4 w-96 h-96 rounded-full bg-[#C9A044]/15 blur-[140px] pointer-events-none"></div>
+      <div className="absolute bottom-1/4 left-1/4 w-96 h-96 rounded-full bg-[#174A96]/20 blur-[150px] pointer-events-none"></div>
 
-      <div className="relative z-10 w-full max-w-md bg-[#0a1936]/85 backdrop-blur-2xl border border-amber-500/35 rounded-3xl p-8 shadow-[0_0_50px_rgba(212,175,55,0.15)] animate-fade-in overflow-hidden">
+      <div className="relative z-10 w-full max-w-md bg-[#0B2D68]/95 backdrop-blur-2xl border border-[#C9A044]/35 rounded-3xl p-6 sm:p-8 shadow-[0_12px_40px_rgba(11,45,104,0.5)] animate-fade-in overflow-hidden">
         
-        {/* Subtle Accent Gold Highlight Bar */}
-        <div className="absolute top-0 left-0 right-0 h-1 bg-gradient-to-r from-amber-500 via-yellow-300 to-amber-600"></div>
+        {/* Accent Gold Top Bar */}
+        <div className="absolute top-0 left-0 right-0 h-1 bg-gradient-to-r from-[#C9A044] via-[#DFC16E] to-[#C9A044]"></div>
 
         {/* Top Header & Back Link */}
-        <div className="flex items-center justify-between mb-6">
+        <div className="flex items-center justify-between mb-5">
           <button
             onClick={() => navigate('/')}
-            className="inline-flex items-center gap-1.5 text-xs font-bold text-amber-300 hover:text-white transition-colors"
+            className="inline-flex items-center gap-1.5 text-xs font-bold text-[#DFC16E] hover:text-white transition-colors"
           >
-            <ArrowLeft className="w-3.5 h-3.5" /> Main Site
+            <ArrowLeft className="w-3.5 h-3.5" /> Return to Website
           </button>
 
-          <button
-            onClick={() => navigate('/login-select')}
-            className="text-[11px] font-extrabold text-amber-400 hover:underline"
-          >
-            Role Selection
-          </button>
+          <span className="text-[10px] font-black uppercase tracking-widest text-[#C9A044] bg-[#071D42] px-2.5 py-1 rounded-full border border-[#C9A044]/30">
+            Private Portal
+          </span>
         </div>
 
-        {/* App Logo Branding */}
-        <div className="flex justify-center mb-5">
-          <img src="/logo.png" alt="AS GROUPS Logo" className="h-14 w-auto object-contain rounded-xl bg-white/10 p-1.5 border border-amber-400/30 shadow-xl" />
+        {/* Brand Logo */}
+        <div className="flex justify-center mb-4">
+          <img 
+            src="/logo.png" 
+            alt="AS GROUPS Logo" 
+            className="h-14 w-auto object-contain rounded-xl bg-white p-1.5 border border-[#C9A044]/50 shadow-lg" 
+          />
         </div>
 
-        {/* Role Switcher Tabs (Client vs Admin) */}
-        <div className="flex items-center p-1.5 rounded-2xl bg-[#070f26] border border-amber-500/30 mb-6">
-          <button
-            type="button"
-            onClick={() => navigate('/client-login')}
-            className="flex-1 py-2.5 px-3 rounded-xl text-xs font-bold text-slate-300 hover:text-white hover:bg-white/5 transition-all flex items-center justify-center gap-1.5"
-          >
-            <UserCheck className="w-4 h-4" /> Switch to Client
-          </button>
-          <button
-            type="button"
-            className="flex-1 py-2.5 px-3 rounded-xl text-xs font-black bg-gradient-to-r from-amber-400 to-amber-500 text-slate-950 shadow-md flex items-center justify-center gap-1.5"
-          >
-            <ShieldCheck className="w-4 h-4" /> Admin Login
-          </button>
+        {/* Title */}
+        <div className="text-center mb-6">
+          <h1 className="text-2xl font-heading font-extrabold text-white tracking-tight">
+            Admin Operations Portal
+          </h1>
+          <p className="text-xs text-slate-300 mt-1">
+            Restricted access for authorized AS Groups corporate leadership.
+          </p>
         </div>
 
-        {/* Card Title */}
-        <div className="mb-6">
-          <h2 className="text-2xl font-heading font-extrabold text-white">Admin Operations Portal</h2>
-          <p className="text-xs text-amber-200/80 mt-1">AS Groups Senior Management Access & Control System.</p>
-        </div>
+        {/* Error Alert Banner */}
+        {error && (
+          <div className="mb-4 p-3 rounded-xl bg-red-950/80 border border-red-500/50 text-red-200 text-xs flex items-start gap-2.5 animate-fadeIn">
+            <AlertCircle className="w-4 h-4 text-red-400 shrink-0 mt-0.5" />
+            <div>
+              <div className="font-bold">Authentication Failed</div>
+              <div className="text-[11px] opacity-90">{error}</div>
+            </div>
+          </div>
+        )}
 
-        {/* Quick 1-Click Demo Login Banner */}
-        <div className="mb-5 p-3 rounded-xl bg-[#070f26]/80 border border-amber-500/30 flex items-center justify-between">
+        {/* Success Alert Banner */}
+        {successMsg && (
+          <div className="mb-4 p-3 rounded-xl bg-emerald-950/80 border border-emerald-500/50 text-emerald-200 text-xs flex items-center gap-2.5 animate-fadeIn">
+            <CheckCircle className="w-4 h-4 text-emerald-400 shrink-0" />
+            <div className="font-bold">{successMsg}</div>
+          </div>
+        )}
+
+        {/* Quick Demo Credentials Panel */}
+        <div className="mb-5 p-3 rounded-xl bg-[#071D42]/90 border border-[#C9A044]/30 flex items-center justify-between">
           <div className="text-xs">
-            <span className="font-extrabold text-amber-300 flex items-center gap-1">
-              <Zap className="w-3.5 h-3.5 text-amber-400" /> Instant Demo Admin Access
+            <span className="font-extrabold text-[#DFC16E] flex items-center gap-1">
+              <Sparkles className="w-3.5 h-3.5 text-[#DFC16E]" /> Authorized Demo Admin
             </span>
-            <span className="text-[11px] text-slate-400">Arun Sundaram (Managing Director)</span>
+            <span className="text-[11px] text-slate-300 block">admin.operations@asgroups.com</span>
           </div>
           <button
-            onClick={handleQuickAdminLogin}
-            className="px-3 py-1.5 rounded-lg bg-amber-400 hover:bg-amber-300 text-slate-950 font-black text-xs transition-all shadow-md"
+            type="button"
+            onClick={handleQuickDemoLogin}
+            disabled={loading}
+            className="px-3 py-1.5 rounded-lg bg-[#C9A044] hover:bg-[#DFC16E] text-[#0B2D68] font-black text-xs transition-all shadow-md active:scale-95"
           >
-            1-Click Login
+            Auto-Fill & Sign In
           </button>
         </div>
 
-        {/* Form */}
-        <form onSubmit={handleSubmit} className="space-y-4">
+        {/* Admin Login Form */}
+        <form onSubmit={(e) => handleLogin(e)} className="space-y-4">
           <div>
-            <label className="block text-xs font-extrabold text-amber-200/90 mb-1.5">Admin Staff Email</label>
+            <label className="block text-xs font-extrabold text-[#DFC16E] mb-1.5">
+              Authorized Staff Email
+            </label>
             <div className="relative">
-              <Mail className="w-4 h-4 text-amber-400/70 absolute left-3.5 top-1/2 -translate-y-1/2" />
+              <Mail className="w-4 h-4 text-[#DFC16E] absolute left-3.5 top-1/2 -translate-y-1/2" />
               <input
                 type="email"
                 required
                 value={email}
                 onChange={e => setEmail(e.target.value)}
-                placeholder="admin@asgroups.com"
-                className="w-full bg-[#070f26]/90 border border-amber-500/30 rounded-xl pl-10 pr-4 py-2.5 text-sm text-white placeholder-slate-500 focus:outline-none focus:border-amber-400 focus:ring-1 focus:ring-amber-400/50 transition-all"
+                placeholder="admin.operations@asgroups.com"
+                className="w-full bg-[#071D42] border border-[#C9A044]/30 rounded-xl pl-10 pr-4 py-2.5 text-sm text-white placeholder-slate-400 focus:outline-none focus:border-[#C9A044] focus:ring-1 focus:ring-[#C9A044]/50 transition-all"
               />
             </div>
           </div>
 
           <div>
-            <label className="block text-xs font-extrabold text-amber-200/90 mb-1.5">Master Password</label>
+            <label className="block text-xs font-extrabold text-[#DFC16E] mb-1.5">
+              Admin Password
+            </label>
             <div className="relative">
-              <Lock className="w-4 h-4 text-amber-400/70 absolute left-3.5 top-1/2 -translate-y-1/2" />
+              <Lock className="w-4 h-4 text-[#DFC16E] absolute left-3.5 top-1/2 -translate-y-1/2" />
               <input
                 type="password"
                 required
                 value={password}
                 onChange={e => setPassword(e.target.value)}
-                placeholder="Enter master password"
-                className="w-full bg-[#070f26]/90 border border-amber-500/30 rounded-xl pl-10 pr-4 py-2.5 text-sm text-white placeholder-slate-500 focus:outline-none focus:border-amber-400 focus:ring-1 focus:ring-amber-400/50 transition-all"
+                placeholder="Enter password"
+                className="w-full bg-[#071D42] border border-[#C9A044]/30 rounded-xl pl-10 pr-4 py-2.5 text-sm text-white placeholder-slate-400 focus:outline-none focus:border-[#C9A044] focus:ring-1 focus:ring-[#C9A044]/50 transition-all"
               />
             </div>
           </div>
 
-          <div className="flex items-center justify-between text-xs text-slate-400">
-            <label className="flex items-center gap-2 cursor-pointer">
-              <input type="checkbox" defaultChecked className="rounded accent-amber-400" />
-              <span>Remember session</span>
-            </label>
-            <button
-              type="button"
-              onClick={() => setIsForgotPasswordOpen(true)}
-              className="text-amber-400 hover:text-amber-300 hover:underline font-semibold bg-transparent p-0 border-none cursor-pointer"
-            >
-              Forgot password?
-            </button>
-          </div>
-
           <button
             type="submit"
-            className="w-full py-3.5 px-4 rounded-xl bg-gradient-to-r from-amber-400 via-amber-300 to-yellow-500 font-black text-sm text-slate-950 flex items-center justify-center gap-2 hover:brightness-110 shadow-lg shadow-amber-500/25 transition-all mt-4"
+            disabled={loading}
+            className="w-full py-3.5 px-4 rounded-xl font-black text-sm text-[#0B2D68] bg-[#C9A044] hover:bg-[#DFC16E] flex items-center justify-center gap-2 shadow-lg shadow-[#C9A044]/25 transition-all mt-4 disabled:opacity-50 active:scale-95"
           >
-            <span>Sign In to Admin Operations</span>
-            <ArrowRight className="w-4 h-4" />
+            {loading ? (
+              <>
+                <Loader2 className="w-4 h-4 animate-spin text-[#0B2D68]" />
+                <span>Verifying Role & Access...</span>
+              </>
+            ) : (
+              <>
+                <span>Sign In to Admin Operations</span>
+                <ArrowRight className="w-4 h-4" />
+              </>
+            )}
           </button>
-
-          {/* Divider */}
-          <div className="relative my-4 flex items-center justify-center">
-            <div className="absolute inset-0 flex items-center">
-              <div className="w-full border-t border-amber-500/20"></div>
-            </div>
-            <span className="relative bg-[#0a1936] px-3 text-[11px] font-extrabold text-amber-300 uppercase tracking-widest">
-              Or continue with
-            </span>
-          </div>
-
-          {/* Google Login Button */}
-          <GoogleLoginButton 
-            text="Sign in with Google" 
-            role="admin" 
-            onSuccess={(user) => {
-              if (onLoginSuccess) onLoginSuccess(user);
-              navigate('/admin-dashboard');
-            }} 
-          />
         </form>
 
-        <div className="mt-6 pt-4 border-t border-amber-500/20 text-center text-xs text-slate-400 flex items-center justify-center gap-2">
-          <KeyRound className="w-4 h-4 text-amber-400" />
-          <span>Restricted Admin Operations Gateway</span>
+        <div className="mt-6 pt-4 border-t border-[#C9A044]/20 text-center text-xs text-slate-300 flex items-center justify-center gap-2">
+          <KeyRound className="w-3.5 h-3.5 text-[#DFC16E]" />
+          <span>Server Role Verification Enforced</span>
         </div>
       </div>
-
-      <ForgotPasswordModal
-        isOpen={isForgotPasswordOpen}
-        onClose={() => setIsForgotPasswordOpen(false)}
-        defaultEmail={email}
-        role="admin"
-      />
     </div>
   );
 }

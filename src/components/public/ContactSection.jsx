@@ -74,15 +74,15 @@ export default function ContactSection({ onAddLead, onAddNotification }) {
   const whatsappUrl = `https://wa.me/91${COMPANY_INFO.contact.rawPhones[0]}?text=${encodeURIComponent(COMPANY_INFO.contact.whatsappMessage)}`;
 
   return (
-    <div style={{ padding: '60px 0', background: 'var(--bg-main)' }}>
+    <div style={{ padding: '60px 0', background: 'var(--color-light-bg)' }}>
       <div className="container">
         
         <div style={{ textAlign: 'center', maxWidth: '750px', margin: '0 auto 40px' }}>
-          <span className="badge badge-blue" style={{ marginBottom: '12px' }}>CONTACT US</span>
-          <h1 style={{ fontSize: 'clamp(1.75rem, 4.5vw, 2.5rem)', color: 'var(--primary-900)', marginBottom: '14px', fontWeight: 800, lineHeight: 1.2 }}>
+          <span className="badge badge-gold" style={{ marginBottom: '12px' }}>CONTACT US</span>
+          <h1 style={{ fontSize: 'clamp(1.75rem, 4.5vw, 2.5rem)', color: 'var(--color-primary-navy)', marginBottom: '14px', fontWeight: 800, lineHeight: 1.2 }}>
             LET'S TALK ABOUT YOUR BUSINESS
           </h1>
-          <p style={{ fontSize: 'clamp(0.92rem, 2.5vw, 1.05rem)', color: 'var(--text-muted)', lineHeight: 1.6 }}>
+          <p style={{ fontSize: 'clamp(0.92rem, 2.5vw, 1.05rem)', color: 'var(--color-secondary-gray)', lineHeight: 1.6 }}>
             Have a business idea? Looking to grow your existing business? Need help with marketing, branding or strategy? Tell us about your requirements and our team will get in touch with you.
           </p>
         </div>
@@ -91,50 +91,50 @@ export default function ContactSection({ onAddLead, onAddNotification }) {
           
           {/* Left Contact Details & WhatsApp Button */}
           <div style={{ display: 'flex', flexDirection: 'column', gap: '20px' }}>
-            <div className="p-5 sm:p-8 rounded-2xl" style={{ background: 'white', border: '1px solid var(--border-color)', boxShadow: 'var(--shadow-sm)' }}>
-              <h3 style={{ fontSize: '1.25rem', color: 'var(--primary-900)', marginBottom: '20px', fontWeight: 700 }}>
+            <div className="p-5 sm:p-8 rounded-2xl" style={{ background: 'white', border: '1px solid var(--color-border-gray)', boxShadow: '0 4px 16px rgba(11,45,104,0.06)', borderTop: '3px solid #C9A044' }}>
+              <h3 style={{ fontSize: '1.25rem', color: 'var(--color-primary-navy)', marginBottom: '20px', fontWeight: 800 }}>
                 Contact Details
               </h3>
 
               <div style={{ display: 'flex', flexDirection: 'column', gap: '20px', fontSize: '0.95rem' }}>
                 <div style={{ display: 'flex', gap: '14px', alignItems: 'flex-start' }}>
-                  <div style={{ width: '42px', height: '42px', background: '#d1fae5', color: '#047857', borderRadius: '10px', display: 'flex', alignItems: 'center', justifyContent: 'center', flexShrink: 0 }}>
+                  <div style={{ width: '42px', height: '42px', background: 'rgba(11,45,104,0.08)', color: 'var(--color-primary-navy)', borderRadius: '10px', display: 'flex', alignItems: 'center', justifyContent: 'center', flexShrink: 0 }}>
                     <Phone size={20} />
                   </div>
                   <div>
-                    <div style={{ fontWeight: 700, color: 'var(--primary-900)' }}>📞 Phone</div>
-                    <div style={{ color: '#334155', fontSize: '0.95rem', fontWeight: 600, marginTop: '2px' }}>
+                    <div style={{ fontWeight: 800, color: 'var(--color-primary-navy)' }}>📞 Phone</div>
+                    <div style={{ color: 'var(--color-dark-text)', fontSize: '0.95rem', fontWeight: 600, marginTop: '2px' }}>
                       {COMPANY_INFO.contact.phones.join(' / ')}
                     </div>
                   </div>
                 </div>
 
                 <div style={{ display: 'flex', gap: '14px', alignItems: 'flex-start' }}>
-                  <div style={{ width: '42px', height: '42px', background: '#dbeafe', color: '#1e40af', borderRadius: '10px', display: 'flex', alignItems: 'center', justifyContent: 'center', flexShrink: 0 }}>
+                  <div style={{ width: '42px', height: '42px', background: 'rgba(23,74,150,0.1)', color: 'var(--color-royal-blue)', borderRadius: '10px', display: 'flex', alignItems: 'center', justifyContent: 'center', flexShrink: 0 }}>
                     <Mail size={20} />
                   </div>
                   <div>
-                    <div style={{ fontWeight: 700, color: 'var(--primary-900)' }}>✉️ Email</div>
-                    <div style={{ color: '#334155', fontSize: '0.95rem', fontWeight: 600, marginTop: '2px' }}>
+                    <div style={{ fontWeight: 800, color: 'var(--color-primary-navy)' }}>✉️ Email</div>
+                    <div style={{ color: 'var(--color-dark-text)', fontSize: '0.95rem', fontWeight: 600, marginTop: '2px' }}>
                       {COMPANY_INFO.contact.email}
                     </div>
                   </div>
                 </div>
 
                 <div style={{ display: 'flex', gap: '14px', alignItems: 'flex-start' }}>
-                  <div style={{ width: '42px', height: '42px', background: '#fef3c7', color: '#b45309', borderRadius: '10px', display: 'flex', alignItems: 'center', justifyContent: 'center', flexShrink: 0 }}>
+                  <div style={{ width: '42px', height: '42px', background: 'rgba(201,160,68,0.12)', color: 'var(--color-gold-accent)', borderRadius: '10px', display: 'flex', alignItems: 'center', justifyContent: 'center', flexShrink: 0 }}>
                     <MapPin size={20} />
                   </div>
                   <div>
-                    <div style={{ fontWeight: 700, color: 'var(--primary-900)' }}>📍 Location</div>
-                    <div style={{ color: '#334155', fontSize: '0.95rem', fontWeight: 600, marginTop: '2px' }}>
+                    <div style={{ fontWeight: 800, color: 'var(--color-primary-navy)' }}>📍 Location</div>
+                    <div style={{ color: 'var(--color-dark-text)', fontSize: '0.95rem', fontWeight: 600, marginTop: '2px' }}>
                       {COMPANY_INFO.contact.location}
                     </div>
                   </div>
                 </div>
 
-                <div style={{ borderTop: '1px solid #e2e8f0', paddingTop: '16px', marginTop: '4px' }}>
-                  <div style={{ fontWeight: 700, color: 'var(--primary-900)', fontSize: '0.9rem', marginBottom: '10px' }}>
+                <div style={{ borderTop: '1px solid var(--color-border-gray)', paddingTop: '16px', marginTop: '4px' }}>
+                  <div style={{ fontWeight: 800, color: 'var(--color-primary-navy)', fontSize: '0.9rem', marginBottom: '10px' }}>
                     🌐 Official Social Profiles
                   </div>
                   <div style={{ display: 'flex', flexWrap: 'wrap', gap: '10px' }}>
@@ -217,14 +217,14 @@ export default function ContactSection({ onAddLead, onAddNotification }) {
           </div>
 
           {/* Right Contact / Enquiry Form */}
-          <div className="p-5 sm:p-8 rounded-2xl" style={{ background: 'white', border: '1px solid var(--border-color)', boxShadow: 'var(--shadow-md)' }}>
+          <div className="p-5 sm:p-8 rounded-2xl" style={{ background: 'white', border: '1px solid var(--color-border-gray)', boxShadow: '0 4px 20px rgba(11,45,104,0.06)', borderTop: '3px solid #C9A044' }}>
             {submitted ? (
               <div style={{ textAlign: 'center', padding: '24px 0' }}>
-                <CheckCircle2 size={52} color="#059669" style={{ margin: '0 auto 14px' }} />
-                <h3 style={{ fontSize: '1.4rem', color: 'var(--primary-900)', marginBottom: '10px', fontWeight: 800 }}>
+                <CheckCircle2 size={52} color="#C9A044" style={{ margin: '0 auto 14px' }} />
+                <h3 style={{ fontSize: '1.4rem', color: 'var(--color-primary-navy)', marginBottom: '10px', fontWeight: 800 }}>
                   Enquiry Submitted!
                 </h3>
-                <p style={{ fontSize: '1rem', color: '#1e293b', marginBottom: '22px', lineHeight: 1.6, fontWeight: 600 }}>
+                <p style={{ fontSize: '1rem', color: 'var(--color-dark-text)', marginBottom: '22px', lineHeight: 1.6, fontWeight: 600 }}>
                   {successMessage}
                 </p>
                 <button onClick={() => setSubmitted(false)} className="btn-primary w-full justify-center py-2.5 sm:py-3 active:scale-[0.98] min-h-[40px]">
@@ -233,34 +233,34 @@ export default function ContactSection({ onAddLead, onAddNotification }) {
               </div>
             ) : (
               <form onSubmit={handleSubmit} style={{ display: 'flex', flexDirection: 'column', gap: '14px' }}>
-                <h3 style={{ fontSize: '1.35rem', color: 'var(--primary-900)', marginBottom: '4px', fontWeight: 800 }}>
+                <h3 style={{ fontSize: '1.35rem', color: 'var(--color-primary-navy)', marginBottom: '4px', fontWeight: 800 }}>
                   SEND US AN ENQUIRY
                 </h3>
 
                 <div>
-                  <label style={{ display: 'block', fontSize: '0.84rem', fontWeight: 700, marginBottom: '5px' }}>Full Name *</label>
-                  <input type="text" required placeholder="Enter your name" value={formData.name} onChange={e => setFormData({...formData, name: e.target.value})} style={{ width: '100%', padding: '10px 12px', borderRadius: '8px', border: '1px solid #cbd5e1', fontSize: '0.92rem' }} />
+                  <label style={{ display: 'block', fontSize: '0.84rem', fontWeight: 700, marginBottom: '5px', color: 'var(--color-dark-text)' }}>Full Name *</label>
+                  <input type="text" required placeholder="Enter your name" value={formData.name} onChange={e => setFormData({...formData, name: e.target.value})} style={{ width: '100%', padding: '10px 12px', borderRadius: '8px', border: '1px solid var(--color-border-gray)', background: 'var(--color-light-bg)', fontSize: '0.92rem' }} />
                 </div>
 
                 <div className="grid grid-cols-1 sm:grid-cols-2 gap-3 sm:gap-4">
                   <div>
-                    <label style={{ display: 'block', fontSize: '0.84rem', fontWeight: 700, marginBottom: '5px' }}>Phone Number *</label>
-                    <input type="tel" required placeholder="Enter phone number" value={formData.phone} onChange={e => setFormData({...formData, phone: e.target.value})} style={{ width: '100%', padding: '10px 12px', borderRadius: '8px', border: '1px solid #cbd5e1', fontSize: '0.92rem' }} />
+                    <label style={{ display: 'block', fontSize: '0.84rem', fontWeight: 700, marginBottom: '5px', color: 'var(--color-dark-text)' }}>Phone Number *</label>
+                    <input type="tel" required placeholder="Enter phone number" value={formData.phone} onChange={e => setFormData({...formData, phone: e.target.value})} style={{ width: '100%', padding: '10px 12px', borderRadius: '8px', border: '1px solid var(--color-border-gray)', background: 'var(--color-light-bg)', fontSize: '0.92rem' }} />
                   </div>
                   <div>
-                    <label style={{ display: 'block', fontSize: '0.84rem', fontWeight: 700, marginBottom: '5px' }}>Email Address *</label>
-                    <input type="email" required placeholder="Enter email" value={formData.email} onChange={e => setFormData({...formData, email: e.target.value})} style={{ width: '100%', padding: '10px 12px', borderRadius: '8px', border: '1px solid #cbd5e1', fontSize: '0.92rem' }} />
+                    <label style={{ display: 'block', fontSize: '0.84rem', fontWeight: 700, marginBottom: '5px', color: 'var(--color-dark-text)' }}>Email Address *</label>
+                    <input type="email" required placeholder="Enter email" value={formData.email} onChange={e => setFormData({...formData, email: e.target.value})} style={{ width: '100%', padding: '10px 12px', borderRadius: '8px', border: '1px solid var(--color-border-gray)', background: 'var(--color-light-bg)', fontSize: '0.92rem' }} />
                   </div>
                 </div>
 
                 <div>
-                  <label style={{ display: 'block', fontSize: '0.84rem', fontWeight: 700, marginBottom: '5px' }}>Company Name</label>
-                  <input type="text" placeholder="Enter your business / company name" value={formData.businessName} onChange={e => setFormData({...formData, businessName: e.target.value})} style={{ width: '100%', padding: '10px 12px', borderRadius: '8px', border: '1px solid #cbd5e1', fontSize: '0.92rem' }} />
+                  <label style={{ display: 'block', fontSize: '0.84rem', fontWeight: 700, marginBottom: '5px', color: 'var(--color-dark-text)' }}>Company Name</label>
+                  <input type="text" placeholder="Enter your business / company name" value={formData.businessName} onChange={e => setFormData({...formData, businessName: e.target.value})} style={{ width: '100%', padding: '10px 12px', borderRadius: '8px', border: '1px solid var(--color-border-gray)', background: 'var(--color-light-bg)', fontSize: '0.92rem' }} />
                 </div>
 
                 <div>
-                  <label style={{ display: 'block', fontSize: '0.84rem', fontWeight: 700, marginBottom: '5px' }}>Service Required *</label>
-                  <select value={formData.serviceRequired} onChange={e => setFormData({...formData, serviceRequired: e.target.value})} style={{ width: '100%', padding: '10px 12px', borderRadius: '8px', border: '1px solid #cbd5e1', fontSize: '0.92rem' }}>
+                  <label style={{ display: 'block', fontSize: '0.84rem', fontWeight: 700, marginBottom: '5px', color: 'var(--color-dark-text)' }}>Service Required *</label>
+                  <select value={formData.serviceRequired} onChange={e => setFormData({...formData, serviceRequired: e.target.value})} style={{ width: '100%', padding: '10px 12px', borderRadius: '8px', border: '1px solid var(--color-border-gray)', background: 'var(--color-light-bg)', fontSize: '0.92rem' }}>
                     {SERVICES_LIST.map(s => (
                       <option key={s.id} value={s.title}>{s.title}</option>
                     ))}
@@ -269,14 +269,14 @@ export default function ContactSection({ onAddLead, onAddNotification }) {
                 </div>
 
                 <div>
-                  <label style={{ display: 'block', fontSize: '0.84rem', fontWeight: 700, marginBottom: '5px' }}>Message *</label>
-                  <textarea rows={4} required placeholder="Briefly describe your requirements..." value={formData.requirement} onChange={e => setFormData({...formData, requirement: e.target.value})} style={{ width: '100%', padding: '10px 12px', borderRadius: '8px', border: '1px solid #cbd5e1', fontSize: '0.92rem', resize: 'vertical' }}></textarea>
+                  <label style={{ display: 'block', fontSize: '0.84rem', fontWeight: 700, marginBottom: '5px', color: 'var(--color-dark-text)' }}>Message *</label>
+                  <textarea rows={4} required placeholder="Briefly describe your requirements..." value={formData.requirement} onChange={e => setFormData({...formData, requirement: e.target.value})} style={{ width: '100%', padding: '10px 12px', borderRadius: '8px', border: '1px solid var(--color-border-gray)', background: 'var(--color-light-bg)', fontSize: '0.92rem', resize: 'vertical' }}></textarea>
                 </div>
 
                 <button 
                   type="submit" 
                   disabled={loading}
-                  className="btn-gold w-full justify-center py-2.5 sm:py-3.5 px-5 sm:px-6 font-black text-sm sm:text-base active:scale-[0.98] transition-all shadow-md min-h-[42px] sm:min-h-[46px]" 
+                  className="btn-primary w-full justify-center py-2.5 sm:py-3.5 px-5 sm:px-6 font-bold text-sm sm:text-base active:scale-[0.98] transition-all shadow-md min-h-[42px] sm:min-h-[46px]" 
                   style={{ marginTop: '4px', opacity: loading ? 0.7 : 1 }}
                 >
                   {loading ? (

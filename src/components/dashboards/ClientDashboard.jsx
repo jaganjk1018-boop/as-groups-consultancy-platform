@@ -43,18 +43,18 @@ export default function ClientDashboard({
       <div className="container">
         
         {/* Client Profile Header */}
-        <div style={{ background: 'linear-gradient(135deg, #0f172a 0%, #1e293b 100%)', color: 'white', padding: '28px', borderRadius: 'var(--radius-lg)', marginBottom: '32px', boxShadow: 'var(--shadow-md)' }}>
+        <div style={{ background: 'linear-gradient(135deg, #0B2D68 0%, #174A96 100%)', color: 'white', padding: '28px', borderRadius: 'var(--radius-lg)', marginBottom: '32px', boxShadow: '0 8px 24px rgba(11,45,104,0.18)', border: '1px solid rgba(201, 160, 68, 0.4)' }}>
           <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', flexWrap: 'wrap', gap: '20px' }}>
             <div style={{ display: 'flex', alignItems: 'center', gap: '16px' }}>
-              <div style={{ width: '56px', height: '56px', borderRadius: '50%', background: 'linear-gradient(135deg, #06b6d4, #2563eb)', display: 'flex', alignItems: 'center', justifyContent: 'center', fontSize: '1.4rem', fontWeight: 800 }}>
+              <div style={{ width: '56px', height: '56px', borderRadius: '50%', background: '#C9A044', color: '#0B2D68', display: 'flex', alignItems: 'center', justifyContent: 'center', fontSize: '1.4rem', fontWeight: 800 }}>
                 SC
               </div>
               <div>
                 <div style={{ display: 'flex', alignItems: 'center', gap: '8px' }}>
-                  <h2 style={{ fontSize: '1.5rem', color: 'white' }}>SilkRoute Exim Global</h2>
-                  <span className="badge badge-cyan">Active Client Page</span>
+                  <h2 style={{ fontSize: '1.5rem', color: 'white', fontWeight: 800 }}>SilkRoute Exim Global</h2>
+                  <span className="badge" style={{ background: '#C9A044', color: '#0B2D68', fontWeight: 800 }}>Active Client Page</span>
                 </div>
-                <div style={{ fontSize: '0.88rem', color: '#94a3b8', marginTop: '4px' }}>
+                <div style={{ fontSize: '0.88rem', color: '#F5F6F8', marginTop: '4px' }}>
                   Account Manager: <strong>Capt. K. V. Raman</strong> | Tier: Enterprise Advisory
                 </div>
               </div>
@@ -69,7 +69,7 @@ export default function ClientDashboard({
         </div>
 
         {/* Navigation Tabs */}
-        <div style={{ display: 'flex', gap: '12px', marginBottom: '24px', borderBottom: '2px solid #e2e8f0', paddingBottom: '2px' }}>
+        <div style={{ display: 'flex', gap: '12px', marginBottom: '24px', borderBottom: '2px solid #E5E7EB', paddingBottom: '2px' }}>
           {[
             { id: 'projects', label: 'Active Projects', icon: TrendingUp, count: projects.length },
             { id: 'appointments', label: 'Appointment History', icon: Calendar, count: appointments.length },
@@ -86,10 +86,10 @@ export default function ClientDashboard({
                   background: 'none',
                   border: 'none',
                   padding: '12px 18px',
-                  fontWeight: isSelected ? 700 : 500,
+                  fontWeight: isSelected ? 800 : 500,
                   fontSize: '0.95rem',
-                  color: isSelected ? '#2563eb' : '#64748b',
-                  borderBottom: isSelected ? '3px solid #2563eb' : '3px solid transparent',
+                  color: isSelected ? '#0B2D68' : '#6B7280',
+                  borderBottom: isSelected ? '3px solid #C9A044' : '3px solid transparent',
                   cursor: 'pointer',
                   display: 'flex',
                   alignItems: 'center',
@@ -97,9 +97,9 @@ export default function ClientDashboard({
                   transition: 'all 0.2s ease'
                 }}
               >
-                <Icon size={18} />
+                <Icon size={18} color={isSelected ? '#0B2D68' : '#6B7280'} />
                 <span>{tab.label}</span>
-                <span className="badge badge-blue" style={{ fontSize: '0.7rem' }}>{tab.count}</span>
+                <span className="badge" style={{ background: isSelected ? '#C9A044' : '#E5E7EB', color: '#0B2D68', fontSize: '0.7rem', fontWeight: 700 }}>{tab.count}</span>
               </button>
             );
           })}
@@ -109,40 +109,40 @@ export default function ClientDashboard({
         {activeTab === 'projects' && (
           <div style={{ display: 'flex', flexDirection: 'column', gap: '24px' }}>
             {projects.map(prj => (
-              <div key={prj.id} style={{ background: 'white', borderRadius: 'var(--radius-lg)', padding: '28px', border: '1px solid var(--border-color)', boxShadow: 'var(--shadow-sm)' }}>
+              <div key={prj.id} style={{ background: 'white', borderRadius: 'var(--radius-lg)', padding: '28px', border: '1px solid #E5E7EB', borderTop: '3px solid #C9A044', boxShadow: '0 4px 16px rgba(11, 45, 104, 0.05)' }}>
                 <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', flexWrap: 'wrap', gap: '12px', marginBottom: '16px' }}>
                   <div>
-                    <span className="badge badge-purple" style={{ marginBottom: '6px' }}>{prj.service}</span>
-                    <h3 style={{ fontSize: '1.3rem', color: 'var(--primary-900)' }}>{prj.title}</h3>
-                    <div style={{ fontSize: '0.85rem', color: '#64748b' }}>Lead Consultant: <strong>{prj.leadConsultant}</strong></div>
+                    <span className="badge" style={{ background: 'rgba(11, 45, 104, 0.08)', color: '#0B2D68', border: '1px solid rgba(11, 45, 104, 0.2)', marginBottom: '6px' }}>{prj.service}</span>
+                    <h3 style={{ fontSize: '1.3rem', color: '#0B2D68', fontWeight: 800 }}>{prj.title}</h3>
+                    <div style={{ fontSize: '0.85rem', color: '#6B7280' }}>Lead Consultant: <strong>{prj.leadConsultant}</strong></div>
                   </div>
                   <div style={{ textAlign: 'right' }}>
                     <span className={`badge ${prj.status === 'On Track' ? 'badge-emerald' : 'badge-amber'}`}>{prj.status}</span>
-                    <div style={{ fontSize: '0.85rem', color: '#64748b', marginTop: '4px' }}>Target: {prj.targetDate}</div>
+                    <div style={{ fontSize: '0.85rem', color: '#6B7280', marginTop: '4px' }}>Target: {prj.targetDate}</div>
                   </div>
                 </div>
 
                 {/* Progress bar */}
                 <div style={{ marginBottom: '20px' }}>
-                  <div style={{ display: 'flex', justifyContent: 'space-between', fontSize: '0.85rem', fontWeight: 700, marginBottom: '6px' }}>
+                  <div style={{ display: 'flex', justifyContent: 'space-between', fontSize: '0.85rem', fontWeight: 700, marginBottom: '6px', color: '#0B2D68' }}>
                     <span>Project Completion</span>
                     <span>{prj.progress}%</span>
                   </div>
-                  <div style={{ width: '100%', height: '10px', background: '#e2e8f0', borderRadius: '5px', overflow: 'hidden' }}>
-                    <div style={{ width: `${prj.progress}%`, height: '100%', background: 'linear-gradient(90deg, #2563eb, #06b6d4)', borderRadius: '5px' }}></div>
+                  <div style={{ width: '100%', height: '10px', background: '#E5E7EB', borderRadius: '5px', overflow: 'hidden' }}>
+                    <div style={{ width: `${prj.progress}%`, height: '100%', background: 'linear-gradient(90deg, #0B2D68, #174A96)', borderRadius: '5px' }}></div>
                   </div>
                 </div>
 
                 {/* Milestones list */}
                 <div>
-                  <h4 style={{ fontSize: '0.9rem', color: '#475569', textTransform: 'uppercase', marginBottom: '12px', letterSpacing: '0.05em' }}>Phase Milestones</h4>
+                  <h4 style={{ fontSize: '0.9rem', color: '#0B2D68', fontWeight: 700, textTransform: 'uppercase', marginBottom: '12px', letterSpacing: '0.05em' }}>Phase Milestones</h4>
                   <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(220px, 1fr))', gap: '12px' }}>
                     {prj.milestones.map((m, idx) => (
-                      <div key={idx} style={{ background: '#f8fafc', padding: '12px', borderRadius: '8px', border: '1px solid #e2e8f0', fontSize: '0.85rem' }}>
-                        <div style={{ display: 'flex', alignItems: 'center', gap: '6px', marginBottom: '4px', fontWeight: 700, color: m.status === 'Completed' ? '#059669' : m.status === 'In Progress' ? '#2563eb' : '#94a3b8' }}>
-                          <CheckCircle2 size={15} /> {m.status}
+                      <div key={idx} style={{ background: '#F5F6F8', padding: '12px', borderRadius: '8px', border: '1px solid #E5E7EB', fontSize: '0.85rem' }}>
+                        <div style={{ display: 'flex', alignItems: 'center', gap: '6px', marginBottom: '4px', fontWeight: 700, color: m.status === 'Completed' ? '#059669' : m.status === 'In Progress' ? '#0B2D68' : '#6B7280' }}>
+                          <CheckCircle2 size={15} color={m.status === 'Completed' ? '#059669' : m.status === 'In Progress' ? '#C9A044' : '#6B7280'} /> {m.status}
                         </div>
-                        <div style={{ color: '#334155' }}>{m.name}</div>
+                        <div style={{ color: '#172033' }}>{m.name}</div>
                       </div>
                     ))}
                   </div>
@@ -154,9 +154,9 @@ export default function ClientDashboard({
 
         {/* Tab 2: Appointment History */}
         {activeTab === 'appointments' && (
-          <div style={{ background: 'white', borderRadius: 'var(--radius-lg)', padding: '24px', border: '1px solid var(--border-color)' }}>
+          <div style={{ background: 'white', borderRadius: 'var(--radius-lg)', padding: '24px', border: '1px solid #E5E7EB', borderTop: '3px solid #C9A044', boxShadow: '0 4px 16px rgba(11, 45, 104, 0.05)' }}>
             <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', marginBottom: '16px', flexWrap: 'wrap', gap: '12px' }}>
-              <h3 style={{ fontSize: '1.2rem', color: 'var(--primary-900)' }}>Scheduled & Past Consultation Meetings</h3>
+              <h3 style={{ fontSize: '1.2rem', color: '#0B2D68', fontWeight: 800 }}>Scheduled & Past Consultation Meetings</h3>
               <button onClick={onOpenBookModal} className="btn-primary" style={{ padding: '8px 16px', fontSize: '0.85rem' }}>
                 <Calendar size={15} /> Request New Consultation
               </button>
@@ -164,19 +164,19 @@ export default function ClientDashboard({
             <div style={{ overflowX: 'auto' }}>
               <table style={{ width: '100%', borderCollapse: 'collapse', textAlign: 'left', fontSize: '0.9rem' }}>
                 <thead>
-                  <tr style={{ background: '#f8fafc', borderBottom: '2px solid #e2e8f0', color: '#475569' }}>
-                    <th style={{ padding: '12px' }}>ID</th>
-                    <th style={{ padding: '12px' }}>Service Line</th>
-                    <th style={{ padding: '12px' }}>Assigned Consultant</th>
-                    <th style={{ padding: '12px' }}>Date & Time</th>
-                    <th style={{ padding: '12px' }}>Status</th>
-                    <th style={{ padding: '12px' }}>Action / Link</th>
+                  <tr style={{ background: '#F5F6F8', borderBottom: '2px solid #E5E7EB', color: '#0B2D68' }}>
+                    <th style={{ padding: '12px', fontWeight: 700 }}>ID</th>
+                    <th style={{ padding: '12px', fontWeight: 700 }}>Service Line</th>
+                    <th style={{ padding: '12px', fontWeight: 700 }}>Assigned Consultant</th>
+                    <th style={{ padding: '12px', fontWeight: 700 }}>Date & Time</th>
+                    <th style={{ padding: '12px', fontWeight: 700 }}>Status</th>
+                    <th style={{ padding: '12px', fontWeight: 700 }}>Action / Link</th>
                   </tr>
                 </thead>
                 <tbody>
                   {appointments.map(apt => (
-                    <tr key={apt.id} style={{ borderBottom: '1px solid #e2e8f0' }}>
-                      <td style={{ padding: '12px', fontWeight: 700 }}>{apt.id}</td>
+                    <tr key={apt.id} style={{ borderBottom: '1px solid #E5E7EB' }}>
+                      <td style={{ padding: '12px', fontWeight: 700, color: '#0B2D68' }}>{apt.id}</td>
                       <td style={{ padding: '12px' }}>{apt.service_name}</td>
                       <td style={{ padding: '12px' }}>{apt.consultant_name}</td>
                       <td style={{ padding: '12px' }}>{apt.date} • {apt.time}</td>
@@ -185,11 +185,11 @@ export default function ClientDashboard({
                       </td>
                       <td style={{ padding: '12px' }}>
                         {apt.meeting_link.startsWith('http') ? (
-                          <a href={apt.meeting_link} target="_blank" rel="noopener noreferrer" style={{ color: '#2563eb', fontWeight: 700, display: 'flex', alignItems: 'center', gap: '4px', textDecoration: 'none' }}>
-                            <ExternalLink size={14} /> Join Meeting
+                          <a href={apt.meeting_link} target="_blank" rel="noopener noreferrer" style={{ color: '#0B2D68', fontWeight: 700, display: 'flex', alignItems: 'center', gap: '4px', textDecoration: 'none' }}>
+                            <ExternalLink size={14} color="#C9A044" /> Join Meeting
                           </a>
                         ) : (
-                          <span style={{ color: '#64748b' }}>{apt.meeting_link}</span>
+                          <span style={{ color: '#6B7280' }}>{apt.meeting_link}</span>
                         )}
                       </td>
                     </tr>
@@ -204,18 +204,18 @@ export default function ClientDashboard({
         {activeTab === 'reports' && (
           <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(300px, 1fr))', gap: '20px' }}>
             {reports.map(rep => (
-              <div key={rep.id} style={{ background: 'white', borderRadius: 'var(--radius-lg)', padding: '24px', border: '1px solid var(--border-color)', boxShadow: 'var(--shadow-sm)' }}>
+              <div key={rep.id} style={{ background: 'white', borderRadius: 'var(--radius-lg)', padding: '24px', border: '1px solid #E5E7EB', borderTop: '3px solid #C9A044', boxShadow: '0 4px 16px rgba(11, 45, 104, 0.05)' }}>
                 <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'flex-start', marginBottom: '12px' }}>
-                  <span className="badge badge-purple">{rep.service}</span>
-                  <span style={{ fontSize: '0.75rem', color: '#94a3b8' }}>{rep.date}</span>
+                  <span className="badge" style={{ background: 'rgba(11, 45, 104, 0.08)', color: '#0B2D68', border: '1px solid rgba(11, 45, 104, 0.2)' }}>{rep.service}</span>
+                  <span style={{ fontSize: '0.75rem', color: '#6B7280' }}>{rep.date}</span>
                 </div>
-                <h3 style={{ fontSize: '1.15rem', color: 'var(--primary-900)', marginBottom: '8px' }}>{rep.title}</h3>
-                <p style={{ fontSize: '0.85rem', color: '#64748b', marginBottom: '16px', lineHeight: 1.5 }}>{rep.summary}</p>
-                <div style={{ fontSize: '0.8rem', color: '#94a3b8', marginBottom: '16px' }}>Author: {rep.author} • Size: {rep.fileSize}</div>
+                <h3 style={{ fontSize: '1.15rem', color: '#0B2D68', fontWeight: 800, marginBottom: '8px' }}>{rep.title}</h3>
+                <p style={{ fontSize: '0.85rem', color: '#6B7280', marginBottom: '16px', lineHeight: 1.5 }}>{rep.summary}</p>
+                <div style={{ fontSize: '0.8rem', color: '#6B7280', marginBottom: '16px' }}>Author: {rep.author} • Size: {rep.fileSize}</div>
                 <button
                   onClick={() => alert(`Simulated secure download for document: ${rep.title}`)}
-                  className="btn-secondary"
-                  style={{ width: '100%', justifyContent: 'center', color: '#1e40af' }}
+                  className="btn-primary"
+                  style={{ width: '100%', justifyContent: 'center' }}
                 >
                   <Download size={16} /> Download Consulting Report (PDF)
                 </button>
@@ -226,8 +226,8 @@ export default function ClientDashboard({
 
         {/* Tab 4: Messaging */}
         {activeTab === 'messages' && (
-          <div style={{ background: 'white', borderRadius: 'var(--radius-lg)', padding: '24px', border: '1px solid var(--border-color)', display: 'flex', flexDirection: 'column', height: '500px' }}>
-            <h3 style={{ fontSize: '1.1rem', color: 'var(--primary-900)', marginBottom: '16px', borderBottom: '1px solid #f1f5f9', paddingBottom: '12px' }}>
+          <div style={{ background: 'white', borderRadius: 'var(--radius-lg)', padding: '24px', border: '1px solid #E5E7EB', borderTop: '3px solid #C9A044', display: 'flex', flexDirection: 'column', height: '500px', boxShadow: '0 4px 16px rgba(11, 45, 104, 0.05)' }}>
+            <h3 style={{ fontSize: '1.1rem', color: '#0B2D68', fontWeight: 800, marginBottom: '16px', borderBottom: '1px solid #E5E7EB', paddingBottom: '12px' }}>
               Direct Chat Stream with Capt. K. V. Raman (Lead Trade Consultant)
             </h3>
 
@@ -238,13 +238,14 @@ export default function ClientDashboard({
                   style={{
                     alignSelf: msg.sender.includes('Client') ? 'flex-end' : 'flex-start',
                     maxWidth: '75%',
-                    background: msg.sender.includes('Client') ? '#2563eb' : '#f1f5f9',
-                    color: msg.sender.includes('Client') ? 'white' : '#0f172a',
+                    background: msg.sender.includes('Client') ? '#0B2D68' : '#F5F6F8',
+                    color: msg.sender.includes('Client') ? 'white' : '#172033',
+                    border: msg.sender.includes('Client') ? '1px solid rgba(201, 160, 68, 0.4)' : '1px solid #E5E7EB',
                     padding: '12px 16px',
                     borderRadius: '12px'
                   }}
                 >
-                  <div style={{ fontSize: '0.75rem', opacity: 0.8, marginBottom: '4px', fontWeight: 700 }}>{msg.sender} • {msg.time}</div>
+                  <div style={{ fontSize: '0.75rem', opacity: 0.85, marginBottom: '4px', fontWeight: 700, color: msg.sender.includes('Client') ? '#C9A044' : '#0B2D68' }}>{msg.sender} • {msg.time}</div>
                   <div style={{ fontSize: '0.9rem', lineHeight: 1.5 }}>{msg.text}</div>
                 </div>
               ))}

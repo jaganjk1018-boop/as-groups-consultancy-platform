@@ -83,7 +83,7 @@ export default function BookModal({ isOpen, onClose, defaultServiceId, onAddLead
       left: 0,
       right: 0,
       bottom: 0,
-      background: 'rgba(15, 23, 42, 0.75)',
+      background: 'rgba(7, 29, 66, 0.75)',
       backdropFilter: 'blur(8px)',
       zIndex: 2000,
       display: 'flex',
@@ -98,18 +98,19 @@ export default function BookModal({ isOpen, onClose, defaultServiceId, onAddLead
         width: '100%',
         maxHeight: '90vh',
         overflowY: 'auto',
-        boxShadow: '0 20px 40px rgba(0,0,0,0.3)',
-        position: 'relative'
+        boxShadow: '0 20px 50px rgba(11,45,104,0.25)',
+        position: 'relative',
+        border: '1px solid var(--color-border-gray)'
       }}>
         {/* Header bar */}
-        <div style={{ background: 'linear-gradient(135deg, #0f172a 0%, #1e293b 100%)', color: 'white', padding: '24px', position: 'relative' }}>
+        <div style={{ background: 'linear-gradient(135deg, #0B2D68 0%, #174A96 100%)', color: 'white', padding: '24px', position: 'relative', borderBottom: '2px solid rgba(201,160,68,0.4)' }}>
           <button
             onClick={onClose}
             style={{
               position: 'absolute',
               top: '20px',
               right: '20px',
-              background: 'rgba(255,255,255,0.1)',
+              background: 'rgba(255,255,255,0.15)',
               border: 'none',
               color: 'white',
               width: '32px',
@@ -123,11 +124,11 @@ export default function BookModal({ isOpen, onClose, defaultServiceId, onAddLead
           >
             <X size={18} />
           </button>
-          <div style={{ display: 'flex', alignItems: 'center', gap: '8px', fontSize: '0.78rem', color: '#60a5fa', fontWeight: 700, textTransform: 'uppercase', letterSpacing: '0.05em' }}>
-            <Calendar size={14} /> FREE CONSULTATION
+          <div style={{ display: 'flex', alignItems: 'center', gap: '8px', fontSize: '0.78rem', color: '#DFC16E', fontWeight: 800, textTransform: 'uppercase', letterSpacing: '0.05em' }}>
+            <Calendar size={14} color="#DFC16E" /> FREE CONSULTATION
           </div>
           <h3 style={{ fontSize: '1.4rem', marginTop: '6px', fontWeight: 800 }}>LET'S DISCUSS YOUR BUSINESS</h3>
-          <p style={{ fontSize: '0.88rem', color: '#94a3b8', marginTop: '4px' }}>
+          <p style={{ fontSize: '0.88rem', color: '#E5E7EB', marginTop: '4px' }}>
             Tell us a little about your business and what you would like to achieve.
           </p>
         </div>
@@ -136,11 +137,11 @@ export default function BookModal({ isOpen, onClose, defaultServiceId, onAddLead
         <div style={{ padding: '28px' }}>
           {submitted ? (
             <div style={{ textAlign: 'center', padding: '20px 0' }}>
-              <div style={{ width: '64px', height: '64px', background: '#d1fae5', color: '#059669', borderRadius: '50%', display: 'flex', alignItems: 'center', justifyContent: 'center', margin: '0 auto 16px' }}>
-                <CheckCircle2 size={36} />
+              <div style={{ width: '64px', height: '64px', background: 'rgba(201,160,68,0.15)', color: '#C9A044', borderRadius: '50%', display: 'flex', alignItems: 'center', justifyContent: 'center', margin: '0 auto 16px' }}>
+                <CheckCircle2 size={36} color="#C9A044" />
               </div>
-              <h3 style={{ fontSize: '1.3rem', color: '#0f172a', marginBottom: '8px', fontWeight: 800 }}>Consultation Requested!</h3>
-              <p style={{ fontSize: '1rem', color: '#1e293b', marginBottom: '20px', lineHeight: 1.6, fontWeight: 600 }}>
+              <h3 style={{ fontSize: '1.3rem', color: 'var(--color-primary-navy)', marginBottom: '8px', fontWeight: 800 }}>Consultation Requested!</h3>
+              <p style={{ fontSize: '1rem', color: 'var(--color-dark-text)', marginBottom: '20px', lineHeight: 1.6, fontWeight: 600 }}>
                 {successMessage}
               </p>
               <button onClick={handleReset} className="btn-primary" style={{ width: '100%', justifyContent: 'center' }}>
@@ -151,61 +152,61 @@ export default function BookModal({ isOpen, onClose, defaultServiceId, onAddLead
             <form onSubmit={handleSubmit} style={{ display: 'flex', flexDirection: 'column', gap: '16px' }}>
               
               <div>
-                <label style={{ display: 'block', fontSize: '0.85rem', fontWeight: 700, color: '#334155', marginBottom: '6px' }}>Name *</label>
+                <label style={{ display: 'block', fontSize: '0.85rem', fontWeight: 700, color: 'var(--color-dark-text)', marginBottom: '6px' }}>Name *</label>
                 <input
                   type="text"
                   required
                   placeholder="Enter your name"
                   value={formData.name}
                   onChange={(e) => setFormData({ ...formData, name: e.target.value })}
-                  style={{ width: '100%', padding: '10px', borderRadius: '8px', border: '1px solid #cbd5e1', fontSize: '0.9rem' }}
+                  style={{ width: '100%', padding: '10px', borderRadius: '8px', border: '1px solid var(--color-border-gray)', background: 'var(--color-light-bg)', fontSize: '0.9rem' }}
                 />
               </div>
 
               <div className="grid-form-2col" style={{ display: 'grid', gridTemplateColumns: '1fr 1fr', gap: '12px' }}>
                 <div>
-                  <label style={{ display: 'block', fontSize: '0.85rem', fontWeight: 700, color: '#334155', marginBottom: '6px' }}>Email Address *</label>
+                  <label style={{ display: 'block', fontSize: '0.85rem', fontWeight: 700, color: 'var(--color-dark-text)', marginBottom: '6px' }}>Email Address *</label>
                   <input
                     type="email"
                     required
                     placeholder="Enter your email"
                     value={formData.email}
                     onChange={(e) => setFormData({ ...formData, email: e.target.value })}
-                    style={{ width: '100%', padding: '10px', borderRadius: '8px', border: '1px solid #cbd5e1', fontSize: '0.9rem' }}
+                    style={{ width: '100%', padding: '10px', borderRadius: '8px', border: '1px solid var(--color-border-gray)', background: 'var(--color-light-bg)', fontSize: '0.9rem' }}
                   />
                 </div>
 
                 <div>
-                  <label style={{ display: 'block', fontSize: '0.85rem', fontWeight: 700, color: '#334155', marginBottom: '6px' }}>Phone Number *</label>
+                  <label style={{ display: 'block', fontSize: '0.85rem', fontWeight: 700, color: 'var(--color-dark-text)', marginBottom: '6px' }}>Phone Number *</label>
                   <input
                     type="tel"
                     required
                     placeholder="Enter your phone"
                     value={formData.phone}
                     onChange={(e) => setFormData({ ...formData, phone: e.target.value })}
-                    style={{ width: '100%', padding: '10px', borderRadius: '8px', border: '1px solid #cbd5e1', fontSize: '0.9rem' }}
+                    style={{ width: '100%', padding: '10px', borderRadius: '8px', border: '1px solid var(--color-border-gray)', background: 'var(--color-light-bg)', fontSize: '0.9rem' }}
                   />
                 </div>
               </div>
 
               <div>
-                <label style={{ display: 'block', fontSize: '0.85rem', fontWeight: 700, color: '#334155', marginBottom: '6px' }}>Company / Business Name</label>
+                <label style={{ display: 'block', fontSize: '0.85rem', fontWeight: 700, color: 'var(--color-dark-text)', marginBottom: '6px' }}>Company / Business Name</label>
                 <input
                   type="text"
                   placeholder="Enter your company name"
                   value={formData.businessName}
                   onChange={(e) => setFormData({ ...formData, businessName: e.target.value })}
-                  style={{ width: '100%', padding: '10px', borderRadius: '8px', border: '1px solid #cbd5e1', fontSize: '0.9rem' }}
+                  style={{ width: '100%', padding: '10px', borderRadius: '8px', border: '1px solid var(--color-border-gray)', background: 'var(--color-light-bg)', fontSize: '0.9rem' }}
                 />
               </div>
 
               <div className="grid-form-2col" style={{ display: 'grid', gridTemplateColumns: '1fr 1fr', gap: '12px' }}>
                 <div>
-                  <label style={{ display: 'block', fontSize: '0.85rem', fontWeight: 700, color: '#334155', marginBottom: '6px' }}>Service Required *</label>
+                  <label style={{ display: 'block', fontSize: '0.85rem', fontWeight: 700, color: 'var(--color-dark-text)', marginBottom: '6px' }}>Service Required *</label>
                   <select
                     value={formData.serviceRequired}
                     onChange={(e) => setFormData({ ...formData, serviceRequired: e.target.value })}
-                    style={{ width: '100%', padding: '10px', borderRadius: '8px', border: '1px solid #cbd5e1', fontSize: '0.88rem' }}
+                    style={{ width: '100%', padding: '10px', borderRadius: '8px', border: '1px solid var(--color-border-gray)', background: 'var(--color-light-bg)', fontSize: '0.88rem' }}
                   >
                     {SERVICES_LIST.map(s => (
                       <option key={s.id} value={s.title}>{s.title}</option>
@@ -215,26 +216,26 @@ export default function BookModal({ isOpen, onClose, defaultServiceId, onAddLead
                 </div>
 
                 <div>
-                  <label style={{ display: 'block', fontSize: '0.85rem', fontWeight: 700, color: '#334155', marginBottom: '6px' }}>Preferred Meeting Date *</label>
+                  <label style={{ display: 'block', fontSize: '0.85rem', fontWeight: 700, color: 'var(--color-dark-text)', marginBottom: '6px' }}>Preferred Meeting Date *</label>
                   <input
                     type="date"
                     required
                     value={formData.preferredMeetingDate || new Date().toISOString().split('T')[0]}
                     onChange={(e) => setFormData({ ...formData, preferredMeetingDate: e.target.value })}
-                    style={{ width: '100%', padding: '10px', borderRadius: '8px', border: '1px solid #cbd5e1', fontSize: '0.88rem' }}
+                    style={{ width: '100%', padding: '10px', borderRadius: '8px', border: '1px solid var(--color-border-gray)', background: 'var(--color-light-bg)', fontSize: '0.88rem' }}
                   />
                 </div>
               </div>
 
               <div>
-                <label style={{ display: 'block', fontSize: '0.85rem', fontWeight: 700, color: '#334155', marginBottom: '6px' }}>Your Message / Requirement *</label>
+                <label style={{ display: 'block', fontSize: '0.85rem', fontWeight: 700, color: 'var(--color-dark-text)', marginBottom: '6px' }}>Your Message / Requirement *</label>
                 <textarea
                   rows={3}
                   required
                   placeholder="Briefly describe your goals or challenges..."
                   value={formData.requirement}
                   onChange={(e) => setFormData({ ...formData, requirement: e.target.value })}
-                  style={{ width: '100%', padding: '10px', borderRadius: '8px', border: '1px solid #cbd5e1', fontSize: '0.9rem', resize: 'vertical' }}
+                  style={{ width: '100%', padding: '10px', borderRadius: '8px', border: '1px solid var(--color-border-gray)', background: 'var(--color-light-bg)', fontSize: '0.9rem', resize: 'vertical' }}
                 ></textarea>
               </div>
 

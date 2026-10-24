@@ -14,6 +14,7 @@ import Footer from './components/Footer';
 import BookModal from './components/BookModal';
 import PromoPosterModal from './components/PromoPosterModal';
 import { supabaseService } from './services/supabaseService';
+import { api } from './services/api';
 import { MessageSquare, Sparkles, ArrowUp } from 'lucide-react';
 
 // Authentication Pages
@@ -36,7 +37,7 @@ import NotFound from './components/public/NotFound';
 import ClientDashboard from './components/dashboards/ClientDashboard';
 import AdminDashboard from './components/dashboards/AdminDashboard';
 
-// Mock Central Data & Info
+// Central Data & Info
 import { 
   COMPANY_INFO,
   INITIAL_LEADS, 
@@ -68,11 +69,9 @@ function DocumentTitleManager() {
       document.title = `Careers | ${COMPANY_INFO.name}`;
     } else if (path.startsWith('/contact')) {
       document.title = `Contact Us | ${COMPANY_INFO.name}`;
-    } else if (path.startsWith('/login')) {
-      document.title = `Portal Login | ${COMPANY_INFO.name}`;
-    } else if (path.startsWith('/client-login')) {
-      document.title = `Client Login | ${COMPANY_INFO.name}`;
-    } else if (path.startsWith('/admin-login')) {
+    } else if (path.startsWith('/login') || path.startsWith('/client-login')) {
+      document.title = `Client Portal Login | ${COMPANY_INFO.name}`;
+    } else if (path.startsWith('/admin/login') || path.startsWith('/admin-login')) {
       document.title = `Admin Operations Portal | ${COMPANY_INFO.name}`;
     } else if (path.startsWith('/client-dashboard') || path.startsWith('/client')) {
       document.title = `Client Dashboard | ${COMPANY_INFO.name}`;
@@ -84,6 +83,30 @@ function DocumentTitleManager() {
   }, [location.pathname]);
 
   return null;
+}
+
+// Protected Route Guard for Admin Operations
+function AdminProtectedRoute({ currentUser, children }) {
+  const token = typeof window !== 'undefined' 
+    ? (sessionStorage.getItem('as_groups_token') || localStorage.getItem('as_groups_token'))
+    : null;
+  const storedUserRaw = typeof window !== 'undefined'
+    ? (sessionStorage.getItem('as_groups_user') || localStorage.getItem('as_groups_user'))
+    : null;
+  
+  let storedUser = null;
+  try {
+    if (storedUserRaw) storedUser = JSON.parse(storedUserRaw);
+  } catch (e) {}
+
+  const activeUser = currentUser || storedUser;
+  const isAdmin = Boolean(token && activeUser && activeUser.role === 'admin');
+
+  if (!isAdmin) {
+    return <Navigate to="/admin/login" replace state={{ unauthorized: true }} />;
+  }
+
+  return children;
 }
 
 // Top-Level Public Layout Component
@@ -137,33 +160,31 @@ function PublicLayout({
         onOpenBookModal={() => setIsBookModalOpen(true)}
       />
 
-      {/* Floating Action Cluster: Mobile-first, Non-intrusive, High-end */}
-
-      {/* 1. Floating Scroll to Top (Positioned cleanly above WhatsApp) */}
+      {/* Floating Action Cluster */}
       {showScrollTop && (
         <button
           onClick={scrollToTop}
           title="Scroll to Top"
           aria-label="Scroll to Top"
-          className="fixed bottom-16 right-4 sm:bottom-20 sm:right-6 z-[9990] w-9 h-9 sm:w-10 sm:h-10 rounded-full flex items-center justify-center bg-[#070f26]/90 backdrop-blur-md text-amber-300 border border-amber-400/40 shadow-lg shadow-black/40 hover:bg-[#0f2b5c] hover:border-amber-400 active:scale-95 transition-all"
+          className="fixed bottom-16 right-4 sm:bottom-20 sm:right-6 z-[9990] w-9 h-9 sm:w-10 sm:h-10 rounded-full flex items-center justify-center bg-[#0B2D68] backdrop-blur-md text-[#C9A044] border border-[#C9A044]/40 shadow-lg shadow-[#0B2D68]/30 hover:bg-[#174A96] hover:border-[#C9A044] active:scale-95 transition-all"
         >
           <ArrowUp size={16} />
         </button>
       )}
 
-      {/* 2. Floating Special Offer (Bottom Left - Compact badge on mobile, pill on desktop) */}
+      {/* Floating Special Offer */}
       <button
         onClick={() => setIsPromoPosterOpen(true)}
         title="View Special Promotional Offer"
         aria-label="View Special Offer"
-        className="fixed bottom-3 left-3 sm:bottom-6 sm:left-6 z-[9985] flex items-center gap-2 rounded-full font-black text-slate-950 bg-gradient-to-r from-amber-400 via-amber-300 to-amber-500 shadow-lg shadow-amber-500/25 border border-white/40 active:scale-95 transition-all p-2.5 sm:px-4 sm:py-2.5 text-xs sm:text-xs"
+        className="fixed bottom-3 left-3 sm:bottom-6 sm:left-6 z-[9985] flex items-center gap-2 rounded-full font-bold text-[#0B2D68] bg-[#C9A044] hover:bg-[#d8b053] shadow-lg shadow-[#C9A044]/25 border border-white/40 active:scale-95 transition-all p-2.5 sm:px-4 sm:py-2.5 text-xs"
       >
-        <Sparkles size={16} className="text-slate-950 animate-pulse shrink-0" />
+        <Sparkles size={16} className="text-[#0B2D68] shrink-0" />
         <span className="hidden sm:inline tracking-wider font-extrabold uppercase">Special Offer</span>
         <span className="sm:hidden text-[10px] font-black uppercase tracking-wider">Offer</span>
       </button>
 
-      {/* 3. Floating WhatsApp Button (Bottom Right - Compact FAB on mobile, pill on desktop) */}
+      {/* Floating WhatsApp Button */}
       <a
         href={whatsappUrl}
         target="_blank"
@@ -186,6 +207,34 @@ export default function App() {
   const [isPromoPosterOpen, setIsPromoPosterOpen] = useState(false);
   const [currentUser, setCurrentUser] = useState(null); // null | { name, email, role }
   const [showScrollTop, setShowScrollTop] = useState(false);
+
+  // Restore authenticated session on mount and verify role with server
+  useEffect(() => {
+    async function restoreSession() {
+      const token = sessionStorage.getItem('as_groups_token') || localStorage.getItem('as_groups_token');
+      const storedUserRaw = sessionStorage.getItem('as_groups_user') || localStorage.getItem('as_groups_user');
+
+      if (token && storedUserRaw) {
+        try {
+          const parsedUser = JSON.parse(storedUserRaw);
+          setCurrentUser(parsedUser);
+          setCurrentRole(parsedUser.role || 'public');
+
+          // If role is admin, perform server-side verification
+          if (parsedUser.role === 'admin') {
+            const check = await api.verifyAdmin();
+            if (!check || !check.authenticated || check.role !== 'admin') {
+              console.warn('Session verification rejected by server, resetting.');
+              handleLogout();
+            }
+          }
+        } catch (e) {
+          handleLogout();
+        }
+      }
+    }
+    restoreSession();
+  }, []);
 
   // Track window scroll position for floating Scroll-To-Top button
   useEffect(() => {
@@ -213,9 +262,7 @@ export default function App() {
           setIsPromoPosterOpen(true);
           sessionStorage.setItem('as_groups_poster_seen', 'true');
         }
-      } catch (err) {
-        // Storage may be restricted in sandboxed environments
-      }
+      } catch (err) {}
     }, 1200);
     return () => clearTimeout(timer);
   }, []);
@@ -262,6 +309,12 @@ export default function App() {
   };
 
   const handleLogout = () => {
+    try {
+      sessionStorage.removeItem('as_groups_token');
+      localStorage.removeItem('as_groups_token');
+      sessionStorage.removeItem('as_groups_user');
+      localStorage.removeItem('as_groups_user');
+    } catch (e) {}
     setCurrentUser(null);
     setCurrentRole('public');
   };
@@ -274,7 +327,7 @@ export default function App() {
       <DocumentTitleManager />
 
       <Routes>
-        {/* Public Website Routes */}
+        {/* Public Website Routes (Accessible to everyone without login) */}
         <Route 
           element={
             <PublicLayout 
@@ -376,39 +429,14 @@ export default function App() {
           <Route path="*" element={<NotFound />} />
         </Route>
 
-        {/* Dedicated Standalone Authentication Routes */}
-        <Route 
-          path="/login" 
-          element={
-            <LoginSelection 
-              onSelectRole={(role) => {
-                if (role === 'client-login') setCurrentRole('client');
-                if (role === 'admin-login') setCurrentRole('admin');
-                if (role === 'public') setCurrentRole('public');
-              }}
-              onLoginSuccess={(user) => {
-                setCurrentUser(user);
-                setCurrentRole(user.role);
-              }}
-            />
-          } 
-        />
-        <Route path="/login-select" element={<Navigate to="/login" replace />} />
+        {/* Public Login Routes Redirect to Home (No Public Login Page) */}
+        <Route path="/login" element={<Navigate to="/" replace />} />
+        <Route path="/login-select" element={<Navigate to="/" replace />} />
+        <Route path="/client-login" element={<Navigate to="/" replace />} />
 
+        {/* Private Admin Login Route */}
         <Route 
-          path="/client-login" 
-          element={
-            <ClientLogin 
-              onLoginSuccess={(user) => {
-                setCurrentUser(user);
-                setCurrentRole('client');
-              }} 
-            />
-          } 
-        />
-
-        <Route 
-          path="/admin-login" 
+          path="/admin/login" 
           element={
             <AdminLogin 
               onLoginSuccess={(user) => {
@@ -418,6 +446,7 @@ export default function App() {
             />
           } 
         />
+        <Route path="/admin-login" element={<Navigate to="/admin/login" replace />} />
 
         {/* Dedicated Client Portal Dashboard Route */}
         <Route 
@@ -457,27 +486,9 @@ export default function App() {
                   onClick={scrollToTop}
                   title="Scroll to Top"
                   aria-label="Scroll to Top"
-                  style={{
-                    position: 'fixed',
-                    bottom: '84px',
-                    right: '24px',
-                    background: 'linear-gradient(135deg, #0a1936 0%, #1e3a8a 100%)',
-                    color: '#fef08a',
-                    borderRadius: '50px',
-                    padding: '10px 18px',
-                    display: 'flex',
-                    alignItems: 'center',
-                    gap: '6px',
-                    fontWeight: '800',
-                    boxShadow: '0 8px 24px rgba(10, 25, 54, 0.4), 0 0 15px rgba(212, 175, 55, 0.3)',
-                    zIndex: 9999,
-                    border: '1.5px solid rgba(212, 175, 55, 0.6)',
-                    cursor: 'pointer',
-                    fontSize: '0.82rem',
-                    transition: 'all 0.3s ease'
-                  }}
+                  className="fixed bottom-20 right-6 z-[9999] w-10 h-10 rounded-full flex items-center justify-center bg-[#0B2D68] text-[#C9A044] border border-[#C9A044]/50 shadow-lg shadow-[#0B2D68]/30 hover:bg-[#174A96] hover:border-[#C9A044] active:scale-95 transition-all"
                 >
-                  <ArrowUp size={16} /> Top
+                  <ArrowUp size={16} />
                 </button>
               )}
 
@@ -510,99 +521,83 @@ export default function App() {
         />
         <Route path="/client" element={<Navigate to="/client-dashboard" replace />} />
 
-        {/* Dedicated Admin Operations Command Center Route */}
+        {/* Private Admin Dashboard Route (Protected by Server-Verified Role Guard) */}
         <Route 
           path="/admin-dashboard" 
           element={
-            <div className="min-h-screen flex flex-col relative">
-              <Header 
-                currentRole="admin" 
-                setCurrentRole={setCurrentRole} 
-                onOpenBookModal={() => setIsBookModalOpen(true)}
-                currentUser={currentUser}
-                onLogout={handleLogout}
-              />
-              <main className="flex-1">
-                <AdminDashboard 
-                  leads={leads} 
-                  setLeads={setLeads} 
-                  appointments={appointments} 
-                  setAppointments={setAppointments} 
-                  projects={projects} 
-                  setProjects={setProjects} 
-                  reports={reports} 
-                  setReports={setReports} 
-                  notifications={notifications} 
+            <AdminProtectedRoute currentUser={currentUser}>
+              <div className="min-h-screen flex flex-col relative">
+                <Header 
+                  currentRole="admin" 
+                  setCurrentRole={setCurrentRole} 
+                  onOpenBookModal={() => setIsBookModalOpen(true)}
+                  currentUser={currentUser}
+                  onLogout={handleLogout}
+                />
+                <main className="flex-1">
+                  <AdminDashboard 
+                    leads={leads} 
+                    setLeads={setLeads} 
+                    appointments={appointments} 
+                    setAppointments={setAppointments} 
+                    projects={projects} 
+                    setProjects={setProjects} 
+                    reports={reports} 
+                    setReports={setReports} 
+                    notifications={notifications} 
+                    onOpenBookModal={() => setIsBookModalOpen(true)} 
+                  />
+                </main>
+                <Footer 
+                  setCurrentRole={setCurrentRole} 
                   onOpenBookModal={() => setIsBookModalOpen(true)} 
                 />
-              </main>
-              <Footer 
-                setCurrentRole={setCurrentRole} 
-                onOpenBookModal={() => setIsBookModalOpen(true)} 
-              />
 
-              <BookModal
-                isOpen={isBookModalOpen}
-                onClose={() => setIsBookModalOpen(false)}
-                defaultServiceId={selectedServiceId}
-                onAddLead={handleAddLead}
-                onAddNotification={handleAddNotification}
-              />
+                <BookModal
+                  isOpen={isBookModalOpen}
+                  onClose={() => setIsBookModalOpen(false)}
+                  defaultServiceId={selectedServiceId}
+                  onAddLead={handleAddLead}
+                  onAddNotification={handleAddNotification}
+                />
 
-              {showScrollTop && (
-                <button
-                  onClick={scrollToTop}
-                  title="Scroll to Top"
-                  aria-label="Scroll to Top"
+                {showScrollTop && (
+                  <button
+                    onClick={scrollToTop}
+                    title="Scroll to Top"
+                    aria-label="Scroll to Top"
+                    className="fixed bottom-20 right-6 z-[9999] w-10 h-10 rounded-full flex items-center justify-center bg-[#0B2D68] text-[#C9A044] border border-[#C9A044]/50 shadow-lg shadow-[#0B2D68]/30 hover:bg-[#174A96] hover:border-[#C9A044] active:scale-95 transition-all"
+                  >
+                    <ArrowUp size={16} />
+                  </button>
+                )}
+
+                <a
+                  href={whatsappUrl}
+                  target="_blank"
+                  rel="noopener noreferrer"
                   style={{
                     position: 'fixed',
-                    bottom: '84px',
+                    bottom: '24px',
                     right: '24px',
-                    background: 'linear-gradient(135deg, #0a1936 0%, #1e3a8a 100%)',
-                    color: '#fef08a',
+                    background: '#25D366',
+                    color: 'white',
                     borderRadius: '50px',
-                    padding: '10px 18px',
+                    padding: '12px 20px',
                     display: 'flex',
                     alignItems: 'center',
-                    gap: '6px',
-                    fontWeight: '800',
-                    boxShadow: '0 8px 24px rgba(10, 25, 54, 0.4), 0 0 15px rgba(212, 175, 55, 0.3)',
+                    gap: '8px',
+                    fontWeight: 'bold',
+                    boxShadow: '0 10px 25px rgba(37, 211, 102, 0.4)',
                     zIndex: 9999,
-                    border: '1.5px solid rgba(212, 175, 55, 0.6)',
-                    cursor: 'pointer',
-                    fontSize: '0.82rem',
-                    transition: 'all 0.3s ease'
+                    textDecoration: 'none',
+                    fontSize: '0.9rem'
                   }}
                 >
-                  <ArrowUp size={16} /> Top
-                </button>
-              )}
-
-              <a
-                href={whatsappUrl}
-                target="_blank"
-                rel="noopener noreferrer"
-                style={{
-                  position: 'fixed',
-                  bottom: '24px',
-                  right: '24px',
-                  background: '#25D366',
-                  color: 'white',
-                  borderRadius: '50px',
-                  padding: '12px 20px',
-                  display: 'flex',
-                  alignItems: 'center',
-                  gap: '8px',
-                  fontWeight: 'bold',
-                  boxShadow: '0 10px 25px rgba(37, 211, 102, 0.4)',
-                  zIndex: 9999,
-                  textDecoration: 'none',
-                  fontSize: '0.9rem'
-                }}
-              >
-                <MessageSquare size={20} /> Chat With Us
-              </a>
-            </div>
+                  <MessageSquare size={20} /> Chat With Us
+                </a>
+              </div>
+            </AdminProtectedRoute>
           } 
         />
         <Route path="/admin" element={<Navigate to="/admin-dashboard" replace />} />
