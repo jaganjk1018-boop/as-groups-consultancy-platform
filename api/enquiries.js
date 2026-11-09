@@ -68,7 +68,11 @@ export default async function handler(req, res) {
   // POST /api/enquiries -> PUBLIC (Accessible to all visitors without login)
   if (req.method === 'POST') {
     try {
-      const body = req.body || {};
+      let body = req.body;
+      if (typeof body === 'string') {
+        try { body = JSON.parse(body); } catch (e) {}
+      }
+      body = body || {};
       const name = (body.name || body.client_name || '').trim();
       const email = (body.email || '').trim().toLowerCase();
       const phone = (body.phone || '').trim();
@@ -113,14 +117,38 @@ export default async function handler(req, res) {
       }
 
       // 2. Insert into public.enquiries
-      const insertEnquiryRes = await query(`
-        INSERT INTO public.enquiries (name, email, phone, company, service, message, status)
-        VALUES ($1, $2, $3, $4, $5, $6, 'Processing')
-        RETURNING id, created_at
-      `, [name, email, phone, company, service, message]);
+      let newEnquiry = null;
+      let enquiryId = null;
 
-      const newEnquiry = insertEnquiryRes.rows[0];
-      const enquiryId = newEnquiry.id;
+      try {
+        const insertEnquiryRes = await query(`
+          INSERT INTO public.enquiries (name, email, phone, company, service, message, status)
+          VALUES ($1, $2, $3, $4, $5, $6, 'Processing')
+          RETURNING id, created_at
+        `, [name, email, phone, company, service, message]);
+
+        if (insertEnquiryRes?.rows && insertEnquiryRes.rows.length > 0) {
+          newEnquiry = insertEnquiryRes.rows[0];
+          enquiryId = newEnquiry.id;
+        }
+      } catch (insertErr) {
+        console.warn('Enquiry table insert error, proceeding to email dispatch:', insertErr.message);
+      }
+
+      if (!enquiryId) {
+        enquiryId = Date.now();
+      }
+
+      const enquiryData = {
+        id: enquiryId,
+        name,
+        email,
+        phone,
+        company,
+        service,
+        message,
+        created_at: newEnquiry?.created_at || new Date().toISOString()
+      };
 
       // 3. Insert or update corresponding lead in public.leads for CRM visibility
       const leadId = `LD-${Date.now().toString().slice(-4)}`;
@@ -140,7 +168,7 @@ export default async function handler(req, res) {
       // In Vercel serverless functions, we MUST await to guarantee completion before lambda terminates
       let emailResult = { success: true, finalStatus: 'Processing' };
       try {
-        emailResult = await processEnquiryEmails(enquiryId);
+        emailResult = await processEnquiryEmails(enquiryData);
       } catch (emailErr) {
         console.error('Email processing warning:', emailErr.message);
       }
@@ -151,12 +179,16 @@ export default async function handler(req, res) {
         message: `Thank you, ${name}! Your consultation enquiry for ${service} has been received successfully. A welcome confirmation email has been sent to ${email}.`,
         email_status: emailResult.finalStatus || 'Delivered',
         customer_email_sent: emailResult.customerSent !== false,
-        created_at: newEnquiry.created_at,
+        created_at: enquiryData.created_at,
         database_provider: 'Supabase PostgreSQL'
       });
     } catch (err) {
       console.error('Enquiry creation error:', err);
-      return res.status(500).json({ success: false, error: 'Failed to record customer enquiry' });
+      return res.status(500).json({
+        success: false,
+        error: 'Failed to record customer enquiry: ' + err.message,
+        details: err.stack
+      });
     }
   }
 
