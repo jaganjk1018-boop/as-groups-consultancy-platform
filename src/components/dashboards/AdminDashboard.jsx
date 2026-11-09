@@ -167,6 +167,61 @@ export default function AdminDashboard({
     alert(`Report "${createdRep.title}" generated and published to Client Page!`);
   };
 
+  const exportEnquiriesCsv = () => {
+    if (!fastApiEnquiries || fastApiEnquiries.length === 0) {
+      alert('No enquiries available to export.');
+      return;
+    }
+    const headers = ['ID', 'Name', 'Email', 'Phone', 'Company', 'Service', 'Message', 'Date', 'Customer Email Sent', 'Admin Email Sent', 'Status'];
+    const rows = fastApiEnquiries.map(e => [
+      e.id,
+      `"${(e.name || '').replace(/"/g, '""')}"`,
+      `"${(e.email || '').replace(/"/g, '""')}"`,
+      `"${(e.phone || '').replace(/"/g, '""')}"`,
+      `"${(e.company || '').replace(/"/g, '""')}"`,
+      `"${(e.service || '').replace(/"/g, '""')}"`,
+      `"${(e.message || '').replace(/"/g, '""')}"`,
+      `"${(e.created_at || '').replace(/"/g, '""')}"`,
+      e.customer_email_sent ? 'Yes' : 'No',
+      e.admin_email_sent ? 'Yes' : 'No',
+      `"${(e.status || '').replace(/"/g, '""')}"`
+    ]);
+    const csvContent = 'data:text/csv;charset=utf-8,' + [headers.join(','), ...rows.map(r => r.join(','))].join('\n');
+    const encodedUri = encodeURI(csvContent);
+    const link = document.createElement('a');
+    link.setAttribute('href', encodedUri);
+    link.setAttribute('download', `as_groups_enquiries_${new Date().toISOString().split('T')[0]}.csv`);
+    document.body.appendChild(link);
+    link.click();
+    document.body.removeChild(link);
+  };
+
+  const exportLeadsCsv = () => {
+    if (!leads || leads.length === 0) {
+      alert('No leads available to export.');
+      return;
+    }
+    const headers = ['ID', 'Client Name', 'Company', 'Email', 'Phone', 'Service', 'Status', 'Date'];
+    const rows = leads.map(l => [
+      l.id,
+      `"${(l.client_name || '').replace(/"/g, '""')}"`,
+      `"${(l.company || '').replace(/"/g, '""')}"`,
+      `"${(l.email || '').replace(/"/g, '""')}"`,
+      `"${(l.phone || '').replace(/"/g, '""')}"`,
+      `"${(l.service_name || '').replace(/"/g, '""')}"`,
+      `"${(l.status || '').replace(/"/g, '""')}"`,
+      `"${(l.date || '').replace(/"/g, '""')}"`
+    ]);
+    const csvContent = 'data:text/csv;charset=utf-8,' + [headers.join(','), ...rows.map(r => r.join(','))].join('\n');
+    const encodedUri = encodeURI(csvContent);
+    const link = document.createElement('a');
+    link.setAttribute('href', encodedUri);
+    link.setAttribute('download', `as_groups_leads_${new Date().toISOString().split('T')[0]}.csv`);
+    document.body.appendChild(link);
+    link.click();
+    document.body.removeChild(link);
+  };
+
   const filteredLeads = leads.filter(l => {
     const matchesSearch = l.client_name.toLowerCase().includes(searchTerm.toLowerCase()) || 
                           l.company.toLowerCase().includes(searchTerm.toLowerCase()) ||
@@ -263,14 +318,25 @@ export default function AdminDashboard({
                 </p>
               </div>
 
-              <button
-                onClick={fetchEnquiries}
-                disabled={loadingEnquiries}
-                className="btn-secondary"
-                style={{ fontSize: '0.82rem', padding: '8px 14px', gap: '6px' }}
-              >
-                <RefreshCw size={14} className={loadingEnquiries ? "animate-spin" : ""} /> Refresh Enquiries
-              </button>
+              <div style={{ display: 'flex', gap: '8px', flexWrap: 'wrap' }}>
+                <button
+                  onClick={exportEnquiriesCsv}
+                  disabled={fastApiEnquiries.length === 0}
+                  className="btn-secondary"
+                  style={{ fontSize: '0.82rem', padding: '8px 14px', gap: '6px' }}
+                  title="Export enquiries to Excel / CSV"
+                >
+                  <Download size={14} /> Export CSV
+                </button>
+                <button
+                  onClick={fetchEnquiries}
+                  disabled={loadingEnquiries}
+                  className="btn-secondary"
+                  style={{ fontSize: '0.82rem', padding: '8px 14px', gap: '6px' }}
+                >
+                  <RefreshCw size={14} className={loadingEnquiries ? "animate-spin" : ""} /> Refresh Enquiries
+                </button>
+              </div>
             </div>
 
             <div style={{ overflowX: 'auto' }}>
@@ -415,9 +481,20 @@ export default function AdminDashboard({
 
             {/* Leads Table */}
             <div style={{ background: 'white', borderRadius: 'var(--radius-lg)', padding: '24px', border: '1px solid var(--border-color)', borderTop: '3px solid #C9A044', boxShadow: '0 4px 16px rgba(11, 45, 104, 0.05)' }}>
-              <h3 style={{ fontSize: '1.2rem', marginBottom: '16px', color: '#0B2D68', fontWeight: 800 }}>
-                Enquiries & Lead Pipeline Tracker
-              </h3>
+              <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', marginBottom: '16px', flexWrap: 'wrap', gap: '10px' }}>
+                <h3 style={{ fontSize: '1.2rem', margin: 0, color: '#0B2D68', fontWeight: 800 }}>
+                  Enquiries & Lead Pipeline Tracker
+                </h3>
+                <button
+                  onClick={exportLeadsCsv}
+                  disabled={leads.length === 0}
+                  className="btn-secondary"
+                  style={{ fontSize: '0.82rem', padding: '6px 12px', gap: '6px' }}
+                  title="Export leads to Excel / CSV"
+                >
+                  <Download size={14} /> Export Leads CSV
+                </button>
+              </div>
               <div style={{ overflowX: 'auto' }}>
                 <table style={{ width: '100%', borderCollapse: 'collapse', textAlign: 'left', fontSize: '0.88rem' }}>
                   <thead>
