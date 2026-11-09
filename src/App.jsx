@@ -27,6 +27,7 @@ import HomeSection from './components/public/HomeSection';
 import AboutSection from './components/public/AboutSection';
 import ServicesSection from './components/public/ServicesSection';
 import PortfolioSection from './components/public/PortfolioSection';
+import ProcessSection from './components/public/ProcessSection';
 import TestimonialsSection from './components/public/TestimonialsSection';
 import BlogSection from './components/public/BlogSection';
 import CareerSection from './components/public/CareerSection';
@@ -403,15 +404,24 @@ export default function App() {
 
           <Route 
             path="/process" 
-            element={<TestimonialsSection onOpenBookModal={() => setIsBookModalOpen(true)} />} 
+            element={<ProcessSection onOpenBookModal={() => setIsBookModalOpen(true)} />} 
           />
+          <Route path="/our-process" element={<Navigate to="/process" replace />} />
           <Route path="/testimonials" element={<Navigate to="/process" replace />} />
 
           <Route path="/why-us" element={<BlogSection />} />
           <Route path="/blog" element={<Navigate to="/why-us" replace />} />
           <Route path="/insights" element={<Navigate to="/why-us" replace />} />
 
-          <Route path="/careers" element={<CareerSection />} />
+          <Route 
+            path="/careers" 
+            element={
+              <CareerSection 
+                onAddLead={handleAddLead} 
+                onAddNotification={handleAddNotification} 
+              />
+            } 
+          />
           <Route path="/career" element={<Navigate to="/careers" replace />} />
 
           <Route 

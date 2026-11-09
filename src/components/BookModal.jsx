@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import { X, Calendar, CheckCircle2, Send, Loader2 } from 'lucide-react';
+import { X, Calendar, CheckCircle2, Send, Loader2, MessageSquare } from 'lucide-react';
 import { COMPANY_INFO, SERVICES_LIST } from '../data/mockData';
 import { supabaseService } from '../services/supabaseService';
 
@@ -140,13 +140,38 @@ export default function BookModal({ isOpen, onClose, defaultServiceId, onAddLead
               <div style={{ width: '64px', height: '64px', background: 'rgba(201,160,68,0.15)', color: '#C9A044', borderRadius: '50%', display: 'flex', alignItems: 'center', justifyContent: 'center', margin: '0 auto 16px' }}>
                 <CheckCircle2 size={36} color="#C9A044" />
               </div>
-              <h3 style={{ fontSize: '1.3rem', color: 'var(--color-primary-navy)', marginBottom: '8px', fontWeight: 800 }}>Consultation Requested!</h3>
-              <p style={{ fontSize: '1rem', color: 'var(--color-dark-text)', marginBottom: '20px', lineHeight: 1.6, fontWeight: 600 }}>
+              <h3 style={{ fontSize: '1.35rem', color: 'var(--color-primary-navy)', marginBottom: '6px', fontWeight: 900 }}>Consultation Requested!</h3>
+              <div style={{ display: 'inline-block', background: '#F1F5F9', border: '1px solid #E2E8F0', padding: '4px 12px', borderRadius: '20px', fontSize: '0.8rem', fontWeight: 700, color: '#0B2D68', marginBottom: '14px' }}>
+                ✉️ Confirmation Welcome Email Sent
+              </div>
+              <p style={{ fontSize: '0.96rem', color: 'var(--color-dark-text)', marginBottom: '20px', lineHeight: 1.6, fontWeight: 600 }}>
                 {successMessage}
               </p>
-              <button onClick={handleReset} className="btn-primary" style={{ width: '100%', justifyContent: 'center' }}>
-                Close Window
-              </button>
+              <div style={{ display: 'flex', flexDirection: 'column', gap: '10px' }}>
+                <a
+                  href={`https://wa.me/91${COMPANY_INFO.contact.rawPhones[0]}?text=${encodeURIComponent(`Hello AS GROUPS, I have requested a consultation for ${formData.serviceRequired}. Name: ${formData.name}.`)}`}
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  style={{
+                    display: 'flex',
+                    alignItems: 'center',
+                    justifyContent: 'center',
+                    gap: '8px',
+                    background: '#16A34A',
+                    color: '#FFFFFF',
+                    padding: '11px',
+                    borderRadius: '8px',
+                    fontWeight: 700,
+                    fontSize: '0.88rem',
+                    textDecoration: 'none'
+                  }}
+                >
+                  <MessageSquare size={16} /> Fast-Track on WhatsApp
+                </a>
+                <button onClick={handleReset} className="btn-secondary" style={{ width: '100%', justifyContent: 'center' }}>
+                  Close Window
+                </button>
+              </div>
             </div>
           ) : (
             <form onSubmit={handleSubmit} style={{ display: 'flex', flexDirection: 'column', gap: '16px' }}>

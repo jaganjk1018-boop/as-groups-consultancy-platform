@@ -374,3 +374,29 @@ Please review and contact the customer as soon as possible.
 Regards,
 AS Groups Enquiry System
 ------------------------------------------------------------
+[2026-11-08 03:28:03] [SIMULATED] TO: test@example.com | SUBJECT: Test Welcome Email
+Dear Senthil Nathan,
+
+Thank you for contacting AS Groups Business Consultancy.
+
+We have successfully received your enquiry regarding Tea Shop & Restaurant Consulting.
+Reference ID: ASG-ENQ-0101
+Organization: Chai Hub Pvt Ltd
+Date: 08 Nov 2026
+Requirement: "Looking to launch a tea shop franchise."
+
+What happens next?
+1. Diagnostic Review: Our strategy team led by Founder & CEO Harish Ambigadoss reviews your business context.
+2. Consultant Assignment: A dedicated domain specialist is assigned to your case.
+3. Direct Contact: We will reach out to you within 24 business hours to schedule your strategy session.
+
+For urgent assistance:
+Phone: +91 73055 79137 / +91 98400 26405
+Email: harishvj14367@gmail.com / info@asgroups.com
+Location: 6/7 Perumal Kovil Street, Kandigai, Nallambakkam
+
+Regards,
+Harish Ambigadoss
+Founder & CEO, AS Groups Business Consultancy
+Managing Partner, Aladipattiyan Karupatti Coffee
+------------------------------------------------------------

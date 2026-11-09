@@ -11,7 +11,7 @@ export default function GoogleLoginButton({ text = "Sign in with Google", role =
     setTimeout(() => {
       setLoading(false);
       const googleUser = {
-        name: role === 'admin' ? 'Harish V J (Google Account)' : 'Anita Roy (Google Verified)',
+        name: role === 'admin' ? 'Harish Ambigadoss (Google Account)' : 'Anita Roy (Google Verified)',
         email: role === 'admin' ? 'harishvj14367@gmail.com' : 'anita@silkroute.co',
         company: role === 'admin' ? 'AS GROUPS' : 'SilkRoute Exim Global',
         role: role,

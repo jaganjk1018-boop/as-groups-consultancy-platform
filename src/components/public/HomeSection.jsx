@@ -23,7 +23,9 @@ import {
   ChevronUp, 
   Play, 
   BookOpen, 
-  Quote 
+  Quote,
+  Linkedin,
+  ExternalLink 
 } from 'lucide-react';
 import { 
   SERVICES_LIST, 
@@ -121,11 +123,22 @@ export default function HomeSection({ setActivePublicTab, onOpenBookModal, onSel
                 <div style={{ fontSize: '0.72rem', color: '#DFC16E', textTransform: 'uppercase', letterSpacing: '0.12em', fontWeight: 800, marginBottom: '4px' }}>
                   CHIEF EXECUTIVE OFFICER & FOUNDER
                 </div>
-                <h2 style={{ fontSize: 'clamp(1.5rem, 3.5vw, 1.8rem)', color: 'white', marginBottom: '4px', fontWeight: 900 }}>
-                  {COMPANY_INFO.founder.name}
+                <h2 style={{ fontSize: 'clamp(1.5rem, 3.5vw, 1.8rem)', color: 'white', marginBottom: '2px', fontWeight: 900 }}>
+                  {COMPANY_INFO.founder.name} <span style={{ fontSize: '0.82rem', color: '#CBD5E1', fontWeight: 500 }}>({COMPANY_INFO.founder.pronouns})</span>
                 </h2>
-                <div style={{ fontSize: '0.85rem', color: '#DFC16E', marginBottom: '16px', fontWeight: 700 }}>
+                <div style={{ fontSize: '0.85rem', color: '#DFC16E', marginBottom: '8px', fontWeight: 700 }}>
                   {COMPANY_INFO.founder.designation}
+                </div>
+                <div style={{ display: 'flex', justifyContent: 'center', flexWrap: 'wrap', gap: '8px', marginBottom: '14px' }}>
+                  <span style={{ background: 'rgba(201,160,68,0.2)', color: '#DFC16E', padding: '3px 8px', borderRadius: '6px', fontSize: '0.74rem', fontWeight: 700 }}>☕ {COMPANY_INFO.founder.managingPartner}</span>
+                  <a
+                    href={COMPANY_INFO.contact.linkedin}
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    style={{ display: 'inline-flex', alignItems: 'center', gap: '4px', background: 'rgba(255,255,255,0.12)', color: '#FFFFFF', padding: '3px 10px', borderRadius: '6px', textDecoration: 'none', fontSize: '0.74rem', fontWeight: 700, border: '1px solid rgba(255,255,255,0.2)' }}
+                  >
+                    <Linkedin size={12} color="#DFC16E" /> LinkedIn <ExternalLink size={10} />
+                  </a>
                 </div>
 
                 <blockquote style={{ fontStyle: 'italic', color: '#F5F6F8', fontSize: '0.92rem', lineHeight: 1.6, borderLeft: '3px solid #C9A044', paddingLeft: '14px', margin: '0 0 16px', textAlign: 'left', background: 'rgba(255,255,255,0.06)', padding: '10px 14px', borderRadius: '0 10px 10px 0' }}>
@@ -144,7 +157,7 @@ export default function HomeSection({ setActivePublicTab, onOpenBookModal, onSel
                 Practical Consulting Solutions for Sustainable Growth
               </h2>
               <p style={{ color: 'var(--text-muted)', lineHeight: 1.7, fontSize: '1rem', marginBottom: '16px' }}>
-                Under the strategic leadership of <strong>Harish V J</strong>, AS GROUPS provides actionable consulting solutions for businesses looking to convert market opportunities into long-term profit.
+                Under the strategic leadership of <strong>{COMPANY_INFO.founder.name}</strong>, AS GROUPS provides actionable consulting solutions for businesses looking to convert market opportunities into long-term profit.
               </p>
               <p style={{ color: 'var(--text-muted)', lineHeight: 1.7, fontSize: '0.95rem', marginBottom: '22px' }}>
                 We cover 8 specialized verticals: Digital & Physical Marketing, Business Setup, Import & Export Trade, Hospital Marketing, Tea Shop & Restaurant Setup, Innovation Strategy, Franchise Development, and Corporate Branding.

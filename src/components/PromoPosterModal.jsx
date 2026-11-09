@@ -65,7 +65,7 @@ export default function PromoPosterModal({ isOpen, onClose, onOpenBookModal }) {
               Transform Your Ideas Into Sustainable Business Growth
             </div>
             <p className="text-[11px] text-slate-200 mt-1 font-medium">
-              Direct consultation with <strong className="text-white">Harish V J</strong> (Founder & Growth Strategist)
+              Direct consultation with <strong className="text-white">Harish Ambigadoss</strong> (Founder & CEO)
             </p>
           </div>
 
@@ -131,7 +131,7 @@ export default function PromoPosterModal({ isOpen, onClose, onOpenBookModal }) {
 
           {/* Bottom Footer Note */}
           <div className="text-center text-[10px] text-slate-300 pt-0.5">
-            📍 Mambakkam, Tamil Nadu | 📞 +91 73055 79137
+            📍 {COMPANY_INFO.contact.location} | 📞 +91 73055 79137
           </div>
         </div>
       </div>

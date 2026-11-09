@@ -220,16 +220,43 @@ export default function ContactSection({ onAddLead, onAddNotification }) {
           <div className="p-5 sm:p-8 rounded-2xl" style={{ background: 'white', border: '1px solid var(--color-border-gray)', boxShadow: '0 4px 20px rgba(11,45,104,0.06)', borderTop: '3px solid #C9A044' }}>
             {submitted ? (
               <div style={{ textAlign: 'center', padding: '24px 0' }}>
-                <CheckCircle2 size={52} color="#C9A044" style={{ margin: '0 auto 14px' }} />
-                <h3 style={{ fontSize: '1.4rem', color: 'var(--color-primary-navy)', marginBottom: '10px', fontWeight: 800 }}>
-                  Enquiry Submitted!
+                <div style={{ width: '64px', height: '64px', background: 'rgba(201,160,68,0.15)', color: '#C9A044', borderRadius: '50%', display: 'flex', alignItems: 'center', justifyContent: 'center', margin: '0 auto 16px' }}>
+                  <CheckCircle2 size={38} color="#C9A044" />
+                </div>
+                <h3 style={{ fontSize: '1.45rem', color: 'var(--color-primary-navy)', marginBottom: '8px', fontWeight: 900 }}>
+                  Enquiry Submitted Successfully!
                 </h3>
-                <p style={{ fontSize: '1rem', color: 'var(--color-dark-text)', marginBottom: '22px', lineHeight: 1.6, fontWeight: 600 }}>
+                <div style={{ display: 'inline-block', background: '#F1F5F9', border: '1px solid #E2E8F0', padding: '6px 14px', borderRadius: '20px', fontSize: '0.82rem', fontWeight: 700, color: '#0B2D68', marginBottom: '16px' }}>
+                  ✉️ Confirmation Email Dispatched
+                </div>
+                <p style={{ fontSize: '0.98rem', color: 'var(--color-dark-text)', marginBottom: '20px', lineHeight: 1.6, fontWeight: 600 }}>
                   {successMessage}
                 </p>
-                <button onClick={() => setSubmitted(false)} className="btn-primary w-full justify-center py-2.5 sm:py-3 active:scale-[0.98] min-h-[40px]">
-                  Send Another Enquiry
-                </button>
+                <div style={{ display: 'flex', flexDirection: 'column', gap: '10px' }}>
+                  <a
+                    href={whatsappUrl}
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    style={{
+                      display: 'flex',
+                      alignItems: 'center',
+                      justifyContent: 'center',
+                      gap: '8px',
+                      background: '#16A34A',
+                      color: '#FFFFFF',
+                      padding: '11px',
+                      borderRadius: '8px',
+                      fontWeight: 700,
+                      fontSize: '0.9rem',
+                      textDecoration: 'none'
+                    }}
+                  >
+                    <MessageSquare size={16} /> Fast-Track Follow-up on WhatsApp
+                  </a>
+                  <button onClick={() => setSubmitted(false)} className="btn-secondary w-full justify-center py-2.5 sm:py-3 active:scale-[0.98] min-h-[40px] text-sm">
+                    Submit Another Enquiry
+                  </button>
+                </div>
               </div>
             ) : (
               <form onSubmit={handleSubmit} style={{ display: 'flex', flexDirection: 'column', gap: '14px' }}>

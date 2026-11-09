@@ -34,14 +34,13 @@ export default async function handler(req, res) {
       ['Retrying Email Workflow', enquiryId]
     );
 
-    // Run emails
-    processEnquiryEmails(enquiryId).catch(err => {
-      console.error('Email retry error:', err);
-    });
+    // Run emails immediately and await on Vercel
+    const result = await processEnquiryEmails(enquiryId);
 
     return res.status(200).json({
       success: true,
-      message: `Email dispatch workflow re-initiated for enquiry #${enquiryId}`
+      message: `Email dispatch workflow completed for enquiry #${enquiryId}`,
+      status: result.finalStatus || 'Processed'
     });
   } catch (err) {
     console.error('Retry error:', err);

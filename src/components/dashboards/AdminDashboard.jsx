@@ -91,7 +91,7 @@ export default function AdminDashboard({
   const [isScheduleMeetingModalOpen, setIsScheduleMeetingModalOpen] = useState(false);
   const [newMeetingForm, setNewMeetingForm] = useState({
     client_name: '',
-    consultant_name: 'Harish V J (Founder & Growth Strategist)',
+    consultant_name: 'Harish Ambigadoss (Founder & CEO)',
     service_name: 'Import & Export Consulting',
     appointment_date: new Date().toISOString().split('T')[0],
     meeting_date: new Date(Date.now() + 86400000 * 2).toISOString().split('T')[0],
@@ -131,7 +131,7 @@ export default function AdminDashboard({
     setIsScheduleMeetingModalOpen(false);
     setNewMeetingForm({
       client_name: '',
-      consultant_name: 'Harish V J (Founder & Growth Strategist)',
+      consultant_name: 'Harish Ambigadoss (Founder & CEO)',
       service_name: 'Import & Export Consulting',
       appointment_date: new Date().toISOString().split('T')[0],
       meeting_date: new Date(Date.now() + 86400000 * 2).toISOString().split('T')[0],
@@ -890,7 +890,7 @@ export default function AdminDashboard({
                       style={{ width: '100%', padding: '10px', borderRadius: '8px', border: '1px solid #cbd5e1', fontSize: '0.88rem' }}
                     >
                       <option value="Video Consultation">Video Consultation (Online)</option>
-                      <option value="In-Person (Mambakkam HQ)">In-Person (Mambakkam HQ)</option>
+                      <option value="In-Person (Kandigai HQ)">In-Person (Kandigai HQ)</option>
                       <option value="Client Site Visit">Client Site Visit</option>
                     </select>
                   </div>

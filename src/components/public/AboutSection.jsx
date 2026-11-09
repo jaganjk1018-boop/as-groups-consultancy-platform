@@ -1,5 +1,5 @@
 import React from 'react';
-import { Target, Compass, Award, Users, ShieldCheck, CheckCircle2, ArrowRight, Lightbulb, TrendingUp } from 'lucide-react';
+import { Target, Compass, Award, Users, ShieldCheck, CheckCircle2, ArrowRight, Lightbulb, TrendingUp, Linkedin, ExternalLink } from 'lucide-react';
 import { COMPANY_INFO, WHY_CHOOSE_US } from '../../data/mockData';
 import WhyUsArticleSection from './WhyUsArticleSection';
 
@@ -61,10 +61,21 @@ export default function AboutSection({ onOpenBookModal }) {
                 EXECUTIVE LEADERSHIP
               </div>
               <h2 style={{ fontSize: '2.3rem', color: 'white', marginBottom: '4px', fontWeight: 900 }}>
-                {COMPANY_INFO.founder.name}
+                {COMPANY_INFO.founder.name} <span style={{ fontSize: '0.88rem', color: '#CBD5E1', fontWeight: 500 }}>({COMPANY_INFO.founder.pronouns})</span>
               </h2>
-              <div style={{ fontSize: '1rem', color: '#DFC16E', fontWeight: 700, marginBottom: '18px' }}>
+              <div style={{ fontSize: '1rem', color: '#DFC16E', fontWeight: 700, marginBottom: '6px' }}>
                 {COMPANY_INFO.founder.designation}
+              </div>
+              <div style={{ fontSize: '0.86rem', color: '#E2E8F0', marginBottom: '18px', display: 'flex', flexWrap: 'wrap', gap: '8px', alignItems: 'center' }}>
+                <span style={{ background: 'rgba(201,160,68,0.2)', color: '#DFC16E', padding: '4px 10px', borderRadius: '6px', fontWeight: 700, fontSize: '0.82rem' }}>☕ {COMPANY_INFO.founder.managingPartner}</span>
+                <a 
+                  href={COMPANY_INFO.contact.linkedin} 
+                  target="_blank" 
+                  rel="noopener noreferrer" 
+                  style={{ display: 'inline-flex', alignItems: 'center', gap: '6px', background: 'rgba(255,255,255,0.12)', color: '#FFFFFF', padding: '4px 12px', borderRadius: '6px', textDecoration: 'none', fontWeight: 700, fontSize: '0.82rem', border: '1px solid rgba(255,255,255,0.25)' }}
+                >
+                  <Linkedin size={14} color="#DFC16E" /> Connect on LinkedIn <ExternalLink size={12} />
+                </a>
               </div>
 
               <blockquote style={{ fontStyle: 'italic', color: '#FFFFFF', fontSize: '1.15rem', lineHeight: 1.6, borderLeft: '4px solid #C9A044', paddingLeft: '18px', margin: '0 0 20px', background: 'rgba(255,255,255,0.06)', padding: '12px 18px', borderRadius: '0 12px 12px 0' }}>

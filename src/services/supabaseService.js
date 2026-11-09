@@ -66,18 +66,20 @@ export const supabaseService = {
     // 1. Primary: Send to secure server API which inserts into Postgres and dispatches emails
     const localResult = await api.createEnquiry(enquiryData);
 
-    // 2. Secondary backup: Supabase REST
-    try {
-      const payload = {
-        name: enquiryData.name,
-        email: enquiryData.email,
-        phone: enquiryData.phone,
-        company: enquiryData.company || enquiryData.businessName || 'Business Prospect',
-        service: enquiryData.service || enquiryData.serviceRequired || 'Consulting Service',
-        message: enquiryData.message || enquiryData.requirement || ''
-      };
-      await supabaseQuery('enquiries', { method: 'POST', body: payload });
-    } catch (e) {}
+    // 2. Secondary backup: Supabase REST (only if server API is offline or failed)
+    if (!localResult || (!localResult.enquiry_id && !localResult.success)) {
+      try {
+        const payload = {
+          name: enquiryData.name,
+          email: enquiryData.email,
+          phone: enquiryData.phone,
+          company: enquiryData.company || enquiryData.businessName || 'Business Prospect',
+          service: enquiryData.service || enquiryData.serviceRequired || 'Consulting Service',
+          message: enquiryData.message || enquiryData.requirement || ''
+        };
+        await supabaseQuery('enquiries', { method: 'POST', body: payload });
+      } catch (e) {}
+    }
 
     return localResult;
   },

@@ -7,33 +7,40 @@ export const COMPANY_INFO = {
   positioningStatement: 'Helping Hospitals, Clinics, Startups & Businesses Build Sustainable Growth',
   subTagline: 'Strategy • Marketing • Branding • Business Growth',
   founder: {
-    name: 'Harish V J',
-    designation: 'Founder, CEO & Principal Growth Strategist',
+    name: 'Harish Ambigadoss',
+    pronouns: 'He/Him',
+    designation: 'Founder & CEO | Business Consulting & Management',
+    headline: 'Founder & CEO | AS Groups | Business Consulting & Management | Entrepreneur | IT Staffing & Manpower Solutions | Solar | Business Development & Strategic Partnerships | Managing Partner Aladipattiyan Karupatti Coffee',
+    managingPartner: 'Managing Partner, Aladipattiyan Karupatti Coffee',
     image: '/ceo.png',
     quote: '“Empowering Growth. Transforming Ideas. Creating Lasting Impact.”',
-    bio: 'Harish V J is the Founder, CEO & Principal Growth Strategist of AS GROUPS. Guided by the core vision "Your Growth, Our Commitment", he specializes in helping healthcare providers, startups, restaurants, and enterprises navigate complex business environments with actionable strategies and sustainable marketing execution.',
+    bio: 'Harish Ambigadoss is the Founder & CEO of AS Groups and Managing Partner at Aladipattiyan Karupatti Coffee. An entrepreneurial strategist with multifaceted leadership across Business Consulting & Management, IT Staffing & Manpower Solutions, Solar Clean-Tech, and Strategic Partnerships, he partners with healthcare institutions, commercial brands, F&B ventures, and scaling enterprises to build resilient, profitable, and future-ready business models.',
     achievements: [
-      '🏆 150+ Business Growth Consultations Delivered',
-      '🏥 40+ Hospital & Healthcare Marketing Projects Executed',
-      '🍽️ 25+ Food Venture & Tea Shop Outlets Established',
-      '💼 98% Client Satisfaction & Strategy Success Rate'
+      '☕ Managing Partner — Aladipattiyan Karupatti Coffee',
+      '⚡ Solar Energy & Clean-Tech Project Advisory & Partnerships',
+      '💼 IT Staffing & Manpower Solutions Entrepreneur',
+      '🏆 150+ Business Growth Consultations & Strategy Blueprints Delivered',
+      '🏥 40+ Ethical Healthcare & Hospital Marketing Initiatives',
+      '🤝 Strategic Business Development & Cross-Industry Alliances'
     ],
     expertise: [
-      'Business Growth Strategy & Commercial Architecture',
+      'Business Consulting & Corporate Management',
+      'Managing Partner, Aladipattiyan Karupatti Coffee',
+      'IT Staffing & Manpower Solutions',
+      'Solar Clean-Tech Advisory & Strategic Partnerships',
+      'Business Development & Enterprise Growth Strategy',
       'Ethical Healthcare Marketing & Hospital Patient Intake',
-      'Tea Shop & Restaurant Unit Economics & Operations',
-      'Import & Export Foreign Market Entry Planning',
-      'Franchise Network Development & SOP Structuring'
+      'F&B Unit Economics & Franchise Network Expansion'
     ]
   },
   contact: {
     phones: ['+91 73055 79137', '+91 98400 26405'],
     rawPhones: ['7305579137', '9840026405'],
     email: 'harishvj14367@gmail.com',
-    location: 'Mambakkam, Tamil Nadu',
+    location: '6/7 Perumal Kovil Street, Kandigai, Nallambakkam',
     whatsappMessage: 'Hello AS GROUPS, I would like to know more about your business consulting services. I would like to discuss my business requirements.',
     instagram: 'https://www.instagram.com/asgroupsbmc?igsi=MW9iODE5cGdhZmZtdQ==',
-    linkedin: 'https://www.linkedin.com/in/harish-ambigadoss-538801385?utm_source=share_via&utm_content=profile&utm_medium=member_android'
+    linkedin: 'https://www.linkedin.com/in/harish-ambigadoss-538801385/'
   }
 };
 
@@ -50,7 +57,7 @@ export const SERVICES_LIST = [
     targetAudience: 'Startups • Hospitals & Clinics • Retail Brands • Food Ventures • Local Businesses',
     duration: '2 - 4 Weeks Setup + Monthly Execution',
     expectedRoi: '3.8x Average Return on Marketing Investment (ROMI)',
-    leadConsultant: 'Harish V J (Principal Growth Strategist)',
+    leadConsultant: 'Harish Ambigadoss (Principal Growth Strategist)',
     toolsAndTech: ['Google Business Profile', 'Meta Business Suite', 'Local Ground Foot-Traffic Maps', 'Google Analytics 4', 'Lead Conversion Funnels'],
     modularAddons: [
       'Hyper-Local Banner & Flyer Ground Campaign',
@@ -97,7 +104,7 @@ export const SERVICES_LIST = [
     targetAudience: 'Aspiring Entrepreneurs • First-Time Founders • Small Business Owners • Startup Teams',
     duration: '3 - 6 Weeks End-to-End Setup',
     expectedRoi: '60% Reduction in Time-to-Market & Initial Setup Risk',
-    leadConsultant: 'Harish V J (Founder & CEO)',
+    leadConsultant: 'Harish Ambigadoss (Founder & CEO)',
     toolsAndTech: ['Business Model Canvas (BMC)', 'Unit Economics Calculator', 'Financial Projection Models', 'Entity Regulatory Matrix'],
     modularAddons: [
       'Pitch Deck & Investor Presentation Package',
@@ -144,7 +151,7 @@ export const SERVICES_LIST = [
     targetAudience: 'Manufacturers • Wholesalers • Agricultural Exporters • Overseas Trade Aspirants',
     duration: '4 - 8 Weeks Market Entry Planning',
     expectedRoi: 'Access to 3+ Verified Overseas Markets',
-    leadConsultant: 'Harish V J (Global Trade Advisor)',
+    leadConsultant: 'Harish Ambigadoss (Global Trade Advisor)',
     toolsAndTech: ['HS Code Tariff Finder', 'Global Trade Data Portals', 'Cross-Border Logistics Frameworks', 'Export Compliance Checklist'],
     modularAddons: [
       'International Buyer Sourcing Playbook',
@@ -191,7 +198,7 @@ export const SERVICES_LIST = [
     targetAudience: 'Hospitals • Specialty Clinics • Diagnostic Centers • Dental & Eye Care Chains • Medical Practitioners',
     duration: 'Ongoing Retainer (Initial 30-Day Rollout)',
     expectedRoi: '+180% Patient Appointment Inquiries within 90 Days',
-    leadConsultant: 'Harish V J (Healthcare Brand Strategist)',
+    leadConsultant: 'Harish Ambigadoss (Healthcare Brand Strategist)',
     toolsAndTech: ['Google Healthcare Local Pack', 'Patient Feedback Workflow', 'Emergency Map Positioning', 'D2D Physician Referral Network'],
     modularAddons: [
       'Specialty Clinic OPD Patient Intake Audit',
@@ -238,7 +245,7 @@ export const SERVICES_LIST = [
     targetAudience: 'Tea Shops • Quick Service Restaurants (QSR) • Cafés • Cloud Kitchens • Food Entrepreneurs',
     duration: '2 - 5 Weeks Setup & Launch Advisory',
     expectedRoi: '320% Average First-Year Revenue Expansion',
-    leadConsultant: 'Harish V J (Food Venture Growth Specialist)',
+    leadConsultant: 'Harish Ambigadoss (Food Venture Growth Specialist)',
     toolsAndTech: ['Menu Margin Engineering Sheet', 'Store Foot-Traffic Heatmaps', 'Food Aggregator Optimization', 'Counter SOP Manuals'],
     modularAddons: [
       'Grand Opening Foot-Traffic Festival Campaign',
@@ -285,7 +292,7 @@ export const SERVICES_LIST = [
     targetAudience: 'Innovative Startups • Growing Enterprises • Family Businesses • Product Companies',
     duration: '3 - 6 Weeks Strategy Sprint',
     expectedRoi: '25% - 40% Increase in Profit Margins via Monetization Innovation',
-    leadConsultant: 'Harish V J (Chief Strategy Officer)',
+    leadConsultant: 'Harish Ambigadoss (Chief Strategy Officer)',
     toolsAndTech: ['Value Proposition Canvas', 'Blue Ocean Strategy Framework', 'Recurring Monetization Modelers', 'Ecosystem Partner Maps'],
     modularAddons: [
       'Enterprise Revenue Model Pivot Sprint',
@@ -332,7 +339,7 @@ export const SERVICES_LIST = [
     targetAudience: 'Successful Retail Stores • Food Chains • Service Businesses • Educational Hubs',
     duration: '4 - 8 Weeks Franchise Packaging',
     expectedRoi: '10+ Multi-City Outlets Launched within 12 Months',
-    leadConsultant: 'Harish V J (Franchise Network Consultant)',
+    leadConsultant: 'Harish Ambigadoss (Franchise Network Consultant)',
     toolsAndTech: ['FOFO / FOCO Financial Models', 'Franchisee Operations Manual (FOM)', 'Territory Mapping Tools', 'Investor Pitch Deck Builders'],
     modularAddons: [
       'Franchisee Recruitment Investor Lead Funnel',
@@ -379,7 +386,7 @@ export const SERVICES_LIST = [
     targetAudience: 'Corporate Brands • Product Creators • Professional Services • Expanding Enterprises',
     duration: '2 - 4 Weeks Brand Book & Campaign Design',
     expectedRoi: '+200% Increase in Brand Authority & Recall',
-    leadConsultant: 'Harish V J (Creative Director & Strategist)',
+    leadConsultant: 'Harish Ambigadoss (Creative Director & Strategist)',
     toolsAndTech: ['Vector Brand Guideline Systems', 'Outdoor Campaign Matrices', 'Corporate Identity Toolkits', 'Digital Visual Standards'],
     modularAddons: [
       'Full Brand Book (Logo, Colors, Fonts & Tone Rules)',
@@ -486,7 +493,7 @@ export const WHY_CHOOSE_US = [
     tagline: 'Direct Advisory from Industry Leaders',
     desc: 'At AS GROUPS, you receive direct strategic direction from senior business consultants with hands-on domain expertise. We cut through theoretical jargon and provide actionable, real-world business frameworks tailored to your market.',
     highlights: [
-      'Direct consultation with Founder & Chief Growth Strategist Harish V J',
+      'Direct consultation with Founder & Chief Growth Strategist Harish Ambigadoss',
       'Proven expertise across Healthcare, Tech Startups, Retail, and Food Ventures',
       'No generic advice — only specialized, data-backed execution blueprints'
     ],
@@ -625,6 +632,16 @@ export const PORTFOLIO_CASE_STUDIES = [
     roi: '100% Trade Compliance',
     description: 'Guided cross-border market entry, trade documentation, distributor sourcing, and growth planning.',
     image: 'https://images.unsplash.com/photo-1586528116311-ad8dd3c8310d?auto=format&fit=crop&w=800&q=80'
+  },
+  {
+    id: 'cs-4',
+    title: 'tintin SMASH, EAT & REPEAT — Turnkey Food Venture Launch',
+    client: 'tintin Food Ventures (Mambakkam, Chennai)',
+    service: 'Tea Shop & Restaurant Consulting',
+    impact: 'Full Store Setup & Illuminated Signage',
+    roi: 'Live on Medavakkam Main Rd',
+    description: 'Executed complete brand identity, glowing storefront LED lightbox architecture, menu margin engineering, and grand opening launch.',
+    image: '/tintin-burger.jpg'
   }
 ];
 
@@ -645,7 +662,7 @@ export const INITIAL_TESTIMONIALS = [
     company: 'Chai & Bites Outlets',
     rating: 5,
     service: 'Tea Shop & Restaurant Consulting',
-    quote: 'Harish V J and the team helped us refine our menu pricing, store branding, and launch strategy. Exceptional business-focused consulting!'
+    quote: 'Harish Ambigadoss and the team helped us refine our menu pricing, store branding, and launch strategy. Exceptional business-focused consulting!'
   },
   {
     id: 3,
@@ -663,7 +680,7 @@ export const BLOG_POSTS = [
     id: 'blog-1',
     title: 'Essential Steps to Build Sustainable Growth for Your Business',
     category: 'Business Strategy',
-    author: 'Harish V J',
+    author: 'Harish Ambigadoss',
     date: 'September 1, 2026',
     readTime: '5 min read',
     excerpt: 'Key growth principles for startups, hospitals, restaurants, and small businesses looking to expand with confidence.',
@@ -673,7 +690,7 @@ export const BLOG_POSTS = [
     id: 'blog-2',
     title: 'How Hospital Marketing Builds Patient Trust & Local Visibility',
     category: 'Hospital Marketing',
-    author: 'Harish V J',
+    author: 'Harish Ambigadoss',
     date: 'August 28, 2026',
     readTime: '6 min read',
     excerpt: 'Why healthcare organizations need clear communication, local community outreach, and transparent branding.',
@@ -686,19 +703,91 @@ export const CAREER_JOBS = [
     id: 'job-1',
     title: 'Business Growth Strategist',
     department: 'Consulting Operations',
-    location: 'Mambakkam, Tamil Nadu / Hybrid',
+    category: 'Consulting',
+    location: '6/7 Perumal Kovil Street, Kandigai, Nallambakkam / Hybrid',
     type: 'Full-Time',
     experience: '3+ Years',
-    description: 'Work directly with founders and business owners to develop customized growth strategies across marketing, branding, and business setup.'
+    description: 'Work directly with founders and business owners to develop customized commercial blueprints, operational roadmaps, and scalable revenue strategies.',
+    responsibilities: [
+      'Conduct deep-dive business diagnostic audits and financial unit economics analysis',
+      'Architect customized 12-month growth roadmaps for MSMEs and scaling enterprises',
+      'Collaborate with the founder to lead executive strategy review workshops'
+    ]
   },
   {
     id: 'job-2',
-    title: 'Healthcare Brand Specialist',
+    title: 'Healthcare Brand & Hospital Marketing Specialist',
     department: 'Hospital Marketing',
+    category: 'Healthcare',
     location: 'Chennai / Hybrid',
     type: 'Full-Time',
     experience: '2+ Years',
-    description: 'Design patient outreach campaigns, hospital branding blueprints, and digital media strategies for medical institutions.'
+    description: 'Design patient trust outreach campaigns, ethical medical branding blueprints, and digital footfall strategies for hospitals and specialty clinics.',
+    responsibilities: [
+      'Formulate multi-channel ethical healthcare marketing and patient intake strategies',
+      'Coordinate doctor profiling, medical content integrity, and hospital digital reputation',
+      'Optimize localized patient acquisition channels and healthcare referral networks'
+    ]
+  },
+  {
+    id: 'job-3',
+    title: 'Restaurant & F&B Operations Consultant',
+    department: 'Hospitality Advisory',
+    category: 'Hospitality',
+    location: 'Kandigai & On-Site Visits',
+    type: 'Full-Time',
+    experience: '2+ Years',
+    description: 'Guide aspiring tea shop, cafe, and restaurant owners through menu engineering, kitchen SOP structuring, supplier sourcing, and location analysis.',
+    responsibilities: [
+      'Evaluate retail store locations, footfall density, and menu cost margin models',
+      'Standardize kitchen operational workflows, inventory control, and staff training SOPs',
+      'Assist brand launches with pre-opening checklist execution and customer loyalty systems'
+    ]
+  },
+  {
+    id: 'job-4',
+    title: 'Performance Marketing & Digital Growth Lead',
+    department: 'Marketing Operations',
+    category: 'Marketing',
+    location: 'Kandigai, Nallambakkam / Hybrid',
+    type: 'Full-Time',
+    experience: '2+ Years',
+    description: 'Oversee multi-channel digital performance marketing, hyper-local search visibility, lead-generation funnels, and brand campaigns for consulting clients.',
+    responsibilities: [
+      'Plan and execute high-ROI paid ad campaigns across Meta, Google Ads, and LinkedIn',
+      'Develop search engine optimization and localized business discovery frameworks',
+      'Track client acquisition cost (CAC) and customer lifetime value (LTV) metrics'
+    ]
+  },
+  {
+    id: 'job-5',
+    title: 'Franchise Network & Expansion Associate',
+    department: 'Corporate Development',
+    category: 'Consulting',
+    location: 'Kandigai / Hybrid',
+    type: 'Full-Time',
+    experience: '1-3 Years',
+    description: 'Support scalable brands in standardizing franchise documentation, investor pitch decks, territory rights allocation, and partner onboarding.',
+    responsibilities: [
+      'Prepare comprehensive Franchise Disclosure Documents and operational blueprints',
+      'Screen and qualify potential franchisee partner inquiries and territory proposals',
+      'Coordinate legal, royalty, and compliance frameworks for multi-city rollout'
+    ]
+  },
+  {
+    id: 'job-6',
+    title: 'General Application / Open Role',
+    department: 'All Practice Areas',
+    category: 'Open Role',
+    location: 'Kandigai / Hybrid / Remote',
+    type: 'Flexible / Full-Time',
+    experience: 'Any Experience Level',
+    description: 'Passionate about enterprise advisory, branding, marketing, or business consulting? Submit your credentials and tell us how your skill set can drive value.',
+    responsibilities: [
+      'Open to ambitious freshers, seasoned corporate managers, and specialized domain consultants',
+      'Review against upcoming client projects and expansion opportunities',
+      'Direct interview with senior leadership for standout profiles'
+    ]
   }
 ];
 
@@ -719,7 +808,7 @@ export const DATABASE_SCHEMA_OVERVIEW = [
   },
   {
     table: 'Appointments',
-    purpose: 'Scheduled consultation sessions with Harish V J & consultants.',
+    purpose: 'Scheduled consultation sessions with Harish Ambigadoss & consultants.',
     columns: [
       { name: 'id', type: 'TEXT', pk: true, desc: 'Appointment ID' },
       { name: 'client_name', type: 'TEXT', desc: 'Client name' },
@@ -801,7 +890,7 @@ export const INITIAL_APPOINTMENTS = [
   {
     id: 'APT-301',
     client_name: 'Anita Roy',
-    consultant_name: 'Harish V J (Founder & Growth Strategist)',
+    consultant_name: 'Harish Ambigadoss (Founder & Growth Strategist)',
     service_name: 'Import & Export Consulting',
     appointment_date: '2026-09-01',
     meeting_date: '2026-09-03',
@@ -816,7 +905,7 @@ export const INITIAL_APPOINTMENTS = [
   {
     id: 'APT-302',
     client_name: 'Dr. S. K. Nambiar',
-    consultant_name: 'Harish V J',
+    consultant_name: 'Harish Ambigadoss',
     service_name: 'Hospital Marketing',
     appointment_date: '2026-09-02',
     meeting_date: '2026-09-04',
@@ -824,14 +913,14 @@ export const INITIAL_APPOINTMENTS = [
     next_meeting_date: '2026-09-12',
     next_project_date: '2026-10-01',
     status: 'Scheduled',
-    type: 'In-Person (Mambakkam HQ)',
-    meeting_link: 'AS Groups Office, Mambakkam',
+    type: 'In-Person (Kandigai HQ)',
+    meeting_link: 'AS Groups Office, Kandigai',
     notes: 'Reviewing specialty department emergency search campaigns.'
   },
   {
     id: 'APT-303',
     client_name: 'Rajesh Malhotra',
-    consultant_name: 'Harish V J',
+    consultant_name: 'Harish Ambigadoss',
     service_name: 'Tea Shop & Restaurant Consulting',
     appointment_date: '2026-09-03',
     meeting_date: '2026-09-06',
@@ -851,7 +940,7 @@ export const INITIAL_PROJECTS = [
     title: 'EU Market Entry & Trade Strategy',
     client: 'SilkRoute Exim Global',
     service: 'Import & Export Consulting',
-    leadConsultant: 'Harish V J',
+    leadConsultant: 'Harish Ambigadoss',
     progress: 65,
     status: 'On Track',
     project_start_date: '2026-08-01',
@@ -870,7 +959,7 @@ export const INITIAL_PROJECTS = [
     title: 'Healthcare Rebranding & Patient Intake Strategy',
     client: 'Apollo Care Heights',
     service: 'Hospital Marketing',
-    leadConsultant: 'Harish V J',
+    leadConsultant: 'Harish Ambigadoss',
     progress: 40,
     status: 'Review Needed',
     project_start_date: '2026-08-15',
@@ -893,7 +982,7 @@ export const INITIAL_REPORTS = [
     client: 'SilkRoute Exim Global',
     service: 'Import & Export Consulting',
     date: '2026-08-28',
-    author: 'Harish V J',
+    author: 'Harish Ambigadoss',
     fileSize: '4.2 MB',
     summary: 'Comprehensive audit of product categories under international trade frameworks with tax optimization recommendations.'
   }
@@ -915,7 +1004,7 @@ export const WHY_AS_GROUPS_ARTICLE = {
   meta: {
     title: "The AS GROUPS Strategic Blueprint: Engineering High-Growth Ventures across Healthcare, Startups, Food Outlets & International Trade",
     subtitle: "A comprehensive executive analysis on how AS GROUPS bridges domain expertise, operational SOPs, and performance marketing to turn market challenges into sustainable commercial dominance.",
-    author: "Harish V J",
+    author: "Harish Ambigadoss",
     authorRole: "Founder, CEO & Principal Growth Strategist",
     date: "September 2026",
     readTime: "6 Min Read",
@@ -992,6 +1081,6 @@ export const WHY_AS_GROUPS_ARTICLE = {
   conclusion: {
     title: "Why AS GROUPS is the Trusted Choice for Growth-Driven Leaders",
     text: "At AS GROUPS, 'Your Growth, Our Commitment' is not just a tagline — it is our operational ethos. By combining senior leadership consultation with practical SOP blueprints and performance marketing execution, we partner with you at every stage of your business journey.",
-    quote: "“True business consulting goes beyond recommending solutions — it requires standing beside entrepreneurs until those solutions deliver sustainable commercial growth.” — Harish V J"
+    quote: "“True business consulting goes beyond recommending solutions — it requires standing beside entrepreneurs until those solutions deliver sustainable commercial growth.” — Harish Ambigadoss"
   }
 };

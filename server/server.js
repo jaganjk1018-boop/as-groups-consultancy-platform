@@ -179,7 +179,7 @@ const server = http.createServer((req, res) => {
     if (req.method === 'POST' && pathname === '/api/enquiries') {
       try {
         const name = (parsedBody.name || parsedBody.client_name || '').trim();
-        const email = (parsedBody.email || '').trim();
+        const email = (parsedBody.email || '').trim().toLowerCase();
         const phone = (parsedBody.phone || '').trim();
         const company = (parsedBody.company || parsedBody.businessName || 'Business Prospect').trim();
         const service = (parsedBody.service || parsedBody.service_name || 'Business Consulting').trim();
@@ -191,6 +191,31 @@ const server = http.createServer((req, res) => {
             error: 'Name, email, and phone number are required.'
           });
         }
+
+        // Deduplication check: prevent multiple identical submissions within 2 minutes
+        try {
+          const recentRes = await query(`
+            SELECT id, created_at, customer_email_sent, status
+            FROM public.enquiries
+            WHERE LOWER(email) = LOWER($1)
+              AND LOWER(service) = LOWER($2)
+              AND created_at > NOW() - INTERVAL '2 minutes'
+            ORDER BY id DESC
+            LIMIT 1
+          `, [email, service]);
+
+          if (recentRes.rows && recentRes.rows.length > 0) {
+            const existing = recentRes.rows[0];
+            return res.status(200).json({
+              success: true,
+              duplicate_prevented: true,
+              enquiry_id: existing.id,
+              message: `Thank you, ${name}! We have already received your enquiry for ${service} and sent a confirmation email. Our consulting team will contact you shortly.`,
+              created_at: existing.created_at,
+              customer_email_sent: Boolean(existing.customer_email_sent)
+            });
+          }
+        } catch (e) {}
 
         const insertRes = await query(`
           INSERT INTO public.enquiries (name, email, phone, company, service, message, status)
@@ -210,13 +235,20 @@ const server = http.createServer((req, res) => {
           `, [leadId, name, company, email, phone, service, todayStr]);
         } catch (e) {}
 
-        // Sequential email dispatches
-        processEnquiryEmails(enquiryId).catch(e => console.error('Email workflow error:', e));
+        // Sequential email dispatches (Customer Welcome -> Admin Alert)
+        let emailResult = { success: true, finalStatus: 'Processing' };
+        try {
+          emailResult = await processEnquiryEmails(enquiryId);
+        } catch (e) {
+          console.error('Email workflow error:', e.message);
+        }
 
         return res.status(201).json({
           success: true,
           enquiry_id: enquiryId,
-          message: 'Thank you for contacting AS Groups. Our team will contact you shortly.',
+          message: `Thank you, ${name}! Your consultation enquiry for ${service} has been received successfully. A welcome confirmation email has been sent to ${email}.`,
+          email_status: emailResult.finalStatus || 'Delivered',
+          customer_email_sent: emailResult.customerSent !== false,
           created_at: insertRes.rows[0].created_at,
           database_provider: 'Supabase PostgreSQL'
         });

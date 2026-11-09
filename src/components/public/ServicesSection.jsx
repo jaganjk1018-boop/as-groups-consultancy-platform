@@ -335,7 +335,7 @@ export default function ServicesSection({ onOpenBookModal, selectedServiceId, se
                     <Award size={14} color="#0B2D68" /> Lead Consultant
                   </div>
                   <div style={{ fontSize: '0.92rem', fontWeight: 800, color: 'var(--color-primary-navy)', marginTop: '4px' }}>
-                    {selectedService.leadConsultant || 'Harish V J (Founder & CEO)'}
+                    {selectedService.leadConsultant || 'Harish Ambigadoss (Founder & CEO)'}
                   </div>
                 </div>
               </div>

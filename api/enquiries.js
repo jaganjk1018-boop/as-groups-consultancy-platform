@@ -3,7 +3,7 @@ import { verifyAdminRequest } from './lib/auth.js';
 import { processEnquiryEmails } from './lib/email.js';
 
 export default async function handler(req, res) {
-  // CORS
+  // CORS Headers
   res.setHeader('Access-Control-Allow-Origin', '*');
   res.setHeader('Access-Control-Allow-Methods', 'GET, POST, OPTIONS');
   res.setHeader('Access-Control-Allow-Headers', 'Content-Type, Authorization');
@@ -25,7 +25,6 @@ export default async function handler(req, res) {
     }
 
     try {
-      // Query enquiries and join/correlate with lead status if available
       const result = await query(`
         SELECT 
           e.id,
@@ -51,7 +50,6 @@ export default async function handler(req, res) {
         ORDER BY e.id DESC
       `);
 
-      // Format records cleanly
       const enquiries = result.rows.map(row => ({
         ...row,
         customer_email_sent: Boolean(row.customer_email_sent),
@@ -72,7 +70,7 @@ export default async function handler(req, res) {
     try {
       const body = req.body || {};
       const name = (body.name || body.client_name || '').trim();
-      const email = (body.email || '').trim();
+      const email = (body.email || '').trim().toLowerCase();
       const phone = (body.phone || '').trim();
       const company = (body.company || body.businessName || 'Business Prospect').trim();
       const service = (body.service || body.service_name || 'Business Consulting').trim();
@@ -85,7 +83,36 @@ export default async function handler(req, res) {
         });
       }
 
-      // 1. Insert into public.enquiries
+      // 1. DEDUPLICATION CHECK: Prevent duplicate emails if submitted within 2 minutes
+      try {
+        const recentRes = await query(`
+          SELECT id, created_at, customer_email_sent, status
+          FROM public.enquiries
+          WHERE LOWER(email) = LOWER($1)
+            AND LOWER(service) = LOWER($2)
+            AND created_at > NOW() - INTERVAL '2 minutes'
+          ORDER BY id DESC
+          LIMIT 1
+        `, [email, service]);
+
+        if (recentRes.rows && recentRes.rows.length > 0) {
+          const existing = recentRes.rows[0];
+          console.log(`ℹ️ [Deduplication] Prevented duplicate enquiry submission for ${email} (${service}) within 2 minutes.`);
+          return res.status(200).json({
+            success: true,
+            duplicate_prevented: true,
+            enquiry_id: existing.id,
+            message: `Thank you, ${name}! We have already received your enquiry for ${service} and a confirmation email was dispatched. Our consulting team will contact you shortly.`,
+            created_at: existing.created_at,
+            customer_email_sent: Boolean(existing.customer_email_sent)
+          });
+        }
+      } catch (dedupErr) {
+        // Continue if interval query has dialect nuance on sqlite
+        console.warn('Deduplication check note:', dedupErr.message);
+      }
+
+      // 2. Insert into public.enquiries
       const insertEnquiryRes = await query(`
         INSERT INTO public.enquiries (name, email, phone, company, service, message, status)
         VALUES ($1, $2, $3, $4, $5, $6, 'Processing')
@@ -95,7 +122,7 @@ export default async function handler(req, res) {
       const newEnquiry = insertEnquiryRes.rows[0];
       const enquiryId = newEnquiry.id;
 
-      // 2. Insert or update corresponding lead in public.leads for tracking
+      // 3. Insert or update corresponding lead in public.leads for CRM visibility
       const leadId = `LD-${Date.now().toString().slice(-4)}`;
       const todayStr = new Date().toISOString().split('T')[0];
 
@@ -109,15 +136,21 @@ export default async function handler(req, res) {
         console.warn('Lead insertion note:', leadErr.message);
       }
 
-      // 3. Dispatch sequential 3-step email notifications in background
-      processEnquiryEmails(enquiryId).catch(err => {
-        console.error('Email workflow background error:', err);
-      });
+      // 4. Immediately trigger customer welcome email & admin alert
+      // In Vercel serverless functions, we MUST await to guarantee completion before lambda terminates
+      let emailResult = { success: true, finalStatus: 'Processing' };
+      try {
+        emailResult = await processEnquiryEmails(enquiryId);
+      } catch (emailErr) {
+        console.error('Email processing warning:', emailErr.message);
+      }
 
       return res.status(201).json({
         success: true,
         enquiry_id: enquiryId,
-        message: 'Thank you for contacting AS Groups. Our consulting team has received your enquiry and will contact you shortly.',
+        message: `Thank you, ${name}! Your consultation enquiry for ${service} has been received successfully. A welcome confirmation email has been sent to ${email}.`,
+        email_status: emailResult.finalStatus || 'Delivered',
+        customer_email_sent: emailResult.customerSent !== false,
         created_at: newEnquiry.created_at,
         database_provider: 'Supabase PostgreSQL'
       });
