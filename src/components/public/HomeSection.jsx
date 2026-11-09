@@ -65,35 +65,6 @@ export default function HomeSection({ setActivePublicTab, onOpenBookModal, onSel
       {/* 1. HERO BANNER SLIDER WITH SHIFTING BACKGROUND IMAGES */}
       <HeroBannerSlider setActivePublicTab={setActivePublicTab} onOpenBookModal={onOpenBookModal} />
 
-
-      {/* 5 LOGO PILLARS BANNER */}
-      <section style={{ background: '#0B2D68', padding: '24px 0', borderTop: '1px solid rgba(201,160,68,0.3)', borderBottom: '1px solid rgba(201,160,68,0.3)' }}>
-        <div className="container">
-          <div className="grid grid-cols-2 md:grid-cols-5 gap-3 sm:gap-4 text-center">
-            <div className="p-3 rounded-xl bg-white/[0.04] border border-white/10 md:border-none">
-              <div style={{ fontSize: '1.3rem', marginBottom: '4px' }}>📈</div>
-              <div style={{ fontSize: '0.78rem', fontWeight: 800, color: '#DFC16E', letterSpacing: '0.06em', textTransform: 'uppercase' }}>BUSINESS GROWTH</div>
-            </div>
-            <div className="p-3 rounded-xl bg-white/[0.04] border border-white/10 md:border-none">
-              <div style={{ fontSize: '1.3rem', marginBottom: '4px' }}>🤝</div>
-              <div style={{ fontSize: '0.78rem', fontWeight: 800, color: '#DFC16E', letterSpacing: '0.06em', textTransform: 'uppercase' }}>STRATEGY & CONSULTING</div>
-            </div>
-            <div className="p-3 rounded-xl bg-white/[0.04] border border-white/10 md:border-none">
-              <div style={{ fontSize: '1.3rem', marginBottom: '4px' }}>💡</div>
-              <div style={{ fontSize: '0.78rem', fontWeight: 800, color: '#DFC16E', letterSpacing: '0.06em', textTransform: 'uppercase' }}>INNOVATION & SOLUTIONS</div>
-            </div>
-            <div className="p-3 rounded-xl bg-white/[0.04] border border-white/10 md:border-none">
-              <div style={{ fontSize: '1.3rem', marginBottom: '4px' }}>👥</div>
-              <div style={{ fontSize: '0.78rem', fontWeight: 800, color: '#DFC16E', letterSpacing: '0.06em', textTransform: 'uppercase' }}>MANAGEMENT EXCELLENCE</div>
-            </div>
-            <div className="p-3 rounded-xl bg-white/[0.04] border border-white/10 md:border-none col-span-2 md:col-span-1">
-              <div style={{ fontSize: '1.3rem', marginBottom: '4px' }}>🎯</div>
-              <div style={{ fontSize: '0.78rem', fontWeight: 800, color: '#DFC16E', letterSpacing: '0.06em', textTransform: 'uppercase' }}>YOUR SUCCESS, OUR COMMITMENT</div>
-            </div>
-          </div>
-        </div>
-      </section>
-
       {/* 2. FOUNDER SECTION */}
       <section style={{ padding: '60px 0', background: 'white' }}>
         <div className="container">
