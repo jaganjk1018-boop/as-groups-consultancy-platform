@@ -25,15 +25,15 @@ import { supabaseService } from '../../services/supabaseService';
 import { api } from '../../services/api';
 
 export default function AdminDashboard({ 
-  leads, 
+  leads = [], 
   setLeads, 
-  appointments, 
+  appointments = [], 
   setAppointments, 
-  projects, 
+  projects = [], 
   setProjects, 
-  reports, 
+  reports = [], 
   setReports, 
-  notifications,
+  notifications = [],
   onOpenBookModal 
 }) {
   const [activeAdminTab, setActiveAdminTab] = useState('enquiries');

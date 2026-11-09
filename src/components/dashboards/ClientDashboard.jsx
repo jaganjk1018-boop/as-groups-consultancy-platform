@@ -15,9 +15,9 @@ import {
 } from 'lucide-react';
 
 export default function ClientDashboard({ 
-  appointments, 
-  projects, 
-  reports, 
+  appointments = [], 
+  projects = [], 
+  reports = [], 
   onOpenBookModal 
 }) {
   const [activeTab, setActiveTab] = useState('projects');
