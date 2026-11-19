@@ -399,7 +399,8 @@ Please review in Admin Operations Dashboard and assign a consultant.
 // -------------------------------------------------------------
 
 async function sendViaResend({ to, subject, html, text }) {
-  if (!RESEND_API_KEY) return null;
+  const apiKey = process.env.RESEND_API_KEY || RESEND_API_KEY;
+  if (!apiKey) return null;
 
   const cleanTo = Array.isArray(to) ? to[0] : to;
 
@@ -407,7 +408,7 @@ async function sendViaResend({ to, subject, html, text }) {
     const res = await fetch('https://api.resend.com/emails', {
       method: 'POST',
       headers: {
-        'Authorization': `Bearer ${RESEND_API_KEY}`,
+        'Authorization': `Bearer ${apiKey}`,
         'Content-Type': 'application/json'
       },
       body: JSON.stringify({
@@ -421,13 +422,13 @@ async function sendViaResend({ to, subject, html, text }) {
 
     const data = await res.json().catch(() => ({}));
     if (res.ok) {
-      console.log(`✅ [Resend API] Dispatched email to ${cleanTo} (ID: ${data.id || 'N/A'})`);
+      console.log(`✅ [Resend API] Dispatched email directly to ${cleanTo} (ID: ${data.id || 'N/A'})`);
       return { success: true, provider: 'Resend API', id: data.id };
     } else {
-      console.warn(`⚠️ [Resend API] Response for ${cleanTo}:`, data);
+      console.warn(`⚠️ [Resend API] Delivery issue for ${cleanTo}:`, data);
 
       // In Resend testing mode (using onboarding@resend.dev), Resend strictly restricts delivery to the account email.
-      // Forward a test copy to jaganjk1018@gmail.com with clear context so the email is NEVER lost and ALWAYS arrives!
+      // Forward an alert copy to jaganjk1018@gmail.com so the lead is never lost!
       const isTestRestriction = data.statusCode === 403 || 
                                 data.name === 'validation_error' ||
                                 (data.message && (
@@ -441,23 +442,32 @@ async function sendViaResend({ to, subject, html, text }) {
           const forwardRes = await fetch('https://api.resend.com/emails', {
             method: 'POST',
             headers: {
-              'Authorization': `Bearer ${RESEND_API_KEY}`,
+              'Authorization': `Bearer ${apiKey}`,
               'Content-Type': 'application/json'
             },
             body: JSON.stringify({
               from: RESEND_FROM,
               to: ['jaganjk1018@gmail.com'],
-              subject: `[Test Mode -> ${cleanTo}] ${subject}`,
-              html: `<div style="background:#FFFBEB;border:1px solid #F59E0B;padding:12px 16px;border-radius:8px;margin-bottom:16px;font-family:sans-serif;font-size:13px;color:#92400E;line-height:1.5;"><strong>⚠️ Resend Test Mode Notice:</strong> This email was dispatched to <code>${cleanTo}</code>.<br/>Because your domain is currently in Resend testing mode (<code>onboarding@resend.dev</code>), Resend safely delivered this copy to your verified developer email (<code>jaganjk1018@gmail.com</code>).<br/>To send directly to external client inboxes, verify your custom domain at <a href="https://resend.com/domains" style="color:#B45309;font-weight:bold;text-decoration:underline;">resend.com/domains</a>.</div>` + html,
-              text: `[Test Mode Notice: Intended for ${cleanTo}]\n\n` + text
+              subject: `[Resend Unverified Notice -> Lead: ${cleanTo}] ${subject}`,
+              html: `<div style="background:#FFFBEB;border:2px solid #F59E0B;padding:16px 20px;border-radius:10px;margin-bottom:20px;font-family:sans-serif;font-size:14px;color:#92400E;line-height:1.6;">
+                <strong>⚠️ Notice: Customer Welcome Email Not Delivered Directly to Prospect</strong><br/>
+                A visitor submitted an enquiry with email <code>${cleanTo}</code>.<br/>
+                Because your Resend account is currently on the default test domain (<code>onboarding@resend.dev</code>), Resend blocked direct delivery to the customer and forwarded this copy to you.<br/><br/>
+                <strong>To deliver welcome emails straight to client inboxes:</strong><br/>
+                1. <strong>(Quickest - 2 mins)</strong> Add a Gmail 16-character App Password to <code>.env</code> and Vercel as <code>SMTP_USER</code> and <code>SMTP_PASSWORD</code>.<br/>
+                2. <strong>(Custom Domain)</strong> Verify your business domain (e.g. <code>asgroups.com</code>) at <a href="https://resend.com/domains" style="color:#B45309;font-weight:bold;">resend.com/domains</a>.
+              </div>` + html,
+              text: `[Notice: Client Email ${cleanTo} could not be delivered directly due to Resend test-domain restriction. Forwarded to developer]\n\n` + text
             })
           });
           const forwardData = await forwardRes.json().catch(() => ({}));
           if (forwardRes.ok) {
-            console.log(`✅ [Resend API] Forwarded test-mode email to jaganjk1018@gmail.com (ID: ${forwardData.id})`);
-            return { success: true, provider: 'Resend API (Test Mode Forwarded to jaganjk1018@gmail.com)', id: forwardData.id };
+            console.log(`ℹ️ [Resend API] Forwarded copy of unverified lead to jaganjk1018@gmail.com (ID: ${forwardData.id})`);
           }
         } catch (fErr) {}
+
+        // Crucial: return success: false for the client recipient so fallback (SMTP / Brevo) can step in!
+        return { success: false, provider: 'Resend API', isTestRestriction: true, error: data.message };
       }
 
       return { success: false, provider: 'Resend API', error: data.message || res.statusText };
@@ -469,20 +479,21 @@ async function sendViaResend({ to, subject, html, text }) {
 }
 
 async function sendViaBrevo({ to, subject, html, text, recipientName }) {
-  if (!BREVO_API_KEY) return null;
+  const brevoKey = process.env.BREVO_API_KEY || BREVO_API_KEY;
+  if (!brevoKey) return null;
 
   try {
     const res = await fetch('https://api.brevo.com/v3/smtp/email', {
       method: 'POST',
       headers: {
-        'api-key': BREVO_API_KEY,
+        'api-key': brevoKey,
         'Content-Type': 'application/json',
         'Accept': 'application/json'
       },
       body: JSON.stringify({
         sender: {
           name: EMAIL_FROM_NAME,
-          email: EMAIL_FROM_ADDRESS
+          email: process.env.BREVO_SENDER_EMAIL || EMAIL_FROM_ADDRESS
         },
         to: [{ email: to, name: recipientName || to }],
         subject,
@@ -493,7 +504,7 @@ async function sendViaBrevo({ to, subject, html, text, recipientName }) {
 
     const data = await res.json().catch(() => ({}));
     if (res.ok || res.status === 201) {
-      console.log(`✅ [Brevo API] Dispatched email to ${to} (MessageId: ${data.messageId || 'N/A'})`);
+      console.log(`✅ [Brevo API] Dispatched email directly to ${to} (MessageId: ${data.messageId || 'N/A'})`);
       return { success: true, provider: 'Brevo API', id: data.messageId };
     } else {
       console.error(`❌ [Brevo API] Delivery failed to ${to}:`, data);
@@ -506,14 +517,29 @@ async function sendViaBrevo({ to, subject, html, text, recipientName }) {
 }
 
 function getSmtpTransporter() {
-  if (SMTP_PASSWORD && SMTP_USER) {
+  const user = (process.env.SMTP_USER || SMTP_USER || '').trim();
+  const pass = (process.env.SMTP_PASSWORD || SMTP_PASSWORD || '').trim().replace(/\s+/g, '');
+  const host = (process.env.SMTP_HOST || SMTP_HOST || 'smtp.gmail.com').trim();
+  const port = parseInt(process.env.SMTP_PORT || SMTP_PORT || '587', 10);
+
+  if (pass && user) {
+    const isGmail = host.includes('gmail') || user.endsWith('@gmail.com');
+    if (isGmail) {
+      return nodemailer.createTransport({
+        service: 'gmail',
+        auth: {
+          user,
+          pass
+        }
+      });
+    }
     return nodemailer.createTransport({
-      host: SMTP_HOST,
-      port: SMTP_PORT,
-      secure: SMTP_PORT === 465,
+      host,
+      port,
+      secure: port === 465,
       auth: {
-        user: SMTP_USER,
-        pass: SMTP_PASSWORD
+        user,
+        pass
       }
     });
   }
@@ -524,52 +550,63 @@ async function sendViaSmtp({ to, subject, html, text }) {
   const transporter = getSmtpTransporter();
   if (!transporter) return null;
 
+  const senderUser = (process.env.SMTP_USER || SMTP_USER || '').trim();
   try {
     const info = await transporter.sendMail({
-      from: `"${EMAIL_FROM_NAME}" <${SMTP_USER}>`,
+      from: `"${EMAIL_FROM_NAME}" <${senderUser}>`,
       to,
       subject,
       text,
       html
     });
-    console.log(`✅ [SMTP] Dispatched to ${to} | ID: ${info.messageId}`);
+    console.log(`✅ [SMTP / Gmail] Dispatched directly to ${to} | ID: ${info.messageId}`);
     return { success: true, provider: 'SMTP', id: info.messageId };
   } catch (err) {
-    console.error(`❌ [SMTP] Error to ${to}:`, err.message);
+    console.error(`❌ [SMTP] Error sending to ${to}:`, err.message);
     return { success: false, provider: 'SMTP', error: err.message };
   }
 }
 
-// Universal Sender: Brevo -> Resend -> SMTP -> Audit Log Fallback
+// Universal Sender with Smart Routing:
+// 1. SMTP / Gmail App Password (bypasses all domain restrictions, delivers to ANY customer email)
+// 2. Brevo API (bypasses domain restrictions, 300 free/day)
+// 3. Resend API (works for verified domains; if unverified test domain, forwards alert copy to owner)
+// 4. Safe Simulation Log
 export async function sendEmail({ to, subject, html, text, recipientName = '' }) {
-  // 1. Try Brevo REST API if configured
-  if (BREVO_API_KEY) {
-    const brevoRes = await sendViaBrevo({ to, subject, html, text, recipientName });
-    if (brevoRes && brevoRes.success) return true;
-  }
+  const cleanTo = (Array.isArray(to) ? to[0] : to).toLowerCase().trim();
 
-  // 2. Try Resend REST API if configured
-  if (RESEND_API_KEY) {
-    const resendRes = await sendViaResend({ to, subject, html, text });
-    if (resendRes && resendRes.success) return true;
-  }
-
-  // 3. Try standard SMTP if credentials exist
-  if (SMTP_PASSWORD && SMTP_USER) {
+  // 1. High Priority: If SMTP / Gmail credentials are configured, send via SMTP
+  // SMTP has NO domain restrictions and delivers directly into any prospect's inbox worldwide.
+  const smtpTransporter = getSmtpTransporter();
+  if (smtpTransporter) {
     const smtpRes = await sendViaSmtp({ to, subject, html, text });
     if (smtpRes && smtpRes.success) return true;
   }
 
-  // 4. Safe Audit Simulation Mode (No secret API key configured yet)
+  // 2. Brevo REST API (delivers to any client without custom domain DNS)
+  const brevoKey = process.env.BREVO_API_KEY || BREVO_API_KEY;
+  if (brevoKey) {
+    const brevoRes = await sendViaBrevo({ to, subject, html, text, recipientName });
+    if (brevoRes && brevoRes.success) return true;
+  }
+
+  // 3. Resend REST API
+  const resendKey = process.env.RESEND_API_KEY || RESEND_API_KEY;
+  if (resendKey) {
+    const resendRes = await sendViaResend({ to, subject, html, text });
+    if (resendRes && resendRes.success) return true;
+  }
+
+  // 4. Fallback Audit Simulation Log
   const nowStr = new Date().toISOString().replace('T', ' ').slice(0, 19);
-  const logEntry = `[${nowStr}] [SIMULATED] TO: ${to} | SUBJECT: ${subject}\n${text}\n${'-'.repeat(60)}\n`;
+  const logEntry = `[${nowStr}] [PENDING_DISPATCH] TO: ${to} | SUBJECT: ${subject}\n${text}\n${'-'.repeat(60)}\n`;
   try {
     const logsPath = path.resolve(process.cwd(), 'server', 'email_delivery_logs.txt');
     fs.appendFileSync(logsPath, logEntry, 'utf8');
   } catch (e) {}
 
-  console.log(`ℹ️ [Email Simulation Mode] Form submitted successfully. Welcome email prepared for ${to}. To dispatch live on Vercel, set BREVO_API_KEY or RESEND_API_KEY in your Vercel Environment Variables.`);
-  return true;
+  console.log(`ℹ️ [Email Dispatch Notice] Email to ${to} could not be dispatched live because no external-sending provider (Gmail SMTP, Brevo, or verified Resend domain) is configured with live credentials.`);
+  return false;
 }
 
 // -------------------------------------------------------------
@@ -636,6 +673,8 @@ export async function processEnquiryEmails(enquiryParam) {
             [nowStr, enquiryId]
           );
         } catch (e) {}
+      } else {
+        console.warn(`⚠️ [Customer Email Notice] Direct email to ${enquiry.email} was not delivered directly. Configure SMTP_USER + SMTP_PASSWORD or verify your domain to send to external clients.`);
       }
     }
 
