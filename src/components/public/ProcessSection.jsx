@@ -28,12 +28,21 @@ import {
   MapPin,
   ExternalLink,
   Flame,
-  Check
+  Check,
+  Maximize2,
+  X,
+  Activity,
+  Users,
+  ClipboardList,
+  Megaphone,
+  Landmark
 } from 'lucide-react';
 
 export default function ProcessSection({ onOpenBookModal }) {
   const [activeVerticalTab, setActiveVerticalTab] = useState('food');
   const [selectedStep, setSelectedStep] = useState(0);
+  const [activeCaseStudy, setActiveCaseStudy] = useState('dance');
+  const [lightboxImage, setLightboxImage] = useState(null);
 
   // Detailed stages expanding on the 5 core PROCESS_STEPS
   const detailedStages = [
@@ -171,6 +180,19 @@ export default function ProcessSection({ onOpenBookModal }) {
         'B2B strategic enterprise partnership development and high-ticket sales pipelines',
         'Cross-border import/export compliance and international trade market entry',
         'Executive dashboard setup for real-time commercial metric tracking'
+      ]
+    },
+    academy: {
+      title: 'Sports, Fitness & Dance Academies',
+      subtitle: 'From Bare Structure to High-Performance Training Facility',
+      icon: Activity,
+      color: '#0B2D68',
+      highlights: [
+        'Structural shed & flooring feasibility (high-density foam, sprint turf tracks, safety padding)',
+        'Gymnastics & dance studio equipment procurement (beams, bars, landing mats, wall mirrors)',
+        'Student batch capacity planning, hourly floor utilization, and tuition fee tiering',
+        'Hyper-local parent marketing funnels, trial workshops, and community school outreach',
+        'Trainer SOPs, facility safety compliance, and long-term student retention programs'
       ]
     }
   };
@@ -350,161 +372,402 @@ export default function ProcessSection({ onOpenBookModal }) {
 
         </div>
 
-        {/* 3. REAL-WORLD CASE STUDY SPOTLIGHT: TINTIN SMASH, EAT & REPEAT */}
+        {/* 3. REAL-WORLD PROJECT JOURNEYS & CASE STUDIES */}
         <section id="case-study" style={{ scrollMarginTop: '100px', marginBottom: '60px' }}>
           <div style={{ background: 'linear-gradient(135deg, #071D42 0%, #0B2D68 100%)', color: '#FFFFFF', borderRadius: '24px', padding: '44px 32px', border: '1px solid rgba(201,160,68,0.4)', boxShadow: '0 20px 50px rgba(7,29,66,0.3)' }}>
             
-            <div style={{ textAlign: 'center', maxWidth: '780px', margin: '0 auto 36px' }}>
-              <span style={{ background: 'rgba(201,160,68,0.2)', color: '#DFC16E', padding: '5px 14px', borderRadius: '20px', fontSize: '0.78rem', fontWeight: 800, letterSpacing: '0.08em', textTransform: 'uppercase' }}>
-                ⭐ REAL-WORLD EXECUTION CASE STUDY
+            <div style={{ textAlign: 'center', maxWidth: '820px', margin: '0 auto 32px' }}>
+              <span style={{ background: 'rgba(201,160,68,0.2)', color: '#DFC16E', padding: '5px 16px', borderRadius: '20px', fontSize: '0.8rem', fontWeight: 800, letterSpacing: '0.08em', textTransform: 'uppercase', display: 'inline-flex', alignItems: 'center', gap: '6px' }}>
+                <Sparkles size={14} /> PROVEN ON-THE-GROUND EXECUTION
               </span>
               <h2 style={{ fontSize: 'clamp(1.9rem, 3.8vw, 2.6rem)', color: '#FFFFFF', fontWeight: 900, marginTop: '12px', marginBottom: '14px' }}>
-                From Concept to Grand Opening: tintin SMASH, EAT & REPEAT
+                Real-World Project Journeys & Storefront Launches
               </h2>
               <p style={{ color: '#E2E8F0', fontSize: '1.02rem', lineHeight: 1.6 }}>
-                See our 5-phase consulting methodology in action. AS GROUPS executed the complete store launch, high-visibility signage architecture, and menu strategy for this buzzing fast-casual burger concept.
+                Explore how AS GROUPS turns raw commercial sites into thriving, functional businesses — from bare structural sheds into functional sports academies, and raw retail spaces into buzzing food brands.
               </p>
+
+              {/* Case Study Switcher Pills */}
+              <div style={{ display: 'inline-flex', flexWrap: 'wrap', gap: '10px', background: 'rgba(255,255,255,0.08)', padding: '6px', borderRadius: '35px', border: '1px solid rgba(201,160,68,0.3)', marginTop: '18px', justifyContent: 'center' }}>
+                <button
+                  type="button"
+                  onClick={() => setActiveCaseStudy('dance')}
+                  style={{
+                    padding: '10px 22px',
+                    borderRadius: '25px',
+                    fontSize: '0.9rem',
+                    fontWeight: 800,
+                    cursor: 'pointer',
+                    transition: 'all 0.25s',
+                    border: 'none',
+                    background: activeCaseStudy === 'dance' ? 'linear-gradient(135deg, #C9A044 0%, #DFC16E 100%)' : 'transparent',
+                    color: activeCaseStudy === 'dance' ? '#071D42' : '#E2E8F0',
+                    boxShadow: activeCaseStudy === 'dance' ? '0 4px 14px rgba(201,160,68,0.35)' : 'none',
+                    display: 'inline-flex',
+                    alignItems: 'center',
+                    gap: '8px'
+                  }}
+                >
+                  <Activity size={17} /> Dance Academy Project (Structure to Setup)
+                </button>
+                <button
+                  type="button"
+                  onClick={() => setActiveCaseStudy('tintin')}
+                  style={{
+                    padding: '10px 22px',
+                    borderRadius: '25px',
+                    fontSize: '0.9rem',
+                    fontWeight: 800,
+                    cursor: 'pointer',
+                    transition: 'all 0.25s',
+                    border: 'none',
+                    background: activeCaseStudy === 'tintin' ? 'linear-gradient(135deg, #C9A044 0%, #DFC16E 100%)' : 'transparent',
+                    color: activeCaseStudy === 'tintin' ? '#071D42' : '#E2E8F0',
+                    boxShadow: activeCaseStudy === 'tintin' ? '0 4px 14px rgba(201,160,68,0.35)' : 'none',
+                    display: 'inline-flex',
+                    alignItems: 'center',
+                    gap: '8px'
+                  }}
+                >
+                  <Utensils size={17} /> tintin Fast-Casual Restaurant (Store Launch)
+                </button>
+              </div>
             </div>
 
-            <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(320px, 1fr))', gap: '36px', alignItems: 'center' }}>
-              
-              {/* Photo Showcase */}
-              <div style={{ position: 'relative' }}>
-                <div style={{ position: 'absolute', inset: '-6px', borderRadius: '22px', background: 'linear-gradient(135deg, #C9A044, #DFC16E)', filter: 'blur(10px)', opacity: 0.5 }}></div>
-                <div style={{ position: 'relative', borderRadius: '18px', overflow: 'hidden', border: '3px solid rgba(201,160,68,0.7)', boxShadow: '0 20px 45px rgba(0,0,0,0.5)' }}>
-                  <img 
-                    src="/tintin-burger.jpg" 
-                    alt="tintin SMASH, EAT & REPEAT - Store Launch Execution by AS GROUPS" 
-                    style={{ width: '100%', height: 'auto', display: 'block', objectFit: 'cover' }}
-                  />
-                  
-                  {/* Overlay Tag */}
-                  <div style={{ position: 'absolute', bottom: 0, left: 0, right: 0, background: 'linear-gradient(to top, rgba(7,29,66,0.95), transparent)', padding: '20px 18px 14px' }}>
-                    <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between', flexWrap: 'wrap', gap: '8px' }}>
-                      <div style={{ display: 'flex', alignItems: 'center', gap: '6px', fontSize: '0.85rem', fontWeight: 800, color: '#DFC16E' }}>
-                        <MapPin size={16} /> 2/302, Medavakkam Main Road, Mambakkam
-                      </div>
-                      <span style={{ background: '#16A34A', color: '#FFFFFF', padding: '3px 8px', borderRadius: '4px', fontSize: '0.72rem', fontWeight: 800 }}>
-                        LIVE & OPERATIONAL
-                      </span>
-                    </div>
-                  </div>
-                </div>
-              </div>
-
-              {/* Case Study Breakdown */}
-              <div>
-                <div style={{ display: 'flex', alignItems: 'center', gap: '10px', marginBottom: '14px' }}>
-                  <span style={{ background: '#EF4444', color: '#FFFFFF', padding: '4px 10px', borderRadius: '6px', fontSize: '0.75rem', fontWeight: 800, letterSpacing: '0.04em' }}>
-                    FOOD & RESTAURANT ADVISORY
-                  </span>
-                  <span style={{ color: '#DFC16E', fontSize: '0.82rem', fontWeight: 700 }}>
-                    Turnkey Launch by AS GROUPS
-                  </span>
-                </div>
-
-                <h3 style={{ fontSize: '1.6rem', color: '#FFFFFF', fontWeight: 900, marginBottom: '14px', lineHeight: 1.3 }}>
-                  Turnkey Store Setup, High-Impact Signage & Fast-Casual Brand Launch
-                </h3>
-
-                <p style={{ color: '#CBD5E1', fontSize: '0.94rem', lineHeight: 1.7, marginBottom: '22px' }}>
-                  The founders of <strong>tintin</strong> partnered with AS GROUPS to build an energetic, memorable burger and fast-casual brand on Medavakkam Main Road, Mambakkam. We steered the project from location feasibility through to the opening night.
-                </p>
-
-                {/* 4 Pillars of Execution */}
-                <div style={{ display: 'flex', flexDirection: 'column', gap: '14px', marginBottom: '26px' }}>
-                  
-                  <div style={{ background: 'rgba(255,255,255,0.06)', padding: '14px', borderRadius: '12px', border: '1px solid rgba(255,255,255,0.1)', display: 'flex', gap: '12px', alignItems: 'flex-start' }}>
-                    <div style={{ width: '32px', height: '32px', borderRadius: '8px', background: 'rgba(201,160,68,0.25)', display: 'flex', alignItems: 'center', justifyContent: 'center', flexShrink: 0, color: '#DFC16E' }}>
-                      <Store size={18} />
-                    </div>
-                    <div>
-                      <div style={{ fontSize: '0.92rem', fontWeight: 800, color: '#FFFFFF', marginBottom: '2px' }}>
-                        1. Glowing Storefront Signage Architecture
-                      </div>
-                      <div style={{ fontSize: '0.84rem', color: '#CBD5E1', lineHeight: 1.5 }}>
-                        Engineered the illuminated 3D LED red lightbox fascia with the signature dog mascot, appetizing high-def food photography, and bold highway visibility.
-                      </div>
-                    </div>
-                  </div>
-
-                  <div style={{ background: 'rgba(255,255,255,0.06)', padding: '14px', borderRadius: '12px', border: '1px solid rgba(255,255,255,0.1)', display: 'flex', gap: '12px', alignItems: 'flex-start' }}>
-                    <div style={{ width: '32px', height: '32px', borderRadius: '8px', background: 'rgba(201,160,68,0.25)', display: 'flex', alignItems: 'center', justifyContent: 'center', flexShrink: 0, color: '#DFC16E' }}>
-                      <Utensils size={18} />
-                    </div>
-                    <div>
-                      <div style={{ fontSize: '0.92rem', fontWeight: 800, color: '#FFFFFF', marginBottom: '2px' }}>
-                        2. Menu Margin Engineering & Unit Economics
-                      </div>
-                      <div style={{ fontSize: '0.84rem', color: '#CBD5E1', lineHeight: 1.5 }}>
-                        Formulated signature smash burger combos, crispy chicken buckets, rolls, mojitos, and cold shakes for high kitchen prep speed and 65%+ gross margins.
-                      </div>
-                    </div>
-                  </div>
-
-                  <div style={{ background: 'rgba(255,255,255,0.06)', padding: '14px', borderRadius: '12px', border: '1px solid rgba(255,255,255,0.1)', display: 'flex', gap: '12px', alignItems: 'flex-start' }}>
-                    <div style={{ width: '32px', height: '32px', borderRadius: '8px', background: 'rgba(201,160,68,0.25)', display: 'flex', alignItems: 'center', justifyContent: 'center', flexShrink: 0, color: '#DFC16E' }}>
-                      <MapPin size={18} />
-                    </div>
-                    <div>
-                      <div style={{ fontSize: '0.92rem', fontWeight: 800, color: '#FFFFFF', marginBottom: '2px' }}>
-                        3. Strategic Location & Catchment Mapping
-                      </div>
-                      <div style={{ fontSize: '0.84rem', color: '#CBD5E1', lineHeight: 1.5 }}>
-                        Selected 2/302 Medavakkam Main Road, Mambakkam to capture high vehicular traffic between Medavakkam and Kelambakkam, along with dense residential delivery reach.
-                      </div>
-                    </div>
-                  </div>
-
-                  <div style={{ background: 'rgba(255,255,255,0.06)', padding: '14px', borderRadius: '12px', border: '1px solid rgba(255,255,255,0.1)', display: 'flex', gap: '12px', alignItems: 'flex-start' }}>
-                    <div style={{ width: '32px', height: '32px', borderRadius: '8px', background: 'rgba(201,160,68,0.25)', display: 'flex', alignItems: 'center', justifyContent: 'center', flexShrink: 0, color: '#DFC16E' }}>
-                      <TrendingUp size={18} />
-                    </div>
-                    <div>
-                      <div style={{ fontSize: '0.92rem', fontWeight: 800, color: '#FFFFFF', marginBottom: '2px' }}>
-                        4. Opening Night Buzz & Local Customer Acquisition
-                      </div>
-                      <div style={{ fontSize: '0.84rem', color: '#CBD5E1', lineHeight: 1.5 }}>
-                        Orchestrated pre-opening tasting, social media teaser reels, flyer distribution, and phone order hotlines (+91 7550006656) to ensure strong day-one sales.
-                      </div>
-                    </div>
-                  </div>
-
-                </div>
-
-                <div style={{ display: 'flex', flexWrap: 'wrap', gap: '12px' }}>
-                  <button
-                    onClick={onOpenBookModal}
-                    className="btn-primary"
-                    style={{ padding: '12px 24px', fontSize: '0.88rem', fontWeight: 800 }}
+            {/* TAB 1: DANCE ACADEMY PROJECT */}
+            {activeCaseStudy === 'dance' && (
+              <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(320px, 1fr))', gap: '36px', alignItems: 'center' }}>
+                
+                {/* Visual Showcase Poster */}
+                <div style={{ position: 'relative' }}>
+                  <div style={{ position: 'absolute', inset: '-6px', borderRadius: '22px', background: 'linear-gradient(135deg, #C9A044, #DFC16E)', filter: 'blur(10px)', opacity: 0.55 }}></div>
+                  <div 
+                    onClick={() => setLightboxImage({ src: '/dance-academy-project.jpg', title: 'Dance Academy Project — Project Journey by AS GROUPS' })}
+                    style={{ position: 'relative', borderRadius: '18px', overflow: 'hidden', border: '3px solid rgba(201,160,68,0.8)', boxShadow: '0 20px 45px rgba(0,0,0,0.5)', cursor: 'pointer' }}
                   >
-                    Launch Your Food Venture With Us
-                  </button>
-                  <a
-                    href={`https://wa.me/91${COMPANY_INFO.contact.rawPhones[0]}?text=${encodeURIComponent('Hello AS GROUPS, I saw your tintin burger store launch case study and want to discuss setting up a restaurant / food venture.')}`}
-                    target="_blank"
-                    rel="noopener noreferrer"
-                    style={{
-                      display: 'inline-flex',
-                      alignItems: 'center',
-                      gap: '8px',
-                      background: 'rgba(255,255,255,0.1)',
-                      color: '#FFFFFF',
-                      padding: '12px 20px',
-                      borderRadius: '8px',
-                      fontSize: '0.88rem',
-                      fontWeight: 700,
-                      textDecoration: 'none',
-                      border: '1px solid rgba(255,255,255,0.2)'
-                    }}
-                  >
-                    <Phone size={15} color="#DFC16E" /> WhatsApp About Store Setup
-                  </a>
+                    <img 
+                      src="/dance-academy-project.jpg" 
+                      alt="Dance Academy Project - From Structure to a Functional Dance Academy by AS GROUPS" 
+                      style={{ width: '100%', height: 'auto', display: 'block', objectFit: 'cover' }}
+                    />
+                    
+                    {/* Hover Click-to-Enlarge Banner */}
+                    <div style={{ position: 'absolute', top: '12px', right: '12px', background: 'rgba(7,29,66,0.85)', backdropFilter: 'blur(4px)', color: '#DFC16E', border: '1px solid rgba(201,160,68,0.5)', padding: '5px 12px', borderRadius: '20px', fontSize: '0.75rem', fontWeight: 800, display: 'flex', alignItems: 'center', gap: '6px' }}>
+                      <Maximize2 size={13} /> Click to Enlarge
+                    </div>
+
+                    {/* Overlay Tag */}
+                    <div style={{ position: 'absolute', bottom: 0, left: 0, right: 0, background: 'linear-gradient(to top, rgba(7,29,66,0.95) 0%, rgba(7,29,66,0.85) 60%, transparent 100%)', padding: '22px 18px 14px' }}>
+                      <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between', flexWrap: 'wrap', gap: '8px', marginBottom: '4px' }}>
+                        <div style={{ display: 'flex', alignItems: 'center', gap: '6px', fontSize: '0.86rem', fontWeight: 800, color: '#DFC16E' }}>
+                          <CheckCircle2 size={16} color="#16A34A" /> Turnkey Facility Transformation
+                        </div>
+                        <span style={{ background: '#16A34A', color: '#FFFFFF', padding: '3px 8px', borderRadius: '4px', fontSize: '0.72rem', fontWeight: 800 }}>
+                          LIVE & FUNCTIONAL
+                        </span>
+                      </div>
+                      <div style={{ fontSize: '0.8rem', color: '#CBD5E1', lineHeight: 1.4 }}>
+                        From bare industrial framing to professional dance & gymnastics academy.
+                      </div>
+                    </div>
+                  </div>
+                </div>
+
+                {/* Narrative & 7 Pillars Breakdown */}
+                <div>
+                  <div style={{ display: 'flex', alignItems: 'center', gap: '10px', marginBottom: '12px' }}>
+                    <span style={{ background: '#2563EB', color: '#FFFFFF', padding: '4px 12px', borderRadius: '6px', fontSize: '0.75rem', fontWeight: 800, letterSpacing: '0.04em' }}>
+                      SPORTS & ACADEMY CONSULTING
+                    </span>
+                    <span style={{ color: '#DFC16E', fontSize: '0.82rem', fontWeight: 700 }}>
+                      Project Journey by AS GROUPS
+                    </span>
+                  </div>
+
+                  <h3 style={{ fontSize: 'clamp(1.5rem, 2.5vw, 1.85rem)', color: '#FFFFFF', fontWeight: 900, marginBottom: '6px', lineHeight: 1.25 }}>
+                    Dance Academy Project
+                  </h3>
+                  <div style={{ fontSize: '1.05rem', color: '#DFC16E', fontWeight: 800, marginBottom: '14px' }}>
+                    From Structure to a Functional Dance Academy
+                  </div>
+
+                  {/* Highlight Quote Pill */}
+                  <div style={{ background: 'rgba(201,160,68,0.15)', borderLeft: '4px solid #C9A044', padding: '10px 16px', borderRadius: '0 8px 8px 0', marginBottom: '18px' }}>
+                    <div style={{ fontSize: '0.9rem', color: '#FFFFFF', fontStyle: 'italic', fontWeight: 700 }}>
+                      "More Than a Setup, A Complete Business Solution."
+                    </div>
+                  </div>
+
+                  <p style={{ color: '#CBD5E1', fontSize: '0.93rem', lineHeight: 1.65, marginBottom: '20px' }}>
+                    AS GROUPS was contracted to transform a raw, unfinished metal frame shed with bare soil and open steel trusses into a state-of-the-art gymnastics and dance academy. Our advisory spanned structural layout planning, flooring procurement, safety certifications, branding, and ongoing business operations.
+                  </p>
+
+                  {/* 7 Pillars of End-to-End Support Grid */}
+                  <div style={{ marginBottom: '24px' }}>
+                    <div style={{ fontSize: '0.82rem', color: '#DFC16E', fontWeight: 800, letterSpacing: '0.08em', textTransform: 'uppercase', marginBottom: '10px' }}>
+                      Our End-to-End Support Framework
+                    </div>
+                    
+                    <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(210px, 1fr))', gap: '10px' }}>
+                      
+                      <div style={{ background: 'rgba(255,255,255,0.06)', padding: '10px 12px', borderRadius: '10px', border: '1px solid rgba(255,255,255,0.1)', display: 'flex', gap: '10px', alignItems: 'center' }}>
+                        <div style={{ width: '28px', height: '28px', borderRadius: '6px', background: 'rgba(201,160,68,0.25)', display: 'flex', alignItems: 'center', justifyContent: 'center', flexShrink: 0, color: '#DFC16E' }}>
+                          <Users size={15} />
+                        </div>
+                        <div>
+                          <div style={{ fontSize: '0.84rem', fontWeight: 800, color: '#FFFFFF' }}>1. Client Acquisition</div>
+                          <div style={{ fontSize: '0.74rem', color: '#94A3B8' }}>Student enrolments & demos</div>
+                        </div>
+                      </div>
+
+                      <div style={{ background: 'rgba(255,255,255,0.06)', padding: '10px 12px', borderRadius: '10px', border: '1px solid rgba(255,255,255,0.1)', display: 'flex', gap: '10px', alignItems: 'center' }}>
+                        <div style={{ width: '28px', height: '28px', borderRadius: '6px', background: 'rgba(201,160,68,0.25)', display: 'flex', alignItems: 'center', justifyContent: 'center', flexShrink: 0, color: '#DFC16E' }}>
+                          <ClipboardList size={15} />
+                        </div>
+                        <div>
+                          <div style={{ fontSize: '0.84rem', fontWeight: 800, color: '#FFFFFF' }}>2. Business Consulting</div>
+                          <div style={{ fontSize: '0.74rem', color: '#94A3B8' }}>Batch schedules & viability</div>
+                        </div>
+                      </div>
+
+                      <div style={{ background: 'rgba(255,255,255,0.06)', padding: '10px 12px', borderRadius: '10px', border: '1px solid rgba(255,255,255,0.1)', display: 'flex', gap: '10px', alignItems: 'center' }}>
+                        <div style={{ width: '28px', height: '28px', borderRadius: '6px', background: 'rgba(201,160,68,0.25)', display: 'flex', alignItems: 'center', justifyContent: 'center', flexShrink: 0, color: '#DFC16E' }}>
+                          <Building2 size={15} />
+                        </div>
+                        <div>
+                          <div style={{ fontSize: '0.84rem', fontWeight: 800, color: '#FFFFFF' }}>3. Project Execution</div>
+                          <div style={{ fontSize: '0.74rem', color: '#94A3B8' }}>Turf, mats, mirrors & beams</div>
+                        </div>
+                      </div>
+
+                      <div style={{ background: 'rgba(255,255,255,0.06)', padding: '10px 12px', borderRadius: '10px', border: '1px solid rgba(255,255,255,0.1)', display: 'flex', gap: '10px', alignItems: 'center' }}>
+                        <div style={{ width: '28px', height: '28px', borderRadius: '6px', background: 'rgba(201,160,68,0.25)', display: 'flex', alignItems: 'center', justifyContent: 'center', flexShrink: 0, color: '#DFC16E' }}>
+                          <Megaphone size={15} />
+                        </div>
+                        <div>
+                          <div style={{ fontSize: '0.84rem', fontWeight: 800, color: '#FFFFFF' }}>4. Digital & Marketing</div>
+                          <div style={{ fontSize: '0.74rem', color: '#94A3B8' }}>Local parent target ads</div>
+                        </div>
+                      </div>
+
+                      <div style={{ background: 'rgba(255,255,255,0.06)', padding: '10px 12px', borderRadius: '10px', border: '1px solid rgba(255,255,255,0.1)', display: 'flex', gap: '10px', alignItems: 'center' }}>
+                        <div style={{ width: '28px', height: '28px', borderRadius: '6px', background: 'rgba(201,160,68,0.25)', display: 'flex', alignItems: 'center', justifyContent: 'center', flexShrink: 0, color: '#DFC16E' }}>
+                          <Landmark size={15} />
+                        </div>
+                        <div>
+                          <div style={{ fontSize: '0.84rem', fontWeight: 800, color: '#FFFFFF' }}>5. Banking & Finance</div>
+                          <div style={{ fontSize: '0.74rem', color: '#94A3B8' }}>Capital structuring & runway</div>
+                        </div>
+                      </div>
+
+                      <div style={{ background: 'rgba(255,255,255,0.06)', padding: '10px 12px', borderRadius: '10px', border: '1px solid rgba(255,255,255,0.1)', display: 'flex', gap: '10px', alignItems: 'center' }}>
+                        <div style={{ width: '28px', height: '28px', borderRadius: '6px', background: 'rgba(201,160,68,0.25)', display: 'flex', alignItems: 'center', justifyContent: 'center', flexShrink: 0, color: '#DFC16E' }}>
+                          <TrendingUp size={15} />
+                        </div>
+                        <div>
+                          <div style={{ fontSize: '0.84rem', fontWeight: 800, color: '#FFFFFF' }}>6. Growth Strategy</div>
+                          <div style={{ fontSize: '0.74rem', color: '#94A3B8' }}>Tiered tuition & camps</div>
+                        </div>
+                      </div>
+
+                      <div style={{ background: 'rgba(255,255,255,0.06)', padding: '10px 12px', borderRadius: '10px', border: '1px solid rgba(255,255,255,0.1)', display: 'flex', gap: '10px', alignItems: 'center' }}>
+                        <div style={{ width: '28px', height: '28px', borderRadius: '6px', background: 'rgba(201,160,68,0.25)', display: 'flex', alignItems: 'center', justifyContent: 'center', flexShrink: 0, color: '#DFC16E' }}>
+                          <Calendar size={15} />
+                        </div>
+                        <div>
+                          <div style={{ fontSize: '0.84rem', fontWeight: 800, color: '#FFFFFF' }}>7. Daily Monitoring</div>
+                          <div style={{ fontSize: '0.74rem', color: '#94A3B8' }}>Safety SOPs & trainer audits</div>
+                        </div>
+                      </div>
+
+                    </div>
+                  </div>
+
+                  <div style={{ display: 'flex', flexWrap: 'wrap', gap: '12px' }}>
+                    <button
+                      onClick={onOpenBookModal}
+                      className="btn-primary"
+                      style={{ padding: '12px 24px', fontSize: '0.88rem', fontWeight: 800 }}
+                    >
+                      Plan Your Academy Setup With Us
+                    </button>
+                    <a
+                      href={`https://wa.me/91${COMPANY_INFO.contact.rawPhones[0]}?text=${encodeURIComponent('Hello AS GROUPS, I saw your Dance Academy Project Journey case study and would like to discuss setting up an academy / sports training facility.')}`}
+                      target="_blank"
+                      rel="noopener noreferrer"
+                      style={{
+                        display: 'inline-flex',
+                        alignItems: 'center',
+                        gap: '8px',
+                        background: 'rgba(255,255,255,0.1)',
+                        color: '#FFFFFF',
+                        padding: '12px 20px',
+                        borderRadius: '8px',
+                        fontSize: '0.88rem',
+                        fontWeight: 700,
+                        textDecoration: 'none',
+                        border: '1px solid rgba(255,255,255,0.2)'
+                      }}
+                    >
+                      <Phone size={15} color="#DFC16E" /> WhatsApp About Academy Setup
+                    </a>
+                  </div>
+
                 </div>
 
               </div>
+            )}
 
-            </div>
+            {/* TAB 2: TINTIN FAST-CASUAL RESTAURANT */}
+            {activeCaseStudy === 'tintin' && (
+              <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(320px, 1fr))', gap: '36px', alignItems: 'center' }}>
+                
+                {/* Photo Showcase */}
+                <div style={{ position: 'relative' }}>
+                  <div style={{ position: 'absolute', inset: '-6px', borderRadius: '22px', background: 'linear-gradient(135deg, #C9A044, #DFC16E)', filter: 'blur(10px)', opacity: 0.5 }}></div>
+                  <div 
+                    onClick={() => setLightboxImage({ src: '/tintin-burger.jpg', title: 'tintin SMASH, EAT & REPEAT - Store Launch by AS GROUPS' })}
+                    style={{ position: 'relative', borderRadius: '18px', overflow: 'hidden', border: '3px solid rgba(201,160,68,0.7)', boxShadow: '0 20px 45px rgba(0,0,0,0.5)', cursor: 'pointer' }}
+                  >
+                    <img 
+                      src="/tintin-burger.jpg" 
+                      alt="tintin SMASH, EAT & REPEAT - Store Launch Execution by AS GROUPS" 
+                      style={{ width: '100%', height: 'auto', display: 'block', objectFit: 'cover' }}
+                    />
+                    
+                    {/* Hover Click-to-Enlarge Banner */}
+                    <div style={{ position: 'absolute', top: '12px', right: '12px', background: 'rgba(7,29,66,0.85)', backdropFilter: 'blur(4px)', color: '#DFC16E', border: '1px solid rgba(201,160,68,0.5)', padding: '5px 12px', borderRadius: '20px', fontSize: '0.75rem', fontWeight: 800, display: 'flex', alignItems: 'center', gap: '6px' }}>
+                      <Maximize2 size={13} /> Click to Enlarge
+                    </div>
+
+                    {/* Overlay Tag */}
+                    <div style={{ position: 'absolute', bottom: 0, left: 0, right: 0, background: 'linear-gradient(to top, rgba(7,29,66,0.95), transparent)', padding: '20px 18px 14px' }}>
+                      <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between', flexWrap: 'wrap', gap: '8px' }}>
+                        <div style={{ display: 'flex', alignItems: 'center', gap: '6px', fontSize: '0.85rem', fontWeight: 800, color: '#DFC16E' }}>
+                          <MapPin size={16} /> 2/302, Medavakkam Main Road, Mambakkam
+                        </div>
+                        <span style={{ background: '#16A34A', color: '#FFFFFF', padding: '3px 8px', borderRadius: '4px', fontSize: '0.72rem', fontWeight: 800 }}>
+                          LIVE & OPERATIONAL
+                        </span>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+
+                {/* Case Study Breakdown */}
+                <div>
+                  <div style={{ display: 'flex', alignItems: 'center', gap: '10px', marginBottom: '14px' }}>
+                    <span style={{ background: '#EF4444', color: '#FFFFFF', padding: '4px 10px', borderRadius: '6px', fontSize: '0.75rem', fontWeight: 800, letterSpacing: '0.04em' }}>
+                      FOOD & RESTAURANT ADVISORY
+                    </span>
+                    <span style={{ color: '#DFC16E', fontSize: '0.82rem', fontWeight: 700 }}>
+                      Turnkey Launch by AS GROUPS
+                    </span>
+                  </div>
+
+                  <h3 style={{ fontSize: '1.6rem', color: '#FFFFFF', fontWeight: 900, marginBottom: '14px', lineHeight: 1.3 }}>
+                    Turnkey Store Setup, High-Impact Signage & Fast-Casual Brand Launch
+                  </h3>
+
+                  <p style={{ color: '#CBD5E1', fontSize: '0.94rem', lineHeight: 1.7, marginBottom: '22px' }}>
+                    The founders of <strong>tintin</strong> partnered with AS GROUPS to build an energetic, memorable burger and fast-casual brand on Medavakkam Main Road, Mambakkam. We steered the project from location feasibility through to the opening night.
+                  </p>
+
+                  {/* 4 Pillars of Execution */}
+                  <div style={{ display: 'flex', flexDirection: 'column', gap: '14px', marginBottom: '26px' }}>
+                    
+                    <div style={{ background: 'rgba(255,255,255,0.06)', padding: '14px', borderRadius: '12px', border: '1px solid rgba(255,255,255,0.1)', display: 'flex', gap: '12px', alignItems: 'flex-start' }}>
+                      <div style={{ width: '32px', height: '32px', borderRadius: '8px', background: 'rgba(201,160,68,0.25)', display: 'flex', alignItems: 'center', justifyContent: 'center', flexShrink: 0, color: '#DFC16E' }}>
+                        <Store size={18} />
+                      </div>
+                      <div>
+                        <div style={{ fontSize: '0.92rem', fontWeight: 800, color: '#FFFFFF', marginBottom: '2px' }}>
+                          1. Glowing Storefront Signage Architecture
+                        </div>
+                        <div style={{ fontSize: '0.84rem', color: '#CBD5E1', lineHeight: 1.5 }}>
+                          Engineered the illuminated 3D LED red lightbox fascia with the signature dog mascot, appetizing high-def food photography, and bold highway visibility.
+                        </div>
+                      </div>
+                    </div>
+
+                    <div style={{ background: 'rgba(255,255,255,0.06)', padding: '14px', borderRadius: '12px', border: '1px solid rgba(255,255,255,0.1)', display: 'flex', gap: '12px', alignItems: 'flex-start' }}>
+                      <div style={{ width: '32px', height: '32px', borderRadius: '8px', background: 'rgba(201,160,68,0.25)', display: 'flex', alignItems: 'center', justifyContent: 'center', flexShrink: 0, color: '#DFC16E' }}>
+                        <Utensils size={18} />
+                      </div>
+                      <div>
+                        <div style={{ fontSize: '0.92rem', fontWeight: 800, color: '#FFFFFF', marginBottom: '2px' }}>
+                          2. Menu Margin Engineering & Unit Economics
+                        </div>
+                        <div style={{ fontSize: '0.84rem', color: '#CBD5E1', lineHeight: 1.5 }}>
+                          Formulated signature smash burger combos, crispy chicken buckets, rolls, mojitos, and cold shakes for high kitchen prep speed and 65%+ gross margins.
+                        </div>
+                      </div>
+                    </div>
+
+                    <div style={{ background: 'rgba(255,255,255,0.06)', padding: '14px', borderRadius: '12px', border: '1px solid rgba(255,255,255,0.1)', display: 'flex', gap: '12px', alignItems: 'flex-start' }}>
+                      <div style={{ width: '32px', height: '32px', borderRadius: '8px', background: 'rgba(201,160,68,0.25)', display: 'flex', alignItems: 'center', justifyContent: 'center', flexShrink: 0, color: '#DFC16E' }}>
+                        <MapPin size={18} />
+                      </div>
+                      <div>
+                        <div style={{ fontSize: '0.92rem', fontWeight: 800, color: '#FFFFFF', marginBottom: '2px' }}>
+                          3. Strategic Location & Catchment Mapping
+                        </div>
+                        <div style={{ fontSize: '0.84rem', color: '#CBD5E1', lineHeight: 1.5 }}>
+                          Selected 2/302 Medavakkam Main Road, Mambakkam to capture high vehicular traffic between Medavakkam and Kelambakkam, along with dense residential delivery reach.
+                        </div>
+                      </div>
+                    </div>
+
+                    <div style={{ background: 'rgba(255,255,255,0.06)', padding: '14px', borderRadius: '12px', border: '1px solid rgba(255,255,255,0.1)', display: 'flex', gap: '12px', alignItems: 'flex-start' }}>
+                      <div style={{ width: '32px', height: '32px', borderRadius: '8px', background: 'rgba(201,160,68,0.25)', display: 'flex', alignItems: 'center', justifyContent: 'center', flexShrink: 0, color: '#DFC16E' }}>
+                        <TrendingUp size={18} />
+                      </div>
+                      <div>
+                        <div style={{ fontSize: '0.92rem', fontWeight: 800, color: '#FFFFFF', marginBottom: '2px' }}>
+                          4. Opening Night Buzz & Local Customer Acquisition
+                        </div>
+                        <div style={{ fontSize: '0.84rem', color: '#CBD5E1', lineHeight: 1.5 }}>
+                          Orchestrated pre-opening tasting, social media teaser reels, flyer distribution, and phone order hotlines (+91 7550006656) to ensure strong day-one sales.
+                        </div>
+                      </div>
+                    </div>
+
+                  </div>
+
+                  <div style={{ display: 'flex', flexWrap: 'wrap', gap: '12px' }}>
+                    <button
+                      onClick={onOpenBookModal}
+                      className="btn-primary"
+                      style={{ padding: '12px 24px', fontSize: '0.88rem', fontWeight: 800 }}
+                    >
+                      Launch Your Food Venture With Us
+                    </button>
+                    <a
+                      href={`https://wa.me/91${COMPANY_INFO.contact.rawPhones[0]}?text=${encodeURIComponent('Hello AS GROUPS, I saw your tintin burger store launch case study and want to discuss setting up a restaurant / food venture.')}`}
+                      target="_blank"
+                      rel="noopener noreferrer"
+                      style={{
+                        display: 'inline-flex',
+                        alignItems: 'center',
+                        gap: '8px',
+                        background: 'rgba(255,255,255,0.1)',
+                        color: '#FFFFFF',
+                        padding: '12px 20px',
+                        borderRadius: '8px',
+                        fontSize: '0.88rem',
+                        fontWeight: 700,
+                        textDecoration: 'none',
+                        border: '1px solid rgba(255,255,255,0.2)'
+                      }}
+                    >
+                      <Phone size={15} color="#DFC16E" /> WhatsApp About Store Setup
+                    </a>
+                  </div>
+
+                </div>
+
+              </div>
+            )}
 
           </div>
         </section>
@@ -528,6 +791,7 @@ export default function ProcessSection({ onOpenBookModal }) {
           <div style={{ display: 'flex', flexWrap: 'wrap', gap: '8px', justifyContent: 'center', marginBottom: '28px' }}>
             {[
               { id: 'food', label: '🍽️ Food & Restaurants', icon: Utensils },
+              { id: 'academy', label: '🤸 Dance & Sports Academies', icon: Activity },
               { id: 'healthcare', label: '🏥 Hospitals & Clinics', icon: ShieldCheck },
               { id: 'franchise', label: '🏪 Franchise Networks', icon: Store },
               { id: 'corporate', label: '💼 Corporate & MSMEs', icon: Building2 }
@@ -684,6 +948,60 @@ export default function ProcessSection({ onOpenBookModal }) {
         </div>
 
       </div>
+
+      {/* FULL RESOLUTION LIGHTBOX MODAL */}
+      {lightboxImage && (
+        <div 
+          onClick={() => setLightboxImage(null)}
+          style={{
+            position: 'fixed',
+            inset: 0,
+            zIndex: 9999,
+            backgroundColor: 'rgba(7, 29, 66, 0.94)',
+            backdropFilter: 'blur(8px)',
+            display: 'flex',
+            alignItems: 'center',
+            justifyContent: 'center',
+            padding: '20px'
+          }}
+        >
+          <div 
+            onClick={(e) => e.stopPropagation()}
+            style={{
+              maxWidth: '900px',
+              width: '100%',
+              maxHeight: '92vh',
+              background: '#0B2D68',
+              borderRadius: '20px',
+              border: '2px solid #C9A044',
+              boxShadow: '0 25px 60px rgba(0,0,0,0.7)',
+              overflow: 'hidden',
+              display: 'flex',
+              flexDirection: 'column'
+            }}
+          >
+            <div style={{ padding: '16px 22px', background: '#071D42', borderBottom: '1px solid rgba(201,160,68,0.3)', display: 'flex', justifyContent: 'space-between', alignItems: 'center' }}>
+              <div style={{ color: '#FFFFFF', fontWeight: 800, fontSize: '1rem', display: 'flex', alignItems: 'center', gap: '8px' }}>
+                <Sparkles size={16} color="#DFC16E" /> {lightboxImage.title}
+              </div>
+              <button 
+                type="button"
+                onClick={() => setLightboxImage(null)}
+                style={{ background: 'rgba(255,255,255,0.15)', border: 'none', color: '#FFFFFF', width: '32px', height: '32px', borderRadius: '50%', cursor: 'pointer', display: 'flex', alignItems: 'center', justifyContent: 'center' }}
+              >
+                <X size={18} />
+              </button>
+            </div>
+            <div style={{ overflow: 'auto', padding: '18px', textAlign: 'center', maxHeight: 'calc(92vh - 65px)' }}>
+              <img 
+                src={lightboxImage.src} 
+                alt={lightboxImage.title} 
+                style={{ maxWidth: '100%', maxHeight: '78vh', objectFit: 'contain', borderRadius: '12px', boxShadow: '0 10px 30px rgba(0,0,0,0.4)' }} 
+              />
+            </div>
+          </div>
+        </div>
+      )}
     </div>
   );
 }
